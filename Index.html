@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unduh Dokumen Pendukung Digitalisasi Pembelajaran</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #f0f4ff 0%, #d9e2f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 40px 35px;
+            box-shadow: 0 25px 60px rgba(0, 20, 40, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0b2b4a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 i {
+            color: #1a73e8;
+            font-size: 34px;
+        }
+
+        .header .sub {
+            color: #2c3e66;
+            font-size: 16px;
+            margin-top: 8px;
+            opacity: 0.8;
+            letter-spacing: 0.3px;
+        }
+
+        .header .sub i {
+            margin-right: 6px;
+            color: #fbbc04;
+        }
+
+        .file-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 16px 22px;
+            border-radius: 18px;
+            border: 1px solid #e9edf4;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .file-item:hover {
+            border-color: #b3c9e5;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -8px rgba(26, 115, 232, 0.15);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .file-info .icon {
+            width: 44px;
+            height: 44px;
+            background: #eef4fe;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a73e8;
+            font-size: 20px;
+        }
+
+        .file-info .name {
+            font-weight: 600;
+            font-size: 17px;
+            color: #0b2b4a;
+        }
+
+        .file-info .badge {
+            background: #e8edf5;
+            color: #2c3e66;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 30px;
+            margin-left: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            background: white;
+            color: #1a73e8;
+            border: 1.5px solid #1a73e8;
+        }
+
+        .btn-primary {
+            background: #1a73e8;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #1557b0;
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(26, 115, 232, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #c5d2e3;
+            color: #2c3e66;
+        }
+
+        .btn-outline:hover {
+            background: #f0f4fe;
+            border-color: #1a73e8;
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 13px;
+            border-radius: 30px;
+        }
+
+        .btn-success {
+            background: #0f7b3a;
+            color: white;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background: #0b5e2c;
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(15, 123, 58, 0.3);
+        }
+
+        .footer-note {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px dashed #d0dbea;
+            text-align: center;
+            color: #3a4f6e;
+            font-size: 14px;
+        }
+
+        .footer-note i {
+            margin-right: 6px;
+            color: #fbbc04;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 24px 18px; }
+            .file-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .file-actions {
+                justify-content: flex-start;
+            }
+            .header h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>
+                <i class="fas fa-cloud-download-alt"></i>
+                Dokumen Pendukung Digitalisasi Pembelajaran
+            </h1>
+            <div class="sub">
+                <i class="fas fa-google-drive"></i> Klik tombol unduh untuk mengunduh file langsung
+            </div>
+        </div>
+
+        <!-- DAFTAR FILE -->
+        <div class="file-grid">
+
+            <!-- 1. Prompt -->
+            <div class="file-item">
+                <div class="file-info">
+                    <div class="icon"><i class="fas fa-file-alt"></i></div>
+                    <span class="name">1. Prompt</span>
+                    <span class="badge">.md</span>
+                </div>
+                <div class="file-actions">
+                    <a href="https://drive.google.com/uc?export=download&id=1Fy4EJjuyBi2XLz6SL_h8q7SncmsQBSxv" class="btn btn-primary btn-sm" download>
+                        <i class="fas fa-download"></i> Unduh
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2. ATP Kelas 1 -->
+            <div class="file-item">
+                <div class="file-info">
+                    <div class="icon"><i class="fas fa-file-word"></i></div>
+                    <span class="name">2. ATP Kelas 1</span>
+                    <span class="badge">.docx</span>
+                </div>
+                <div class="file-actions">
+                    <a href="https://docs.google.com/document/d/1ZaKgES86LJhNW-kTq4_tNCSjgNUbOJe4/export?format=docx" class="btn btn-primary btn-sm" download>
+                        <i class="fas fa-download"></i> Unduh
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3. ATP Kelas 2 -->
+            <div class="file-item">
+                <div class="file-info">
+                    <div class="icon"><i class="fas fa-file-word"></i></div>
+                    <span class="name">3. ATP Kelas 2</span>
+                    <span class="badge">.docx</span>
+                </div>
+                <div class="file-actions">
+                    <a href="https://docs.google.com/document/d/1GV3IxWUfTX_gWGAGpsQlEz9kjvAEXB6e/export?format=docx" class="btn btn-primary btn-sm" download>
+                        <i class="fas fa-download"></i> Unduh
+                    </a>
+                </div>
+            </div>
+
+            <!-- 4. ATP Kelas 3 -->
+            <div class="file-item">
+                <div class="file-info">
+                    <div class="icon"><i class="fas fa-file-word"></i></div>
+                    <span class="name">4. ATP Kelas 3</span>
+                    <span class="badge">.docx</span>
+                </div>
+                <div class="file-actions">
+                    <a href="https://docs.google.com/document/d/1TkXKjGbitmmsne0Wj8fsBOhIFsMxgzIQ/export?format=docx" class="btn btn-primary btn-sm" download>
+                        <i class="fas fa-download"></i> Unduh
+                    </a>
+                </div>
+            </div>
+
+            <!-- 5. ATP Kelas 4 -->
+            <div class="file-item">
+                <div class="file-info">
+                    <div class="icon"><i class="fas fa-file-word"></i></div>
+                    <span class="name">5. ATP Kelas 4</span>
+                    <span class="badge">.docx</span>
+                </div>
+                <div class="file-actions">
+                    <a href="https://docs.google.com/document/d/1qOIVDsEHzpi4xOmeoLYDFG5cDP6GfdhT/export?format=docx" class="btn btn-primary btn-sm" download>
+                        <i class="fas fa-download"></i> Unduh
+                    </a>
+                </div>
+            </div>
+
+            <!-- 6. ATP Kelas 5 -->
+            <div class="file-item">
+                <div class="file-info">
+                    <div class="icon"><i class="fas fa-file-word"></i></div>
+                    <span class="name">6. ATP Kelas 5</span>
+                    <span class="badge">.docx</span>
+                </div>
+                <div class="file-actions">
+                    <a href="https://docs.google.com/document/d/1J-6QDYNDRAtjo_muJnX15onD9-o3zStm/export?format=docx" class="btn btn-primary btn-sm" download>
+                        <i class="fas fa-download"></i> Unduh
+                    </a>
+                </div>
+            </div>
+
+            <!-- 7. ATP Kelas 6 -->
+            <div class="file-item">
+                <div class="file-info">
+                    <div class="icon"><i class="fas fa-file-word"></i></div>
+                    <span class="name">7. ATP Kelas 6</span>
+                    <span class="badge">.docx</span>
+                </div>
+                <div class="file-actions">
+                    <a href="https://docs.google.com/document/d/11Egp-J653rFRYBeH5_x76CgJkAjwqX_n/export?format=docx" class="btn btn-primary btn-sm" download>
+                        <i class="fas fa-download"></i> Unduh
+                    </a>
+                </div>
+            </div>
+
+            <!-- 8. Dokumen Pendukung -->
+            <div class="file-item">
+                <div class="file-info">
+                    <div class="icon"><i class="fas fa-file-pdf"></i></div>
+                    <span class="name">8. Dokumen Pendukung</span>
+                    <span class="badge">.docx</span>
+                </div>
+                <div class="file-actions">
+                    <a href="https://docs.google.com/document/d/1DI1HMVhFm1ffZ5IkKDJL8a1rli4FctQM/export?format=docx" class="btn btn-primary btn-sm" download>
+                        <i class="fas fa-download"></i> Unduh
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer-note">
+            <i class="fas fa-info-circle"></i>
+            Semua file diunduh dalam format asli (.md untuk Prompt, .docx untuk ATP dan Dokumen Pendukung).
+            Pastikan dokumen telah diatur izinnya agar dapat diakses oleh siapa pun.
+        </div>
+    </div>
+</body>
+</html>
