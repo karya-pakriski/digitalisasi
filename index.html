@@ -86,7 +86,7 @@
     gap:clamp(24px,3.5vh,40px);
   }
 
-  /* KARTU PROFIL (fasilitator) */
+  /* KARTU PROFIL */
   .card-profil{
     display:flex;align-items:center;gap:clamp(16px,2.5vw,28px);
     background:var(--warna-amber-light);
@@ -160,7 +160,6 @@
     border-color:var(--warna-amber);
   }
   .item-menu:hover::before{opacity:1;}
-
   .item-menu.warna-coral::before{background:var(--warna-coral);}
   .item-menu.warna-biru::before{background:var(--warna-biru);}
 
@@ -204,9 +203,52 @@
     background:var(--warna-panel);
   }
 
-  @media(max-width:500px){
-    .card-profil{flex-wrap:wrap;}
-    .card-profil .arrow{display:none;}
+  /* ============================================================
+     RESPONSIVE: HP & TABLET — tanpa mengubah desktop
+     ============================================================ */
+
+  /* Tablet (≤ 1024px) */
+  @media (max-width: 1024px) {
+    .grid-menu {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .item-menu .badge-nomor {
+      position: static;
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+  }
+
+  /* HP (≤ 768px) */
+  @media (max-width: 768px) {
+    body { padding: 12px; }
+    .layar-presentasi { border-radius: 16px; }
+    .hero { padding: clamp(20px, 4vw, 32px) clamp(16px, 3vw, 24px); }
+    .hero h1 { font-size: clamp(22px, 5vw, 28px); }
+    .hero p { font-size: clamp(13px, 1.8vw, 15px); }
+    .konten-isi { padding: 16px 14px 24px; gap: 16px; }
+    .card-profil { flex-wrap: wrap; padding: 14px 16px; gap: 12px; }
+    .card-profil .info h3 { font-size: 15px; }
+    .card-profil .info p { font-size: 13px; }
+    .card-profil .arrow { display: none; }
+    .grid-menu { grid-template-columns: 1fr; gap: 12px; }
+    .item-menu { padding: 14px 16px; gap: 10px; flex-direction: row; align-items: center; flex-wrap: wrap; }
+    .item-menu .ikon { width: 40px; height: 40px; font-size: 18px; flex: none; }
+    .item-menu .teks h2 { font-size: 16px; margin: 0; }
+    .item-menu .teks p { font-size: 13px; }
+    .item-menu .badge-nomor { position: static; font-size: 11px; padding: 2px 10px; margin-left: auto; }
+    .footer { flex-direction: column; text-align: center; gap: 4px; font-size: 11px; padding: 12px 16px; }
+  }
+
+  /* HP kecil (≤ 480px) */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 20px; }
+    .hero .badge-hero { font-size: 9px; padding: 4px 12px; }
+    .item-menu .teks h2 { font-size: 14px; }
+    .item-menu .teks p { font-size: 12px; }
+    .item-menu .ikon { width: 34px; height: 34px; font-size: 16px; }
+    .card-profil .avatar { width: 40px; height: 40px; }
   }
 </style>
 </head>
