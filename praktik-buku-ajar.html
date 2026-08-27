@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>02. Praktik Buku Ajar — Digitalisasi Pembelajaran PAI</title>
+<style>
+  :root{
+    --warna-latar:#eef4f5;
+    --warna-panel:#ffffff;
+    --warna-garis:#cddbde;
+    --warna-teks:#132C33;
+    --warna-teks-muda:#587078;
+    --warna-amber:#126E82;
+    --warna-amber-light:#d7edf1;
+    --warna-coral:#132C33;
+    --warna-biru:#0f7f93;
+    --biru-light:#daf3f6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    margin:0;
+    background:var(--warna-latar);
+    color:var(--warna-teks);
+    font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(16px,3vw,36px);
+  }
+  h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Segoe UI',system-ui,-apple-system,sans-serif;letter-spacing:-.01em;}
+
+  .layar-presentasi{
+    max-width:1080px;
+    width:100%;
+    background:var(--warna-panel);
+    border:1px solid var(--warna-garis);
+    border-radius:24px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.15);
+  }
+
+  /* TOPBAR */
+  .topbar{
+    flex:none;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:clamp(12px,1.8vh,18px) clamp(24px,4vw,40px);
+    border-bottom:1px solid var(--warna-garis);
+    background:var(--warna-panel);
+  }
+  .topbar a.home{
+    display:inline-flex;align-items:center;gap:10px;
+    text-decoration:none;color:var(--warna-teks);font-weight:700;
+    font-size:clamp(14px,1.6vh,17px);
+    padding:8px 18px;border:1px solid var(--warna-garis);border-radius:999px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .topbar a.home:hover{border-color:var(--warna-amber);color:var(--warna-amber);}
+  .topbar a.home svg{width:20px;height:20px;flex:none;}
+  .topbar .label-materi{
+    font-size:clamp(13px,1.5vh,15px);font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--warna-teks-muda);text-align:right;
+  }
+
+  /* HEADER HERO */
+  .hero{
+    background:linear-gradient(135deg, #132C33 0%, #1a3f4a 100%);
+    color:#fff;
+    padding:clamp(28px,4.5vw,48px) clamp(28px,5vw,48px);
+    text-align:center;
+  }
+  .hero h1{
+    font-size:clamp(26px,4.2vw,40px);
+    margin:0 0 6px;font-weight:800;line-height:1.2;
+  }
+  .hero h1 span{color:#8ec7d6;}
+  .hero p{
+    margin:0 auto;font-size:clamp(15px,1.8vw,20px);line-height:1.6;
+    color:#d4e9ef;max-width:680px;
+  }
+  .hero .badge-hero{
+    display:inline-block;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.25);
+    padding:6px 18px;
+    border-radius:999px;
+    font-size:clamp(11px,1.2vw,13px);
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+    color:#b8dae3;
+  }
+
+  /* ISI */
+  .konten-isi{
+    padding:clamp(24px,4vw,44px) clamp(20px,4vw,40px) clamp(32px,5vw,52px);
+    display:flex;
+    flex-direction:column;
+    gap:clamp(20px,3vh,32px);
+  }
+
+  /* STEP CARD */
+  .step-card{
+    display:flex;
+    gap:clamp(16px,2.2vw,28px);
+    background:var(--warna-panel);
+    border:1px solid var(--warna-garis);
+    border-radius:16px;
+    padding:clamp(18px,2.4vw,28px) clamp(20px,2.8vw,34px);
+    transition:box-shadow .2s ease, transform .2s ease;
+    align-items:flex-start;
+  }
+  .step-card:hover{
+    box-shadow:0 8px 24px -12px rgba(0,0,0,.1);
+    transform:translateY(-2px);
+  }
+  .step-card .step-num{
+    flex:none;
+    width:clamp(40px,5vw,52px);
+    height:clamp(40px,5vw,52px);
+    border-radius:50%;
+    background:var(--warna-amber);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;
+    font-size:clamp(18px,2.2vw,24px);
+    font-family:'Plus Jakarta Sans',sans-serif;
+  }
+  .step-card .step-body{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:clamp(8px,1.2vh,14px);
+  }
+  .step-card .step-body h2{
+    font-size:clamp(18px,2.2vw,24px);
+    margin:0;font-weight:700;
+    color:var(--warna-teks);
+  }
+  .step-card .step-body p{
+    font-size:clamp(14px,1.6vw,17px);
+    margin:0;color:var(--warna-teks);
+    line-height:1.6;
+  }
+  .step-card .step-body p strong{color:var(--warna-teks);}
+
+  .instruction-box{
+    background:var(--warna-amber-light);
+    padding:clamp(10px,1.4vh,16px) clamp(14px,1.8vw,22px);
+    border-radius:10px;
+    border-left:4px solid var(--warna-amber);
+    font-style:italic;
+    font-size:clamp(14px,1.5vw,17px);
+    color:var(--warna-teks);
+    margin:2px 0;
+  }
+  .instruction-box i{color:var(--warna-amber);font-style:normal;margin-right:6px;}
+
+  .download-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 14px;
+    margin-top:4px;
+    align-items:center;
+  }
+  .download-group .label-grup{
+    font-size:clamp(12px,1.2vw,14px);
+    font-weight:700;
+    color:var(--warna-teks-muda);
+    width:100%;
+    margin-bottom:2px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 20px;
+    border:none;
+    border-radius:40px;
+    font-weight:600;
+    font-size:clamp(13px,1.4vw,15px);
+    cursor:pointer;
+    transition:all .2s ease;
+    text-decoration:none;
+    background:white;
+    color:var(--warna-amber);
+    border:1.5px solid var(--warna-amber);
+    font-family:'Inter',sans-serif;
+  }
+  .btn-primary{
+    background:var(--warna-amber);
+    color:white;
+    border:none;
+  }
+  .btn-primary:hover{
+    background:#0d5a6e;
+    transform:scale(1.02);
+    box-shadow:0 8px 20px rgba(18,110,130,.25);
+  }
+  .btn-outline{
+    background:transparent;
+    border:1.5px solid #c5d2e3;
+    color:var(--warna-teks);
+  }
+  .btn-outline:hover{
+    background:#f0f4fe;
+    border-color:var(--warna-amber);
+  }
+  .btn-sm{padding:6px 14px;font-size:clamp(12px,1.2vw,13.5px);border-radius:30px;}
+  .btn-dark{
+    background:var(--warna-teks);
+    color:white;
+    border:none;
+  }
+  .btn-dark:hover{
+    background:#1e3f4a;
+    transform:scale(1.02);
+    box-shadow:0 8px 20px rgba(19,44,51,.25);
+  }
+  .sub-grid-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 12px;
+    margin-top:6px;
+  }
+
+  /* FOOTER */
+  .footer{
+    padding:16px clamp(20px,4vw,32px);
+    border-top:1px solid var(--warna-garis);
+    font-size:12px;
+    color:var(--warna-teks-muda);
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:6px;
+    background:var(--warna-panel);
+  }
+
+  @media(max-width:700px){
+    .step-card{flex-direction:column;align-items:stretch;}
+    .download-group{flex-direction:column;align-items:stretch;}
+    .sub-grid-buttons{flex-direction:column;align-items:stretch;}
+    .btn{justify-content:center;}
+    .topbar{flex-wrap:wrap;}
+  }
+
+  /* ============================================================
+   RESPONSIVE: HP & TABLET — untuk praktik-buku-ajar.html
+   ============================================================ */
+
+/* Tablet (≤ 1024px) */
+@media (max-width: 1024px) {
+  .layar-presentasi { max-width: 100%; border-radius: 16px; }
+  .hero { padding: clamp(24px, 4vw, 40px) clamp(20px, 3vw, 32px); }
+  .hero h1 { font-size: clamp(24px, 3.6vw, 34px); }
+  .step-card { padding: 16px 18px; gap: 16px; }
+  .step-card .step-num { width: 38px; height: 38px; font-size: 16px; }
+  .step-card .step-body h2 { font-size: 18px; }
+  .step-card .step-body p { font-size: 14px; }
+  .instruction-box { font-size: 14px; padding: 10px 14px; }
+  .btn { font-size: 13px; padding: 6px 16px; }
+  .sub-grid-buttons { gap: 6px 10px; }
+}
+
+/* HP (≤ 768px) */
+@media (max-width: 768px) {
+  body { padding: 10px; }
+  .layar-presentasi { border-radius: 12px; }
+  .topbar { padding: 10px 14px; flex-wrap: wrap; gap: 6px; }
+  .topbar a.home { font-size: 13px; padding: 6px 14px; }
+  .topbar .label-materi { font-size: 10px; }
+  .hero { padding: 16px 14px; }
+  .hero .badge-hero { font-size: 10px; padding: 4px 12px; margin-bottom: 8px; }
+  .hero h1 { font-size: clamp(18px, 4.2vw, 24px); }
+  .hero p { font-size: 13px; }
+  .konten-isi { padding: 14px 12px 20px; gap: 14px; }
+  .step-card { flex-direction: column; align-items: stretch; padding: 14px 16px; gap: 10px; }
+  .step-card .step-num { width: 34px; height: 34px; font-size: 14px; align-self: flex-start; }
+  .step-card .step-body h2 { font-size: 16px; }
+  .step-card .step-body p { font-size: 13px; }
+  .instruction-box { font-size: 13px; padding: 8px 12px; border-left-width: 3px; }
+  .download-group { flex-direction: column; align-items: stretch; gap: 8px; }
+  .download-group .label-grup { font-size: 12px; }
+  .btn { font-size: 12px; padding: 6px 14px; justify-content: center; }
+  .sub-grid-buttons { flex-direction: column; align-items: stretch; gap: 6px; }
+  .footer { flex-direction: column; text-align: center; gap: 4px; font-size: 11px; padding: 12px 14px; }
+}
+
+/* HP kecil (≤ 480px) */
+@media (max-width: 480px) {
+  .hero h1 { font-size: 16px; }
+  .hero p { font-size: 12px; }
+  .step-card { padding: 12px; }
+  .step-card .step-body h2 { font-size: 14px; }
+  .step-card .step-body p { font-size: 12px; }
+  .instruction-box { font-size: 12px; padding: 6px 10px; }
+  .btn { font-size: 11px; padding: 5px 12px; }
+  .btn-sm { font-size: 11px; padding: 4px 10px; }
+}
+</style>
+</head>
+<body>
+<div class="layar-presentasi">
+
+  <!-- TOPBAR -->
+  <nav class="topbar">
+    <a href="index.html" class="home">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10"></path></svg>
+      Beranda
+    </a>
+    <span class="label-materi">Materi 02 · Praktik Buku Ajar</span>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="badge-hero">Panduan Praktis</div>
+    <h1>📘 Praktik Menyusun <span>Buku Ajar dengan AI</span></h1>
+    <p>Ikuti 4 langkah praktis di bawah ini secara berurutan untuk menghasilkan modul PAI yang rapi dan siap pakai.</p>
+  </header>
+
+  <!-- ISI -->
+  <main class="konten-isi">
+
+    <!-- LANGKAH 1 -->
+    <section class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h2>Buka AI dan Login</h2>
+        <p>Buka <strong>Deepseek.com</strong> melalui browser (atau aplikasi AI pilihan lainnya), lalu masuk (login) menggunakan akun Google masing-masing.</p>
+        <div class="download-group">
+          <a href="https://deepseek.com" target="_blank" class="btn btn-dark btn-sm" style="background:var(--warna-teks);border-color:var(--warna-teks);">
+            <span style="font-style:normal;">🔗</span> Buka Deepseek
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LANGKAH 2 -->
+    <section class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h2>Unggah Prompt ke AI</h2>
+        <p>Unduh dokumen <strong>Prompt</strong> di bawah ini, lalu unggah file tersebut ke AI dan berikan perintah:</p>
+        <div class="instruction-box">
+          <i>📌</i> "Baca prompt berikut sebagai aturan yang harus dipatuhi dalam menyusun materi!"
+        </div>
+        <div class="download-group">
+          <a href="https://drive.google.com/uc?export=download&id=1Fy4EJjuyBi2XLz6SL_h8q7SncmsQBSxv" class="btn btn-primary btn-sm" download>
+            <span style="font-style:normal;">⬇️</span> Unduh Prompt (.md)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LANGKAH 3 -->
+    <section class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h2>Unggah CP, ATP, dan Dokumen Pendukung</h2>
+        <p>Unduh <strong>Capaian Pembelajaran (CP)</strong>, <strong>Dokumen Pendukung</strong>, dan <strong>salah satu ATP</strong> sesuai dengan kelas yang Anda ampu. Setelah itu, unggah <strong>ketiga file</strong> tersebut ke AI dan tuliskan perintah:</p>
+        <div class="instruction-box">
+          <i>📌</i> "Buat ATP (sesuaikan kode dengan ATP: misal 1.1. jika ATP kelas 1, jika kelas 6, awali 6.1.) dan 3 bagian output yang sudah ditentukan."
+        </div>
+        <!-- CP & Dokumen Pendukung -->
+        <div class="download-group" style="margin-top:8px;">
+          <span class="label-grup">📄 File Wajib (CP + Dokumen Pendukung)</span>
+          <a href="https://drive.google.com/uc?export=download&id=1is7Q8meiDl3VTyT_TfPiwxWk4OAziTre" class="btn btn-primary btn-sm" download>
+            <span style="font-style:normal;">⬇️</span> Unduh CP
+          </a>
+          <a href="https://docs.google.com/document/d/1DI1HMVhFm1ffZ5IkKDJL8a1rli4FctQM/export?format=docx" class="btn btn-primary btn-sm" download>
+            <span style="font-style:normal;">⬇️</span> Unduh Dokumen Pendukung (.docx)
+          </a>
+        </div>
+        <!-- Pilihan ATP -->
+        <div class="download-group">
+          <span class="label-grup">📚 Pilih salah satu ATP sesuai kelas Anda:</span>
+          <div class="sub-grid-buttons">
+            <a href="https://docs.google.com/document/d/1ZaKgES86LJhNW-kTq4_tNCSjgNUbOJe4/export?format=docx" class="btn btn-outline btn-sm" download>ATP Kelas 1</a>
+            <a href="https://docs.google.com/document/d/1GV3IxWUfTX_gWGAGpsQlEz9kjvAEXB6e/export?format=docx" class="btn btn-outline btn-sm" download>ATP Kelas 2</a>
+            <a href="https://docs.google.com/document/d/1TkXKjGbitmmsne0Wj8fsBOhIFsMxgzIQ/export?format=docx" class="btn btn-outline btn-sm" download>ATP Kelas 3</a>
+            <a href="https://docs.google.com/document/d/1qOIVDsEHzpi4xOmeoLYDFG5cDP6GfdhT/export?format=docx" class="btn btn-outline btn-sm" download>ATP Kelas 4</a>
+            <a href="https://docs.google.com/document/d/1J-6QDYNDRAtjo_muJnX15onD9-o3zStm/export?format=docx" class="btn btn-outline btn-sm" download>ATP Kelas 5</a>
+            <a href="https://docs.google.com/document/d/11Egp-J653rFRYBeH5_x76CgJkAjwqX_n/export?format=docx" class="btn btn-outline btn-sm" download>ATP Kelas 6</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LANGKAH 4 -->
+    <section class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h2>Unduh dan Periksa Output</h2>
+        <p>Setelah AI selesai memproses, <strong>unduh hasil output</strong> yang diberikan. Periksa apakah konten sudah sesuai dengan struktur dan kebutuhan yang Anda harapkan.</p>
+        <div class="instruction-box" style="border-left-color:var(--warna-biru);background:var(--biru-light);">
+          <i>💡</i> Pastikan format, kode ATP, dan tiga bagian output telah sesuai. Lakukan penyesuaian manual jika diperlukan (misal: perbaiki teks Arab atau tata letak tabel).
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>© 2026 KKG PAI Kapanewon Srandakan</span>
+    <span>Praktik Buku Ajar · Digitalisasi Pembelajaran PAI</span>
+  </footer>
+
+</div>
+</body>
+</html>
