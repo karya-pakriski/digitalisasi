@@ -1,207 +1,250 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Fasilitator - USBD PAI DIY 2026</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* --- TATA LETAK DUA KOLOM PROFESIONAL --- */
-        
-        .layar-presentasi {
-            height: 90vh;
-            padding: 0;
-            overflow: hidden;
-            background: var(--putih-bersih);
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Profil Fasilitator — Digitalisasi Pembelajaran PAI</title>
+<style>
+  :root{
+    --warna-latar:#eef4f5;
+    --warna-panel:#ffffff;
+    --warna-garis:#cddbde;
+    --ink:#132C33;
+    --muted:#587078;
+    --amber:#126E82;
+    --amber-light:#d7edf1;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--warna-latar);
+    color:var(--ink);
+    font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+    line-height:1.5;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(14px,3vw,32px);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Segoe UI',system-ui,-apple-system,sans-serif;letter-spacing:-.01em;}
 
-        .grid-profil {
-            display: grid;
-            grid-template-columns: 32% 68%; /* Proporsi sidebar lebih ramping */
-            flex: 1;
-            min-height: 0;
-        }
+  .layar-presentasi{
+    width:100%;
+    max-width:1080px;
+    background:var(--warna-panel);
+    border:1px solid var(--warna-garis);
+    border-radius:20px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
 
-        /* --- SIDEBAR KIRI (GELAP) --- */
-        .sidebar-gelap {
-            background-color: #00273d;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2.5rem;
-            text-align: center;
-        }
+  /* TOPBAR */
+  .topbar{
+    flex:none;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:clamp(12px,1.8vh,18px) clamp(24px,4vw,40px);
+    border-bottom:1px solid var(--warna-garis);
+    background:var(--warna-panel);
+  }
+  .topbar a.home{
+    display:inline-flex;align-items:center;gap:10px;
+    text-decoration:none;color:var(--ink);font-weight:700;
+    font-size:clamp(14px,1.6vh,17px);
+    padding:8px 18px;border:1px solid var(--warna-garis);border-radius:999px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .topbar a.home:hover{border-color:var(--amber);color:var(--amber);}
+  .topbar a.home svg{width:20px;height:20px;flex:none;}
+  .topbar .label-materi{
+    font-size:clamp(13px,1.5vh,15px);font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--muted);text-align:right;
+  }
 
-        .wadah-foto-profil {
-            width: 100%;
-            height: 42vh; /* Ketinggian foto disesuaikan agar proporsional */
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
+  .grid-profil{
+    display:grid;
+    grid-template-columns:34% 66%;
+  }
+  @media(max-width:760px){
+    .grid-profil{grid-template-columns:1fr;}
+  }
 
-        .wadah-foto-profil img {
-            height: 100%;
-            width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
-        }
+  /* SIDEBAR */
+  .sidebar-gelap{
+    background:#132C33;
+    color:#eaf6f8;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:clamp(28px,4vw,44px) clamp(20px,3vw,32px);
+    text-align:center;
+    gap:0;
+  }
+  .wadah-foto-profil{
+    width:100%;
+    max-height:260px;
+    display:flex;align-items:flex-end;justify-content:center;
+    margin-bottom:clamp(18px,3vw,28px);
+  }
+  .wadah-foto-profil img{
+    max-height:260px;width:auto;max-width:100%;object-fit:contain;
+    filter:drop-shadow(0 15px 30px rgba(0,0,0,.35));
+    border-radius:12px;
+    border:none;
+  }
+  .identitas-sidebar{width:100%;display:flex;flex-direction:column;align-items:center;}
+  .nama-profil-minimalis{
+    font-size:clamp(17px,2.4vw,20px);font-weight:800;margin:0 0 10px;
+    color:#fff;line-height:1.3;letter-spacing:.01em;
+  }
+  .label-jabatan-kecil{
+    font-size:clamp(12px,1.6vw,13.5px);
+    background:rgba(255,255,255,.14);
+    color:#dcf2f5;
+    border:1px solid rgba(255,255,255,.4);
+    padding:5px 16px;border-radius:999px;
+    display:inline-block;margin-bottom:18px;font-weight:700;
+  }
+  .kontak-sidebar-tengah{
+    font-size:clamp(12px,1.6vw,13.5px);
+    color:#cfe9ec;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;
+  }
 
-        .identitas-sidebar {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Menyelaraskan teks ke tengah */
-        }
+  /* KONTEN KANAN */
+  .konten-utama-profil{
+    padding:clamp(26px,4.4vw,52px) clamp(24px,5vw,64px);
+    display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,3vw,28px);
+  }
+  .blok-biografi{margin:0;}
+  .label-kategori{
+    font-size:clamp(11px,1.4vw,13px);
+    letter-spacing:.1em;color:var(--amber);font-weight:800;
+    margin-bottom:10px;text-transform:uppercase;
+  }
+  .list-profil{margin:0;padding-left:20px;}
+  .list-profil li{
+    font-size:clamp(14.5px,1.8vw,16.5px);
+    margin-bottom:9px;color:var(--ink);line-height:1.6;
+  }
+  .list-profil li strong{color:var(--ink);}
+  .tahun-label{font-size:.92em;color:var(--muted);font-weight:500;margin-left:4px;}
 
-        .nama-profil-minimalis {
-            font-size: 1.1rem; /* Ukuran nama diperkecil sesuai permintaan */
-            font-weight: 700;
-            margin-bottom: 0.6rem;
-            color: #f1f5f9;
-            line-height: 1.3;
-            letter-spacing: 0.02em;
-        }
+  /* ============================================================
+     RESPONSIVE: HP & TABLET
+     ============================================================ */
 
-        .label-jabatan-kecil {
-            font-size: 0.85rem;
-            background: rgba(14, 165, 233, 0.2); /* Biru aksen transparan */
-            color: var(--aksen-warna);
-            border: 1px solid var(--aksen-warna);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            display: inline-block;
-            margin-bottom: 1.2rem;
-            font-weight: 600;
-        }
+  /* Tablet (≤ 1024px) */
+  @media (max-width: 1024px) {
+    .grid-profil {
+      grid-template-columns: 1fr 1fr;
+    }
+    .sidebar-gelap {
+      padding: 24px 16px;
+    }
+    .wadah-foto-profil {
+      max-height: 200px;
+    }
+    .wadah-foto-profil img {
+      max-height: 200px;
+    }
+    .konten-utama-profil {
+      padding: 24px 20px;
+    }
+  }
 
-        .kontak-sidebar-tengah {
-            font-size: 0.85rem;
-            color: #94a3b8;
-            display: flex;
-            align-items: center;
-            justify-content: center; /* Rata tengah untuk email */
-            gap: 0.5rem;
-            width: 100%;
-        }
+  /* HP (≤ 768px) */
+  @media (max-width: 768px) {
+    body { padding: 12px; }
+    .layar-presentasi { border-radius: 16px; }
+    .topbar { padding: 10px 14px; flex-wrap: wrap; gap: 8px; }
+    .topbar a.home { font-size: 13px; padding: 6px 14px; }
+    .topbar .label-materi { font-size: 11px; }
+    .grid-profil { grid-template-columns: 1fr; }
+    .sidebar-gelap { padding: 20px 16px 24px; }
+    .wadah-foto-profil { max-height: 160px; margin-bottom: 12px; }
+    .wadah-foto-profil img { max-height: 160px; }
+    .nama-profil-minimalis { font-size: 16px; }
+    .label-jabatan-kecil { font-size: 11px; padding: 4px 12px; }
+    .kontak-sidebar-tengah { font-size: 11px; }
+    .konten-utama-profil { padding: 16px 14px 20px; gap: 14px; }
+    .label-kategori { font-size: 10px; margin-bottom: 6px; }
+    .list-profil { padding-left: 16px; }
+    .list-profil li { font-size: 13px; margin-bottom: 6px; }
+    .tahun-label { font-size: 0.85em; }
+  }
 
-        /* --- KOLOM KANAN (TERANG) --- */
-        .konten-utama-profil {
-            padding: 4rem 5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .blok-biografi {
-            margin-bottom: 2.5rem;
-        }
-
-        .label-kategori {
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            color: var(--warna-utama);
-            font-weight: 800;
-            margin-bottom: 0.8rem;
-            text-transform: uppercase;
-        }
-
-        .list-profil li {
-            font-size: 1.15rem;
-            margin-bottom: 0.6rem;
-            color: var(--teks-primer);
-            line-height: 1.5;
-        }
-
-        /* --- NAVIGASI STABIL --- */
-        .kendali-presentasi {
-            background: #f8fafc;
-            padding: 1.2rem 3rem;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .tombol-kembali-home {
-            text-decoration: none;
-            color: var(--teks-sekunder);
-            font-weight: 700;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            transition: color 0.2s;
-        }
-
-        .tombol-kembali-home:hover {
-            color: var(--warna-utama);
-        }
-    </style>
+  /* HP kecil (≤ 480px) */
+  @media (max-width: 480px) {
+    .wadah-foto-profil img { max-height: 130px; }
+    .nama-profil-minimalis { font-size: 14px; }
+    .konten-utama-profil { padding: 12px 12px 16px; }
+    .list-profil li { font-size: 12px; }
+  }
+</style>
 </head>
 <body>
-    <main class="layar-presentasi">
-        <div class="grid-profil">
-            
-            <aside class="sidebar-gelap">
-                <div class="wadah-foto-profil">
-                    <img src="https://drive.google.com/thumbnail?id=1C66v9dP6DfDbAWBLpcYeUHItgiRyOPXY&sz=w1000" alt="Ardika Riski Rahmawan, S.Pd.">
-                </div>
-                
-                <div class="identitas-sidebar">
-                    <h1 class="nama-profil-minimalis">Ardika Riski Rahmawan, S.Pd.</h1>
-                    <div class="label-jabatan-kecil">Guru PAI SDN 1 Godegan</div>
-                    
-                    <div class="kontak-sidebar-tengah">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z"></path></svg>
-                        <span>ardika.riski@gmail.com</span>
-                    </div>
-                </div>
-            </aside>
+<main class="layar-presentasi">
 
-            <section class="konten-utama-profil">
-                <div class="blok-biografi">
-                    <div class="label-kategori">Unit Kerja</div>
-                    <ul class="list-profil">
-                        <li><strong>SD Negeri 1 Godegan</strong>, Srandakan <span class="tahun-label">(2021 - Sekarang)</span></li>
-                        <li><strong>SD Negeri Klagaran</strong>, Sanden <span class="tahun-label">(2019 - 2021)</span></li>
-                    </ul>
-                </div>
+  <!-- TOPBAR -->
+  <nav class="topbar">
+    <a href="index.html" class="home">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10"></path></svg>
+      Beranda
+    </a>
+    <span class="label-materi">Profil Fasilitator</span>
+  </nav>
 
-                <div class="blok-biografi">
-                    <div class="label-kategori">Pengalaman</div>
-                    <ul class="list-profil">
-                        <li>Menyusun website MTQ Kabupaten Bantul dengan bantuan AI</li>
-                        <li>Menyusun Portal Latihan USBD Berbasis Proktor+Client Online di tingkat Kapanewon</li>
-                    </ul>
-                </div>
+  <div class="grid-profil">
 
-                <div class="blok-biografi">
-                    <div class="label-kategori">Organisasi</div>
-                    <ul class="list-profil">
-                        <li><strong>Sekretaris 2</strong> KKG PAI Kabupaten Bantul <span class="tahun-label">(2025 - Sekarang)</span></li>
-                        <li><strong>Ketua</strong> KKG PAI Kapanewon Srandakan <span class="tahun-label">(2021 - Sekarang)</span></li>
-                        <li>Anggota Seksi Kegiatan dan Sosial KKG PAI Bantul <span class="tahun-label">(2021 - 2025)</span></li>
-                    </ul>
-                </div>
-            </section>
+    <aside class="sidebar-gelap">
+      <div class="wadah-foto-profil">
+        <img src="https://drive.google.com/thumbnail?id=1C66v9dP6DfDbAWBLpcYeUHItgiRyOPXY&sz=w1000" alt="Ardika Riski Rahmawan, S.Pd.">
+      </div>
+
+      <div class="identitas-sidebar">
+        <h1 class="nama-profil-minimalis">Ardika Riski Rahmawan, S.Pd.</h1>
+        <div class="label-jabatan-kecil">Guru PAI SDN 1 Godegan</div>
+
+        <div class="kontak-sidebar-tengah">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z"></path></svg>
+          <span>ardika.riski@gmail.com</span>
         </div>
+      </div>
+    </aside>
 
-        <nav class="kendali-presentasi">
-            <a href="index.html" class="tombol-kembali-home">
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                Menu Utama
-            </a>
-            <div style="visibility: hidden;">
-                <button class="tombol-arah">Selanjutnya</button>
-            </div>
-        </nav>
-    </main>
+    <section class="konten-utama-profil">
+      <div class="blok-biografi">
+        <div class="label-kategori">Unit Kerja</div>
+        <ul class="list-profil">
+          <li><strong>SD Negeri 1 Godegan</strong>, Srandakan <span class="tahun-label">(2021 - Sekarang)</span></li>
+          <li><strong>SD Negeri Klagaran</strong>, Sanden <span class="tahun-label">(2019 - 2021)</span></li>
+        </ul>
+      </div>
+
+      <div class="blok-biografi">
+        <div class="label-kategori">Pengalaman</div>
+        <ul class="list-profil">
+          <li>Menyusun website MTQ Kabupaten Bantul dengan bantuan AI</li>
+          <li>Menyusun Portal Latihan USBD Berbasis Proktor+Client Online di tingkat Kapanewon</li>
+        </ul>
+      </div>
+
+      <div class="blok-biografi">
+        <div class="label-kategori">Organisasi</div>
+        <ul class="list-profil">
+          <li><strong>Sekretaris 2</strong> KKG PAI Kabupaten Bantul <span class="tahun-label">(2025 - Sekarang)</span></li>
+          <li><strong>Ketua</strong> KKG PAI Kapanewon Srandakan <span class="tahun-label">(2021 - Sekarang)</span></li>
+          <li>Anggota Seksi Kegiatan dan Sosial KKG PAI Bantul <span class="tahun-label">(2021 - 2025)</span></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+</main>
 </body>
 </html>
