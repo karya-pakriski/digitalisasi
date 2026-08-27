@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>03. Praktik Aplikasi PAI — Digitalisasi Pembelajaran PAI</title>
+<style>
+  :root{
+    --warna-latar:#eef4f5;
+    --warna-panel:#ffffff;
+    --warna-panel-alt:#e7f1f2;
+    --warna-garis:#cddbde;
+    --ink:#132C33;
+    --muted:#587078;
+    --amber:#126E82;
+    --amber-light:#d7edf1;
+    --biru:#0f7f93;
+    --biru-light:#daf3f6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;overflow:hidden;}
+  body{
+    margin:0;
+    font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+    font-size:28px;
+    line-height:1.5;
+    background:var(--warna-latar);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Segoe UI',system-ui,-apple-system,sans-serif;letter-spacing:-.01em;}
+
+  .icon svg, .badge-icon svg, .pill-ic svg{width:60%;height:60%;display:block;}
+  .pill-ic{display:inline-flex;width:1.4em;height:1.4em;vertical-align:-.2em;}
+  .pill-ic svg{width:100%;height:100%;}
+  .nav button svg{width:45%;height:45%;}
+
+  .deck{
+    max-width:1280px;
+    margin:0 auto;
+    height:100vh;
+    height:100dvh;
+    display:flex;
+    flex-direction:column;
+    background:var(--warna-panel);
+    border-left:1px solid var(--warna-garis);
+    border-right:1px solid var(--warna-garis);
+    overflow:hidden;
+  }
+
+  .topbar{
+    flex:none;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:clamp(16px,2.2vh,24px) clamp(32px,4.5vw,56px);
+    border-bottom:1px solid var(--warna-garis);
+    background:var(--warna-panel);
+  }
+  .topbar a.home{
+    display:inline-flex;align-items:center;gap:12px;
+    text-decoration:none;color:var(--ink);font-weight:700;
+    font-size:clamp(18px,2vh,24px);
+    padding:10px 24px;border:1.5px solid var(--warna-garis);border-radius:999px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .topbar a.home:hover{border-color:var(--amber);color:var(--amber);}
+  .topbar a.home svg{width:22px;height:22px;flex:none;}
+  .topbar .label-materi{
+    font-size:clamp(16px,1.8vh,22px);font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--muted);text-align:right;
+  }
+
+  .progress{flex:none;height:5px;background:var(--warna-garis);}
+  .progress-bar{height:100%;background:var(--amber);width:11.1%;transition:width .3s ease;}
+
+  .slides{flex:1 1 auto;min-height:0;position:relative;}
+  .slide{
+    position:absolute;inset:0;
+    display:none;
+    flex-direction:column;
+    padding:clamp(40px,6vh,80px) clamp(48px,7vw,96px);
+    overflow-y:auto;
+  }
+  .slide.active{display:flex;}
+
+  /* COVER */
+  .slide.cover{
+    justify-content:center;align-items:center;text-align:center;color:#fff;
+    background:var(--ink);
+    gap:clamp(20px,3.5vh,40px);
+  }
+  .cover .tag-pill{
+    display:inline-flex;align-items:center;gap:16px;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);
+    padding:clamp(12px,1.8vh,18px) clamp(28px,3.5vw,48px);
+    border-radius:999px;
+    font-size:clamp(18px,2.4vh,28px);
+    font-weight:700;letter-spacing:.04em;
+    color:#e4f2f4;
+  }
+  .cover h1{font-size:clamp(44px,7vh,76px);line-height:1.15;margin:0;font-weight:800;max-width:920px;}
+  .cover p.subtitle{font-size:clamp(22px,3.2vh,34px);line-height:1.4;color:#e4f2f4;max-width:780px;margin:clamp(10px,2vh,24px) 0 0;}
+  .cover .footnote{font-size:clamp(18px,2vh,26px);color:#cfe7ea;margin-top:clamp(18px,3vh,36px);}
+
+  /* SLIDE KONTEN */
+  .slide-head{
+    flex:none;
+    display:flex;align-items:center;justify-content:space-between;
+    border-bottom:5px solid var(--amber);
+    padding-bottom:clamp(16px,2.2vh,28px);
+    margin-bottom:clamp(24px,3.5vh,48px);
+    gap:20px;
+  }
+  .slide-head h2{font-size:clamp(34px,5vh,56px);line-height:1.15;color:var(--ink);margin:0;font-weight:700;}
+  .icon{
+    flex:none;width:clamp(60px,6.5vh,80px);height:clamp(60px,6.5vh,80px);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--amber-light);color:var(--amber);font-weight:700;font-size:clamp(28px,3.4vh,42px);
+  }
+
+  .slide-body{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,3vh,40px);}
+
+  .step-content{
+    display:flex;
+    flex-direction:column;
+    gap:clamp(14px,2vh,28px);
+  }
+  .step-content p{
+    font-size:clamp(22px,2.8vh,34px);
+    margin:0;color:var(--ink);line-height:1.5;
+  }
+  .step-content p strong{color:var(--ink);}
+  .step-content .instruction-box{
+    background:var(--amber-light);
+    padding:clamp(16px,2.2vh,30px) clamp(20px,2.8vw,38px);
+    border-radius:14px;
+    border-left:6px solid var(--amber);
+    font-style:italic;
+    font-size:clamp(20px,2.6vh,32px);
+    color:var(--ink);
+  }
+  .step-content .instruction-box i{color:var(--amber);font-style:normal;margin-right:10px;}
+
+  .download-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:clamp(12px,1.8vh,24px);
+    margin-top:8px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:clamp(12px,1.8vh,20px) clamp(24px,3vw,40px);
+    border:none;border-radius:40px;
+    font-weight:600;font-size:clamp(18px,2.2vh,28px);
+    cursor:pointer;transition:all .2s ease;
+    text-decoration:none;
+    background:white;color:var(--amber);
+    border:2px solid var(--amber);
+    font-family:'Inter',sans-serif;
+  }
+  .btn-primary{background:var(--amber);color:white;border:none;}
+  .btn-primary:hover{background:#0d5a6e;transform:scale(1.02);box-shadow:0 10px 28px rgba(18,110,130,.3);}
+  .btn-outline{background:transparent;border:2px solid #c5d2e3;color:var(--ink);}
+  .btn-outline:hover{background:#f0f4fe;border-color:var(--amber);}
+  .btn-sm{padding:clamp(8px,1.2vh,14px) clamp(16px,2vw,28px);font-size:clamp(16px,1.8vh,24px);border-radius:30px;}
+  .btn-dark{background:var(--ink);color:white;border:none;}
+  .btn-dark:hover{background:#1e3f4a;transform:scale(1.02);box-shadow:0 10px 28px rgba(19,44,51,.25);}
+  .btn-success{background:#0f7b3a;color:white;border:none;}
+  .btn-success:hover{background:#0b5e2c;transform:scale(1.02);box-shadow:0 10px 28px rgba(15,123,58,.3);}
+
+  .code-block{
+    background:#1e1a16;color:#f0c896;border-radius:14px;
+    padding:clamp(14px,2vh,24px) clamp(18px,2.2vw,30px);
+    font-family:'JetBrains Mono','Consolas','Courier New',monospace;
+    font-size:clamp(16px,1.8vh,24px);
+    overflow-x:auto;border:1px solid #3a322a;
+    margin:0;
+  }
+  .code-block .comment{color:#6a9955;}
+  .code-block .keyword{color:#c586c0;}
+  .code-block .string{color:#ce9178;}
+  .code-block .func{color:#dcdcaa;}
+  .code-block .tag{color:#569cd6;}
+  .code-block .attr{color:#9cdcfe;}
+
+  .two-col-demo{
+    display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.2vh,32px);
+  }
+  @media(max-width:768px){.two-col-demo{grid-template-columns:1fr;}}
+
+  /* SLIDE CONTOH KODE — compact */
+  .slide-demo .slide-head {
+    padding-bottom: clamp(10px, 1.4vh, 18px);
+    margin-bottom: clamp(14px, 2vh, 26px);
+  }
+  .slide-demo .slide-head h2 {
+    font-size: clamp(28px, 4vh, 44px);
+  }
+  .slide-demo .icon {
+    width: clamp(48px, 5vh, 64px);
+    height: clamp(48px, 5vh, 64px);
+    font-size: clamp(22px, 2.8vh, 34px);
+  }
+  .slide-demo .slide-body {
+    gap: clamp(12px, 1.6vh, 22px);
+  }
+  .slide-demo .step-content p {
+    font-size: clamp(17px, 2.2vh, 26px);
+  }
+  .slide-demo .two-col-demo {
+    gap: clamp(10px, 1.4vh, 18px);
+  }
+  .slide-demo .code-block {
+    font-size: clamp(11px, 1.4vh, 16px);
+    padding: clamp(8px, 1vh, 14px) clamp(10px, 1.2vw, 18px);
+    max-height: 32vh;
+    overflow-y: auto;
+    border-radius: 10px;
+  }
+  .slide-demo .two-col-demo > div {
+    padding: clamp(10px, 1.2vh, 16px) clamp(12px, 1.4vw, 20px);
+    border-radius: 12px;
+  }
+  .slide-demo .two-col-demo h4 {
+    font-size: clamp(16px, 2vh, 24px);
+    margin: 0 0 6px;
+  }
+  .slide-demo .instruction-box {
+    font-size: clamp(15px, 1.8vh, 22px);
+    padding: clamp(10px, 1.4vh, 18px) clamp(14px, 1.8vw, 24px);
+    margin-top: 2px;
+    border-left-width: 4px;
+    border-radius: 10px;
+  }
+
+  /* SLIDE UNDUH — fokus pada tombol */
+  .slide-unduh .slide-head h2 {
+    font-size: clamp(32px, 4.6vh, 50px);
+  }
+  .slide-unduh .step-content p {
+    font-size: clamp(20px, 2.6vh, 32px);
+  }
+  .slide-unduh .download-group {
+    justify-content: center;
+    gap: clamp(20px, 3vh, 40px);
+    margin-top: 20px;
+  }
+  .slide-unduh .btn {
+    padding: clamp(18px, 2.6vh, 32px) clamp(40px, 5vw, 64px);
+    font-size: clamp(22px, 2.8vh, 36px);
+    border-radius: 50px;
+  }
+  .slide-unduh .instruction-box {
+    font-size: clamp(18px, 2.2vh, 28px);
+    padding: clamp(14px, 2vh, 24px) clamp(20px, 2.6vw, 36px);
+    text-align: center;
+    border-left-color: var(--biru);
+    background: var(--biru-light);
+  }
+
+  /* SLIDE MEMENDEKKAN LINK — DIPERBAIKI */
+  .slide-shorten .slide-head {
+    padding-bottom: clamp(8px, 1.2vh, 14px);
+    margin-bottom: clamp(12px, 1.6vh, 22px);
+  }
+  .slide-shorten .slide-head h2 {
+    font-size: clamp(28px, 4vh, 44px);
+  }
+  .slide-shorten .icon {
+    width: clamp(44px, 4.8vh, 60px);
+    height: clamp(44px, 4.8vh, 60px);
+    font-size: clamp(20px, 2.6vh, 32px);
+  }
+  .slide-shorten .slide-body {
+    gap: clamp(10px, 1.4vh, 20px);
+  }
+  .slide-shorten .step-content p {
+    font-size: clamp(17px, 2.2vh, 26px);
+  }
+  .slide-shorten .step-content .langkah-link {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(8px, 1.2vh, 16px);
+    width: 100%;
+    margin: 4px 0;
+  }
+  .slide-shorten .step-content .langkah-link .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: clamp(4px, 0.6vh, 8px);
+    background: var(--warna-panel-alt);
+    border-radius: 12px;
+    padding: clamp(10px, 1.4vh, 18px) clamp(8px, 1vw, 14px);
+  }
+  .slide-shorten .step-content .langkah-link .item .num {
+    font-size: clamp(22px, 2.8vh, 34px);
+    flex: none;
+  }
+  .slide-shorten .step-content .langkah-link .item .text {
+    font-size: clamp(14px, 1.8vh, 20px);
+    line-height: 1.4;
+  }
+  .slide-shorten .step-content .langkah-link .item .text strong {
+    color: var(--amber);
+  }
+  .slide-shorten .download-group {
+    justify-content: center;
+    margin-top: 4px;
+  }
+  .slide-shorten .download-group .btn {
+    padding: clamp(10px, 1.4vh, 18px) clamp(24px, 3vw, 40px);
+    font-size: clamp(17px, 2.2vh, 26px);
+    border-radius: 40px;
+  }
+  .slide-shorten .instruction-box {
+    font-size: clamp(15px, 1.8vh, 22px);
+    padding: clamp(10px, 1.4vh, 18px) clamp(14px, 1.8vw, 24px);
+    text-align: center;
+    border-left-color: #fbbc04;
+    background: #fef6e0;
+    border-radius: 10px;
+    margin-top: 2px;
+  }
+  .slide-shorten .instruction-box code {
+    background: rgba(0,0,0,0.06);
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9em;
+  }
+
+  /* SLIDE PENUTUP */
+  .slide.closing{
+    justify-content:center;align-items:center;text-align:center;color:#fff;
+    background:var(--ink);
+    gap:clamp(20px,3.5vh,40px);
+  }
+  .closing .badge{
+    display:inline-flex;align-items:center;gap:16px;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);
+    padding:clamp(12px,1.8vh,18px) clamp(28px,3.5vw,48px);
+    border-radius:999px;font-weight:700;
+    font-size:clamp(18px,2.4vh,28px);letter-spacing:.04em;
+    color:#e4f2f4;
+  }
+  .closing h1{font-size:clamp(44px,7vh,76px);line-height:1.15;margin:0;font-weight:800;max-width:920px;}
+  .closing p.subtitle{font-size:clamp(22px,3.2vh,34px);line-height:1.4;color:#e4f2f4;max-width:780px;margin:clamp(10px,2vh,24px) 0 0;}
+  .closing .footnote{font-size:clamp(18px,2vh,26px);color:#cfe7ea;margin-top:clamp(18px,3vh,36px);}
+
+  .nav{
+    flex:none;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+    padding:clamp(16px,2.2vh,24px) 36px;
+    border-top:1px solid var(--warna-garis);background:var(--warna-panel);
+  }
+  .nav button{
+    border:none;background:var(--amber);color:#fff;
+    width:clamp(56px,6vh,76px);height:clamp(56px,6vh,76px);
+    border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .15s ease, opacity .15s ease;
+  }
+  .nav button:hover:not(:disabled){background:#0c5a6b;}
+  .nav button:disabled{opacity:.3;cursor:not-allowed;}
+  .nav .counter{font-size:clamp(20px,2.4vh,30px);color:var(--muted);font-weight:700;}
+  .nav .title-hint{
+    font-size:clamp(18px,2.2vh,28px);
+    color:var(--muted);flex:1;text-align:center;display:none;font-weight:500;
+  }
+  @media(min-width:700px){.nav .title-hint{display:block;}}
+
+  @media (max-width: 768px) {
+    body{font-size:20px;}
+    .deck{border-left:none;border-right:none;}
+    .topbar{padding:10px 14px;flex-wrap:wrap;gap:6px;}
+    .topbar a.home{font-size:14px;padding:6px 16px;}
+    .topbar .label-materi{font-size:12px;}
+    .slide{padding:16px 14px;}
+    .slide-head h2{font-size:clamp(24px,3.6vh,34px);}
+    .icon{width:44px;height:44px;font-size:18px;}
+    .slide-body{gap:14px;}
+    .step-content p{font-size:clamp(17px,2.4vh,24px);}
+    .step-content .instruction-box{font-size:clamp(16px,2.2vh,22px);padding:12px 16px;}
+    .btn{font-size:clamp(15px,1.8vh,20px);padding:10px 20px;}
+    .btn-sm{font-size:clamp(13px,1.6vh,18px);padding:6px 14px;}
+    .cover h1{font-size:clamp(28px,4.6vh,40px);}
+    .cover p.subtitle{font-size:clamp(18px,2.6vh,26px);}
+    .nav{padding:10px 14px;}
+    .nav button{width:44px;height:44px;}
+    .nav .counter{font-size:16px;}
+    .download-group{flex-direction:column;align-items:stretch;}
+    .code-block{font-size:clamp(13px,1.6vh,18px);padding:10px 14px;}
+    .two-col-demo{grid-template-columns:1fr;}
+    .slide-demo .code-block{max-height:25vh;font-size:11px;}
+    .slide-demo .slide-head h2{font-size:clamp(22px,3.2vh,30px);}
+    .slide-unduh .btn{padding:14px 24px;font-size:18px;}
+    .slide-unduh .download-group{gap:14px;}
+    .slide-shorten .step-content .langkah-link{
+      grid-template-columns:1fr;
+      gap:8px;
+    }
+    .slide-shorten .step-content .langkah-link .item{
+      flex-direction:row;
+      padding:8px 14px;
+      gap:10px;
+      text-align:left;
+    }
+    .slide-shorten .step-content .langkah-link .item .num{
+      font-size:20px;
+    }
+    .slide-shorten .step-content .langkah-link .item .text{
+      font-size:14px;
+    }
+    .slide-shorten .slide-head h2{
+      font-size:clamp(22px,3.2vh,30px);
+    }
+    .closing h1{font-size:clamp(28px,4.6vh,40px);}
+    .closing p.subtitle{font-size:clamp(18px,2.6vh,26px);}
+  }
+  @media (max-width: 480px) {
+    body{font-size:16px;}
+    .step-content p{font-size:15px;}
+    .step-content .instruction-box{font-size:14px;}
+    .cover h1{font-size:22px;}
+    .btn{font-size:13px;padding:6px 14px;}
+    .btn-sm{font-size:12px;padding:4px 10px;}
+    .icon{width:36px;height:36px;font-size:14px;}
+    .code-block{font-size:11px;padding:8px 10px;}
+    .slide-demo .code-block{max-height:20vh;font-size:10px;}
+    .slide-unduh .btn{padding:10px 18px;font-size:15px;}
+    .slide-shorten .step-content .langkah-link .item .text{font-size:12px;}
+    .closing h1{font-size:20px;}
+    .closing p.subtitle{font-size:16px;}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <div class="topbar">
+    <a href="index.html" class="home">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10"></path></svg>
+      Beranda
+    </a>
+    <span class="label-materi">Materi 03 · Praktik Aplikasi PAI</span>
+  </div>
+
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="slides" id="slides">
+
+    <!-- SLIDE 1: COVER -->
+    <section class="slide cover active">
+      <span class="tag-pill"><span class="pill-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="5" y="8" width="14" height="11" rx="2.5"/><line x1="12" y1="3.4" x2="12" y2="8"/><circle cx="12" cy="3" r="1"/><line x1="2.4" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.6" y2="12"/></svg></span> PRAKTIK LANGSUNG</span>
+      <h1>Membuat Aplikasi dengan Google Apps Script &amp; Spreadsheet</h1>
+      <p class="subtitle">Ikuti langkah-langkah — cukup copy-paste kode, deploy, dan aplikasi siap digunakan!</p>
+      <p class="footnote"><span class="pill-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 6.2c-1.6-1-4.2-1.4-6.2-1.4v13.4c2 0 4.6.4 6.2 1.4m0-13.4c1.6-1 4.2-1.4 6.2-1.4v13.4c-2 0-4.6.4-6.2 1.4m0-13.4v13.4"/></svg></span> Tidak perlu instalasi — semua di browser!</p>
+    </section>
+
+    <!-- SLIDE 2: LANGKAH 1 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Langkah 1 — Login Google</h2><span class="icon">1</span></div>
+      <div class="slide-body step-content">
+        <p>Buka browser dan <strong>login ke akun Google</strong> (Gmail) yang akan digunakan untuk membuat aplikasi.</p>
+        <div class="download-group">
+          <a href="https://mail.google.com" target="_blank" class="btn btn-dark" style="background:var(--ink);border-color:var(--ink);">
+            <span style="font-style:normal;">🔗</span> Buka Gmail / Login
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: LANGKAH 2 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Langkah 2 — Buka Spreadsheet &amp; Apps Script</h2><span class="icon">2</span></div>
+      <div class="slide-body step-content">
+        <p>Buka <strong>Google Spreadsheet</strong> baru, lalu masuk ke menu <strong>Ekstensi → Apps Script</strong>.</p>
+        <div class="instruction-box">
+          <i>📌</i> Spreadsheet akan menjadi "database" aplikasi kita. Apps Script adalah tempat kita menulis kode.
+        </div>
+        <div class="download-group">
+          <a href="https://sheets.new" target="_blank" class="btn btn-primary">
+            <span style="font-style:normal;">📊</span> Buka Spreadsheet Baru
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: LANGKAH 3 — Mengenal kode.gs dan html -->
+    <section class="slide">
+      <div class="slide-head"><h2>Langkah 3 — Mengenal kode.gs &amp; HTML</h2><span class="icon">3</span></div>
+      <div class="slide-body step-content">
+        <p>Di Apps Script, ada dua jenis file:</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.2vh,32px);margin-top:4px;">
+          <div style="background:var(--warna-panel-alt);border-radius:14px;padding:clamp(14px,2vh,24px);border-left:5px solid var(--amber);">
+            <h3 style="font-size:clamp(20px,2.6vh,32px);margin:0 0 6px;color:var(--amber);">📄 kode.gs</h3>
+            <p style="font-size:clamp(16px,2vh,24px);margin:0;line-height:1.5;">Kode <strong>backend</strong> (server-side) yang berinteraksi dengan Spreadsheet. Berisi fungsi seperti <code>doGet()</code> dan <code>simpanHafalan()</code>.</p>
+          </div>
+          <div style="background:var(--warna-panel-alt);border-radius:14px;padding:clamp(14px,2vh,24px);border-left:5px solid var(--biru);">
+            <h3 style="font-size:clamp(20px,2.6vh,32px);margin:0 0 6px;color:var(--biru);">🌐 index.html</h3>
+            <p style="font-size:clamp(16px,2vh,24px);margin:0;line-height:1.5;">Kode <strong>frontend</strong> (tampilan web) yang akan dilihat pengguna. Berisi form input dan tombol untuk menyimpan data.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: CONTOH KODE — Aplikasi Pencatat Hafalan -->
+    <section class="slide slide-demo">
+      <div class="slide-head"><h2>Contoh Kode — Aplikasi Pencatat Hafalan</h2><span class="icon">📝</span></div>
+      <div class="slide-body step-content">
+        <p style="font-size:clamp(17px,2.2vh,26px);margin:0;color:var(--ink);">Berikut contoh kode aplikasi sederhana untuk <strong>mencatat hafalan siswa</strong>.</p>
+        <div class="two-col-demo">
+          <div style="background:var(--warna-panel-alt);border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(12px,1.4vw,20px);border:1px solid var(--warna-garis);">
+            <h4 style="font-size:clamp(16px,2vh,24px);margin:0 0 6px;color:var(--amber);">📄 kode.gs (Backend)</h4>
+            <pre class="code-block" style="font-size:clamp(11px,1.4vh,16px);padding:clamp(8px,1vh,14px);max-height:32vh;overflow-y:auto;">
+<span class="comment">// Server-side: simpan data ke Spreadsheet</span>
+<span class="keyword">function</span> <span class="func">doGet</span>() {
+  <span class="keyword">return</span> HtmlService
+    .createHtmlOutputFromFile(<span class="string">'index'</span>);
+}
+
+<span class="keyword">function</span> <span class="func">simpanHafalan</span>(nama, surah, ayat) {
+  <span class="keyword">var</span> sheet = SpreadsheetApp
+    .getActiveSpreadsheet()
+    .getActiveSheet();
+  sheet.appendRow([
+    <span class="keyword">new</span> Date(),
+    nama, surah, ayat
+  ]);
+  <span class="keyword">return</span> <span class="string">'👏 Hafalan tersimpan!'</span>;
+}</pre>
+          </div>
+          <div style="background:var(--warna-panel-alt);border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(12px,1.4vw,20px);border:1px solid var(--warna-garis);">
+            <h4 style="font-size:clamp(16px,2vh,24px);margin:0 0 6px;color:var(--biru);">🌐 index.html (Frontend)</h4>
+            <pre class="code-block" style="font-size:clamp(11px,1.4vh,16px);padding:clamp(8px,1vh,14px);max-height:32vh;overflow-y:auto;">
+<span class="comment">&lt;!-- Tampilan form input hafalan --&gt;</span>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;base target=<span class="string">"_top"</span>&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;👏 Pencatat Hafalan&lt;/h1&gt;
+    &lt;input id=<span class="string">"nama"</span> placeholder=<span class="string">"Nama"</span>&gt;
+    &lt;input id=<span class="string">"surah"</span> placeholder=<span class="string">"Surah"</span>&gt;
+    &lt;input id=<span class="string">"ayat"</span> placeholder=<span class="string">"Ayat"</span>&gt;
+    &lt;button onclick=<span class="string">"simpan()"</span>&gt;💾 Simpan&lt;/button&gt;
+    &lt;script&gt;
+      <span class="keyword">function</span> <span class="func">simpan</span>() {
+        <span class="keyword">var</span> nama = document.getElementById(<span class="string">'nama'</span>).value;
+        <span class="keyword">var</span> surah = document.getElementById(<span class="string">'surah'</span>).value;
+        <span class="keyword">var</span> ayat = document.getElementById(<span class="string">'ayat'</span>).value;
+        google.script.run
+          .withSuccessHandler(alert)
+          .simpanHafalan(nama, surah, ayat);
+      }
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+          </div>
+        </div>
+        <div class="instruction-box" style="border-left-color:var(--biru);background:var(--biru-light);font-size:clamp(15px,1.8vh,22px);padding:clamp(10px,1.4vh,18px);margin-top:2px;border-radius:10px;">
+          <i>💡</i> Fungsi <code>simpanHafalan()</code> mengirim data dari form ke Spreadsheet. Peserta hanya perlu menyesuaikan dengan kebutuhan mereka.
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: LANGKAH 4 — Unduh & Copy-Paste Kode -->
+    <section class="slide slide-unduh">
+      <div class="slide-head"><h2>Langkah 4 — Unduh &amp; Copy-Paste Kode</h2><span class="icon">4</span></div>
+      <div class="slide-body step-content" style="align-items:center;text-align:center;">
+        <p style="font-size:clamp(20px,2.6vh,32px);">
+          <strong>Unduh dua file berikut</strong>, buka di editor teks, lalu <strong>copy-paste</strong> ke Apps Script:
+        </p>
+        <div class="download-group" style="justify-content:center;gap:clamp(20px,3vh,40px);margin-top:20px;">
+          <a href="https://drive.google.com/uc?export=download&id=FILE_ID_kode_gs" target="_blank" class="btn btn-primary" style="padding:clamp(18px,2.6vh,32px) clamp(40px,5vw,64px);font-size:clamp(22px,2.8vh,36px);border-radius:50px;">
+            <span style="font-size:clamp(32px,4vh,48px);">📄</span> Unduh kode.gs
+          </a>
+          <a href="https://drive.google.com/uc?export=download&id=FILE_ID_index_html" target="_blank" class="btn btn-success" style="padding:clamp(18px,2.6vh,32px) clamp(40px,5vw,64px);font-size:clamp(22px,2.8vh,36px);border-radius:50px;">
+            <span style="font-size:clamp(32px,4vh,48px);">🌐</span> Unduh index.html
+          </a>
+        </div>
+        <div class="instruction-box" style="border-left-color:var(--biru);background:var(--biru-light);font-size:clamp(18px,2.2vh,28px);padding:clamp(14px,2vh,24px) clamp(20px,2.6vw,36px);text-align:center;margin-top:10px;">
+          <i>💡</i> Di Apps Script, buat dua file: <strong>kode.gs</strong> (backend) dan <strong>index.html</strong> (tampilan). Paste kode dari file yang diunduh.
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: LANGKAH 5 — Jalankan & Deploy -->
+    <section class="slide">
+      <div class="slide-head"><h2>Langkah 5 — Jalankan &amp; Deploy</h2><span class="icon">5</span></div>
+      <div class="slide-body step-content">
+        <div style="display:flex;flex-direction:column;gap:clamp(12px,1.8vh,22px);margin-top:4px;">
+          <div style="display:flex;align-items:center;gap:16px;background:var(--warna-panel-alt);border-radius:14px;padding:clamp(12px,1.8vh,22px) clamp(16px,2vw,28px);">
+            <span style="font-size:clamp(28px,3.4vh,44px);flex:none;">1️⃣</span>
+            <div><strong style="font-size:clamp(18px,2.2vh,28px);">Simpan &amp; Jalankan</strong><p style="font-size:clamp(16px,2vh,24px);margin:0;color:var(--muted);">Klik <strong>Simpan</strong> 💾, pilih fungsi <code>doGet</code> → klik <strong>Run</strong> → izinkan akses.</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;background:var(--warna-panel-alt);border-radius:14px;padding:clamp(12px,1.8vh,22px) clamp(16px,2vw,28px);">
+            <span style="font-size:clamp(28px,3.4vh,44px);flex:none;">2️⃣</span>
+            <div><strong style="font-size:clamp(18px,2.2vh,28px);">Deploy sebagai Web App</strong><p style="font-size:clamp(16px,2vh,24px);margin:0;color:var(--muted);">Klik <strong>Deploy → New deployment</strong> → pilih <strong>Web app</strong> → <strong>Deploy</strong>.</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;background:var(--warna-panel-alt);border-radius:14px;padding:clamp(12px,1.8vh,22px) clamp(16px,2vw,28px);">
+            <span style="font-size:clamp(28px,3.4vh,44px);flex:none;">3️⃣</span>
+            <div><strong style="font-size:clamp(18px,2.2vh,28px);">Salin URL &amp; Gunakan!</strong><p style="font-size:clamp(16px,2vh,24px);margin:0;color:var(--muted);">Salin URL Web App → buka di browser → aplikasi siap dipakai! 🎉</p></div>
+          </div>
+        </div>
+        <div class="instruction-box" style="border-left-color:#fbbc04;background:#fef6e0;margin-top:4px;">
+          <i>⭐</i> <strong>Tips:</strong> Setiap kali mengubah kode, Anda harus <strong>Deploy ulang</strong> dengan versi baru agar perubahan muncul.
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: MEMENDEKKAN LINK DENGAN s.id — DIPERBAIKI -->
+    <section class="slide slide-shorten">
+      <div class="slide-head"><h2>🔗 Memendekkan Link dengan s.id</h2><span class="icon">🔗</span></div>
+      <div class="slide-body step-content">
+        <p>URL Web App sangat panjang. <strong>Pendekkan</strong> agar rapi &amp; mudah dibagikan!</p>
+        <div class="langkah-link">
+          <div class="item">
+            <span class="num">1️⃣</span>
+            <span class="text">Buka <strong>s.id</strong></span>
+          </div>
+          <div class="item">
+            <span class="num">2️⃣</span>
+            <span class="text">Tempel URL Web App</span>
+          </div>
+          <div class="item">
+            <span class="num">3️⃣</span>
+            <span class="text">Klik <strong>Pendekkan</strong> → salin!</span>
+          </div>
+        </div>
+        <div class="download-group">
+          <a href="https://s.id" target="_blank" class="btn btn-primary">
+            🔗 Buka s.id
+          </a>
+        </div>
+        <div class="instruction-box">
+          <i>⭐</i> Contoh: <code>https://s.id/aplikasi-pai-saya</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: PENUTUP -->
+    <section class="slide closing">
+      <span class="badge"><span class="pill-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path fill="currentColor" stroke="none" d="M12 2.6l2.9 6 6.5.6-4.9 4.4 1.5 6.4L12 16.8l-6 3.2 1.5-6.4-4.9-4.4 6.5-.6L12 2.6z"/></svg></span> SELESAI!</span>
+      <h1>🎉 Aplikasi Siap Digunakan!</h1>
+      <p class="subtitle">Selamat! Anda telah berhasil membuat aplikasi sendiri dengan Google Apps Script &amp; Spreadsheet.</p>
+      <p class="footnote" style="font-size:clamp(20px,2.6vh,32px);">
+        <span class="pill-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 6.2c-1.6-1-4.2-1.4-6.2-1.4v13.4c2 0 4.6.4 6.2 1.4m0-13.4c1.6-1 4.2-1.4 6.2-1.4v13.4c-2 0-4.6.4-6.2 1.4m0-13.4v13.4"/></svg></span>
+        <strong>Teruslah berkarya &amp; kembangkan sesuai kebutuhan mengajar Anda!</strong>
+      </p>
+      <p style="font-size:clamp(16px,2vh,24px);color:#cfe7ea;margin-top:4px;">
+        — Ardika Riski Rahmawan, S.Pd.
+      </p>
+    </section>
+
+  </div>
+
+  <div class="nav">
+    <button id="prevBtn" aria-label="Sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span class="title-hint" id="titleHint"></span>
+    <span class="counter" id="counter">1 / 9</span>
+    <button id="nextBtn" aria-label="Berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let idx = 0;
+  const counter = document.getElementById('counter');
+  const progressBar = document.getElementById('progressBar');
+  const titleHint = document.getElementById('titleHint');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function show(i){
+    slides[idx].classList.remove('active');
+    idx = Math.max(0, Math.min(total-1, i));
+    slides[idx].classList.add('active');
+    counter.textContent = (idx+1) + ' / ' + total;
+    progressBar.style.width = ((idx+1)/total*100) + '%';
+    const h2 = slides[idx].querySelector('h2');
+    titleHint.textContent = h2 ? h2.textContent : '';
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === total-1;
+  }
+  prevBtn.addEventListener('click', ()=>show(idx-1));
+  nextBtn.addEventListener('click', ()=>show(idx+1));
+  document.addEventListener('keydown', (e)=>{
+    if(e.key==='ArrowRight') show(idx+1);
+    if(e.key==='ArrowLeft') show(idx-1);
+  });
+  show(0);
+</script>
+</body>
+</html>
