@@ -3,153 +3,281 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <title>Digitalisasi Pembelajaran PAI — Pengantar, Praktik Buku Ajar & Praktik Aplikasi PAI</title>
 <style>
   :root{
-    --warna-latar:#f6f5f2;
+    --warna-latar:#eef4f5;
     --warna-panel:#ffffff;
-    --warna-garis:#e6e3dc;
-    --warna-teks:#232320;
-    --warna-teks-muda:#6b6a63;
-    --warna-amber:#c8781f;
-    --warna-coral:#c1443a;
-    --warna-biru:#2e5fa3;
+    --warna-garis:#cddbde;
+    --warna-teks:#132C33;
+    --warna-teks-muda:#587078;
+    --warna-amber:#126E82;
+    --warna-amber-light:#d7edf1;
+    --warna-coral:#132C33;
+    --warna-biru:#0f7f93;
+    --biru-light:#daf3f6;
   }
   *{box-sizing:border-box;}
   body{
     margin:0;
     background:var(--warna-latar);
     color:var(--warna-teks);
-    font-family:'Segoe UI','Trebuchet MS',system-ui,-apple-system,sans-serif;
+    font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(16px,3vw,36px);
   }
+  h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Segoe UI',system-ui,-apple-system,sans-serif;letter-spacing:-.01em;}
+
   .layar-presentasi{
     max-width:1080px;
-    margin:0 auto;
-    padding:clamp(24px,5vw,56px) clamp(18px,5vw,36px) clamp(40px,6vw,64px);
-  }
-
-  .kop-presentasi{
-    text-align:center;
-    padding-bottom:clamp(22px,4vw,36px);
-    margin-bottom:clamp(28px,5vw,44px);
-    border-bottom:1px solid var(--warna-garis);
-  }
-  .kop-presentasi h1{
-    font-size:clamp(24px,4.4vw,38px);
-    margin:0 0 8px;font-weight:800;line-height:1.2;
-  }
-  .kop-presentasi p{
-    margin:0;font-size:clamp(14px,1.9vw,17px);color:var(--warna-teks-muda);
-  }
-
-  .label-kategori{
-    font-size:clamp(11px,1.4vw,13px);
-    font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--warna-teks-muda);
-    margin-bottom:14px;
-    padding-bottom:8px;
-    border-bottom:1px solid var(--warna-garis);
-  }
-
-  .kolom-menu{margin-bottom:clamp(30px,5vw,48px);}
-  .kolom-menu.grid-3{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,18px);
-  }
-  @media(max-width:760px){.kolom-menu.grid-3{grid-template-columns:1fr;}}
-
-  .item-menu{
-    display:flex;align-items:flex-start;gap:16px;
+    width:100%;
     background:var(--warna-panel);
     border:1px solid var(--warna-garis);
-    border-left:4px solid var(--warna-amber);
-    border-radius:10px;
-    padding:clamp(16px,2.4vw,20px) clamp(18px,2.6vw,22px);
+    border-radius:24px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.15);
+  }
+
+  /* HEADER HERO */
+  .hero{
+    background:linear-gradient(135deg, #132C33 0%, #1a3f4a 100%);
+    color:#fff;
+    padding:clamp(32px,5vw,56px) clamp(28px,5vw,48px);
+    text-align:center;
+  }
+  .hero h1{
+    font-size:clamp(28px,4.6vw,44px);
+    margin:0 0 8px;font-weight:800;line-height:1.2;
+  }
+  .hero h1 span{color:#8ec7d6;}
+  .hero p{
+    margin:0 auto;font-size:clamp(15px,1.8vw,20px);line-height:1.6;
+    color:#d4e9ef;max-width:720px;
+  }
+  .hero .badge-hero{
+    display:inline-block;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.25);
+    padding:6px 18px;
+    border-radius:999px;
+    font-size:clamp(11px,1.2vw,13px);
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+    color:#b8dae3;
+  }
+
+  /* ISI */
+  .konten-isi{
+    padding:clamp(24px,4vw,44px) clamp(20px,4vw,40px) clamp(32px,5vw,52px);
+    display:flex;
+    flex-direction:column;
+    gap:clamp(24px,3.5vh,40px);
+  }
+
+  /* KARTU PROFIL (fasilitator) */
+  .card-profil{
+    display:flex;align-items:center;gap:clamp(16px,2.5vw,28px);
+    background:var(--warna-amber-light);
+    border-radius:16px;
+    padding:clamp(16px,2.4vw,24px) clamp(20px,3vw,32px);
+    border:1px solid rgba(18,110,130,.15);
     text-decoration:none;color:inherit;
-    transition:transform .15s ease, box-shadow .15s ease;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .card-profil:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px -12px rgba(18,110,130,.3);
+  }
+  .card-profil .avatar{
+    flex:none;
+    width:clamp(48px,6vw,64px);
+    height:clamp(48px,6vw,64px);
+    border-radius:50%;
+    background:var(--warna-panel);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+    border:2px solid var(--warna-amber);
+  }
+  .card-profil .avatar svg{
+    width:55%;height:55%;color:var(--warna-amber);
+  }
+  .card-profil .info h3{
+    margin:0 0 2px;font-size:clamp(16px,2vw,20px);font-weight:700;
+  }
+  .card-profil .info p{
+    margin:0;font-size:clamp(13px,1.5vw,15px);color:var(--warna-teks-muda);
+  }
+  .card-profil .arrow{
+    margin-left:auto;color:var(--warna-amber);font-size:clamp(20px,2.4vw,28px);font-weight:300;
+  }
+
+  /* GRID MENU */
+  .grid-menu{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:clamp(14px,2vw,22px);
+  }
+  @media(max-width:760px){
+    .grid-menu{grid-template-columns:1fr;}
+  }
+
+  .item-menu{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+    background:var(--warna-panel);
+    border:1px solid var(--warna-garis);
+    border-radius:16px;
+    padding:clamp(20px,2.8vw,32px) clamp(18px,2.4vw,28px);
+    text-decoration:none;color:inherit;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .item-menu::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:4px;
+    background:var(--warna-amber);
+    opacity:0;
+    transition:opacity .2s ease;
   }
   .item-menu:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px -12px rgba(0,0,0,.25);
+    transform:translateY(-4px);
+    box-shadow:0 12px 32px -16px rgba(0,0,0,.15);
+    border-color:var(--warna-amber);
   }
-  .item-menu.warna-amber{border-left-color:var(--warna-amber);}
-  .item-menu.warna-coral{border-left-color:var(--warna-coral);}
-  .item-menu.warna-biru{border-left-color:var(--warna-biru);}
+  .item-menu:hover::before{opacity:1;}
 
-  .ikon-menu{
-    flex:none;width:clamp(30px,3.6vw,36px);height:clamp(30px,3.6vw,36px);
-  }
-  .warna-amber .ikon-menu{color:var(--warna-amber);}
-  .warna-coral .ikon-menu{color:var(--warna-coral);}
-  .warna-biru .ikon-menu{color:var(--warna-biru);}
+  .item-menu.warna-coral::before{background:var(--warna-coral);}
+  .item-menu.warna-biru::before{background:var(--warna-biru);}
 
-  .teks-menu h2{
-    margin:0 0 4px;font-size:clamp(15px,2vw,18px);font-weight:700;
+  .item-menu .ikon{
+    flex:none;
+    width:clamp(44px,5vw,56px);
+    height:clamp(44px,5vw,56px);
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:clamp(22px,2.8vw,32px);
   }
-  .teks-menu p{
-    margin:0;font-size:clamp(12.5px,1.6vw,14px);color:var(--warna-teks-muda);line-height:1.5;
+  .item-menu .ikon.amber{background:var(--warna-amber-light);color:var(--warna-amber);}
+  .item-menu .ikon.coral{background:#dde5e7;color:var(--warna-coral);}
+  .item-menu .ikon.biru{background:var(--biru-light);color:var(--warna-biru);}
+
+  .item-menu .teks h2{
+    margin:0 0 4px;font-size:clamp(17px,2vw,22px);line-height:1.3;font-weight:700;
+  }
+  .item-menu .teks p{
+    margin:0;font-size:clamp(13px,1.5vw,15.5px);color:var(--warna-teks-muda);line-height:1.55;
+  }
+  .item-menu .badge-nomor{
+    position:absolute;top:14px;right:16px;
+    font-size:clamp(11px,1.2vw,13px);
+    font-weight:700;color:var(--warna-teks-muda);
+    background:var(--warna-latar);
+    padding:2px 12px;border-radius:999px;
+    letter-spacing:.03em;
   }
 
-  .kaki-presentasi{
-    margin-top:clamp(30px,5vw,48px);
-    padding-top:16px;border-top:1px solid var(--warna-garis);
-    font-size:12px;color:var(--warna-teks-muda);
-    display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;
+  /* FOOTER */
+  .footer{
+    padding:16px clamp(20px,4vw,32px);
+    border-top:1px solid var(--warna-garis);
+    font-size:12px;
+    color:var(--warna-teks-muda);
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:6px;
+    background:var(--warna-panel);
+  }
+
+  @media(max-width:500px){
+    .card-profil{flex-wrap:wrap;}
+    .card-profil .arrow{display:none;}
   }
 </style>
 </head>
 <body>
 <main class="layar-presentasi">
 
-  <header class="kop-presentasi">
-    <h1>Digitalisasi Pembelajaran PAI</h1>
-    <p>Mengajar Agama dengan Mudah & Menyenangkan di Era Digital · Workshop Guru PAI SD/MI · 3 Rangkaian Pembahasan: Pengantar, Praktik Buku Ajar & Praktik Aplikasi PAI</p>
+  <!-- HEADER HERO -->
+  <header class="hero">
+    <div class="badge-hero">Workshop Guru PAI SD/MI</div>
+    <h1>Digitalisasi <span>Pembelajaran PAI</span></h1>
+    <p>Mengajar Agama dengan Mudah &amp; Menyenangkan di Era Digital — 3 Rangkaian Pembahasan</p>
   </header>
 
-  <nav>
-    <div class="kolom-menu">
-      <div class="label-kategori">Perkenalan</div>
-      <a href="profil.html" class="item-menu warna-amber">
-        <svg class="ikon-menu" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-        <div class="teks-menu">
-          <h2>Profil Fasilitator</h2>
-          <p>Ardika Riski Rahmawan, S.Pd.</p>
-        </div>
-      </a>
-    </div>
+  <div class="konten-isi">
 
-    <div class="kolom-menu">
-      <div class="label-kategori">Rangkaian Pembahasan</div>
-      <div class="kolom-menu grid-3" style="margin-bottom:0;">
-
-        <a href="pengantar.html" class="item-menu warna-amber">
-          <svg class="ikon-menu" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          <div class="teks-menu">
-            <h2>01. Pengantar</h2>
-            <p>Mengenal digitalisasi pembelajaran & memanfaatkan AI sebagai asisten guru PAI.</p>
-          </div>
-        </a>
-
-        <a href="praktik-buku-ajar.html" class="item-menu warna-coral">
-          <svg class="ikon-menu" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-          <div class="teks-menu">
-            <h2>02. Praktik Buku Ajar</h2>
-            <p>Praktik menyusun & merapikan buku ajar/modul PAI digital dengan bantuan AI.</p>
-          </div>
-        </a>
-
-        <a href="praktik-aplikasi-pai.html" class="item-menu warna-biru">
-          <svg class="ikon-menu" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-          <div class="teks-menu">
-            <h2>03. Praktik Aplikasi PAI</h2>
-            <p>Praktik langsung memakai aplikasi AI untuk kebutuhan mengajar PAI sehari-hari.</p>
-          </div>
-        </a>
-
+    <!-- KARTU PROFIL FASILITATOR -->
+    <a href="profil.html" class="card-profil">
+      <div class="avatar">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
       </div>
-    </div>
-  </nav>
+      <div class="info">
+        <h3>👤 Profil Fasilitator</h3>
+        <p>Ardika Riski Rahmawan, S.Pd. — Guru PAI SDN 1 Godegan</p>
+      </div>
+      <span class="arrow">→</span>
+    </a>
 
-  <footer class="kaki-presentasi">
+    <!-- GRID 3 MATERI -->
+    <div class="grid-menu">
+
+      <!-- 01. Pengantar -->
+      <a href="pengantar.html" class="item-menu">
+        <div class="ikon amber">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <div class="teks">
+          <h2>01. Pengantar</h2>
+          <p>Mengenal digitalisasi pembelajaran &amp; memanfaatkan AI sebagai asisten guru PAI.</p>
+        </div>
+        <span class="badge-nomor">23 slide</span>
+      </a>
+
+      <!-- 02. Praktik Buku Ajar -->
+      <a href="praktik-buku-ajar.html" class="item-menu warna-coral">
+        <div class="ikon coral">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        </div>
+        <div class="teks">
+          <h2>02. Praktik Buku Ajar</h2>
+          <p>Praktik menyusun &amp; merapikan buku ajar/modul PAI digital dengan bantuan AI.</p>
+        </div>
+        <span class="badge-nomor">4 langkah</span>
+      </a>
+
+      <!-- 03. Praktik Aplikasi PAI -->
+      <a href="praktik-aplikasi-pai.html" class="item-menu warna-biru">
+        <div class="ikon biru">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        </div>
+        <div class="teks">
+          <h2>03. Praktik Aplikasi PAI</h2>
+          <p>Praktik langsung memakai aplikasi AI untuk kebutuhan mengajar PAI sehari-hari.</p>
+        </div>
+        <span class="badge-nomor">Segera</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
     <span>© 2026 KKG PAI Kapanewon Srandakan</span>
     <span>Digitalisasi Pembelajaran PAI</span>
   </footer>
