@@ -488,57 +488,155 @@
   }
 
 /* ============================================================
-   RESPONSIVE: HP & TABLET — untuk praktik-buku-ajar.html
+   RESPONSIVE: HP & TABLET — untuk pengantar.html
    ============================================================ */
 
 /* Tablet (≤ 1024px) */
 @media (max-width: 1024px) {
-  .layar-presentasi { max-width: 100%; border-radius: 16px; }
-  .hero { padding: clamp(24px, 4vw, 40px) clamp(20px, 3vw, 32px); }
-  .hero h1 { font-size: clamp(24px, 3.6vw, 34px); }
-  .step-card { padding: 16px 18px; gap: 16px; }
-  .step-card .step-num { width: 38px; height: 38px; font-size: 16px; }
-  .step-card .step-body h2 { font-size: 18px; }
-  .step-card .step-body p { font-size: 14px; }
-  .instruction-box { font-size: 14px; padding: 10px 14px; }
-  .btn { font-size: 13px; padding: 6px 16px; }
-  .sub-grid-buttons { gap: 6px 10px; }
+  .deck { max-width: 100%; border-left: none; border-right: none; border-radius: 0; }
+  .slide { padding: clamp(20px, 3vh, 40px) clamp(24px, 4vw, 40px); }
+  .slide-head h2 { font-size: clamp(28px, 4vh, 40px); }
+  .icon { width: clamp(48px, 5vh, 60px); height: clamp(48px, 5vh, 60px); font-size: clamp(20px, 2.5vh, 28px); }
+  .card { padding: clamp(16px, 2vh, 28px) clamp(14px, 1.6vw, 22px); }
+  .card h3 { font-size: clamp(20px, 2.4vh, 30px); }
+  .card p { font-size: clamp(16px, 1.8vh, 22px); }
+  .badge-icon { width: clamp(48px, 5vh, 64px); height: clamp(48px, 5vh, 64px); font-size: clamp(22px, 2.6vh, 32px); }
+  .row-list .item { padding: clamp(14px, 2vh, 22px) clamp(16px, 2vw, 24px); gap: 18px; }
+  .row-list .item div h3 { font-size: clamp(20px, 2.4vh, 30px); }
+  .row-list .item div p { font-size: clamp(16px, 1.8vh, 22px); }
+  .ai-grid { grid-template-columns: repeat(3, 1fr); }
+  .grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .cover h1 { font-size: clamp(32px, 5vh, 48px); }
+  .cover p.subtitle { font-size: clamp(18px, 2.4vh, 26px); }
+  .closing blockquote { font-size: clamp(22px, 3vh, 34px); }
+  table.rcto { font-size: clamp(16px, 1.8vh, 22px); }
+  .two-col { gap: 16px; }
+  .arabic { font-size: clamp(28px, 4vh, 44px); }
 }
 
 /* HP (≤ 768px) */
 @media (max-width: 768px) {
-  body { padding: 10px; }
-  .layar-presentasi { border-radius: 12px; }
+  body { font-size: 18px; }
+  .deck { height: 100vh; height: 100dvh; border-radius: 0; }
   .topbar { padding: 10px 14px; flex-wrap: wrap; gap: 6px; }
   .topbar a.home { font-size: 13px; padding: 6px 14px; }
   .topbar .label-materi { font-size: 10px; }
-  .hero { padding: 16px 14px; }
-  .hero .badge-hero { font-size: 10px; padding: 4px 12px; margin-bottom: 8px; }
-  .hero h1 { font-size: clamp(18px, 4.2vw, 24px); }
-  .hero p { font-size: 13px; }
-  .konten-isi { padding: 14px 12px 20px; gap: 14px; }
-  .step-card { flex-direction: column; align-items: stretch; padding: 14px 16px; gap: 10px; }
-  .step-card .step-num { width: 34px; height: 34px; font-size: 14px; align-self: flex-start; }
-  .step-card .step-body h2 { font-size: 16px; }
-  .step-card .step-body p { font-size: 13px; }
-  .instruction-box { font-size: 13px; padding: 8px 12px; border-left-width: 3px; }
-  .download-group { flex-direction: column; align-items: stretch; gap: 8px; }
-  .download-group .label-grup { font-size: 12px; }
-  .btn { font-size: 12px; padding: 6px 14px; justify-content: center; }
-  .sub-grid-buttons { flex-direction: column; align-items: stretch; gap: 6px; }
-  .footer { flex-direction: column; text-align: center; gap: 4px; font-size: 11px; padding: 12px 14px; }
+  .slide { padding: 16px 14px; }
+  .slide-head { padding-bottom: 10px; margin-bottom: 14px; border-bottom-width: 3px; }
+  .slide-head h2 { font-size: clamp(20px, 3.2vh, 28px); }
+  .icon { width: 40px; height: 40px; font-size: 16px; }
+  .slide-body { gap: 12px; }
+  
+  /* Cards */
+  .cards { gap: 12px; }
+  .cards.cols-2 { grid-template-columns: 1fr; }
+  .cards.cols-3 { grid-template-columns: 1fr; }
+  .cards.cols-4 { grid-template-columns: 1fr 1fr; }
+  .card { padding: 14px 12px; gap: 8px; border-radius: 12px; border-top-width: 4px; }
+  .card h3 { font-size: clamp(16px, 2.2vh, 20px); }
+  .card p { font-size: clamp(14px, 1.8vh, 17px); }
+  .badge-icon { width: 40px; height: 40px; font-size: 18px; }
+  
+  /* Row-list */
+  .row-list { gap: 12px; }
+  .row-list .item { padding: 12px 14px; gap: 14px; border-left-width: 4px; border-radius: 12px; flex-wrap: wrap; }
+  .row-list .item .badge-icon { width: 40px; height: 40px; font-size: 18px; }
+  .row-list .item div h3 { font-size: clamp(16px, 2.2vh, 20px); }
+  .row-list .item div p { font-size: clamp(14px, 1.8vh, 17px); }
+  
+  /* Cover & Closing */
+  .cover h1 { font-size: clamp(24px, 4vh, 32px); }
+  .cover p.subtitle { font-size: clamp(14px, 2vh, 18px); }
+  .cover .footnote, .closing .footnote { font-size: 12px; }
+  .closing blockquote { font-size: clamp(18px, 2.6vh, 24px); }
+  .tag-pill { font-size: 12px; padding: 6px 14px; gap: 8px; }
+  .closing .badge { font-size: 12px; padding: 6px 14px; gap: 8px; }
+  
+  /* AI Grid */
+  .ai-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ai-card { padding: 12px 10px; }
+  .ai-card .letter { width: 40px; height: 40px; font-size: 18px; }
+  .ai-card h4 { font-size: 16px; }
+  .ai-card .pro, .ai-card .con { font-size: 13px; }
+  
+  /* Grid 5 (AI) */
+  .grid-5 { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid-5 .ai-box { padding: 10px; }
+  .grid-5 .ai-box .letter { width: 40px; height: 40px; font-size: 18px; }
+  .grid-5 .ai-box h4 { font-size: 15px; }
+  .grid-5 .ai-box .pro, .grid-5 .ai-box .con { font-size: 13px; }
+  
+  /* Grid 2x2 */
+  .grid-2x2 { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid-2x2 .box-2x2 { padding: 12px 10px; gap: 6px; }
+  .grid-2x2 .box-2x2 .icon-badge { width: 36px; height: 36px; font-size: 16px; }
+  .grid-2x2 .box-2x2 h3 { font-size: 15px; }
+  .grid-2x2 .box-2x2 p { font-size: 13px; }
+  
+  /* Tabel */
+  table.rcto { font-size: 14px; }
+  table.rcto th, table.rcto td { padding: 10px 12px; }
+  .rcto-compact table.rcto { font-size: 13px; }
+  .rcto-compact table.rcto th, .rcto-compact table.rcto td { padding: 8px 10px; }
+  
+  /* Two-col */
+  .two-col { grid-template-columns: 1fr; gap: 12px; }
+  
+  /* Arab */
+  .arabic { font-size: clamp(20px, 3.2vh, 30px); padding: 12px 16px; }
+  .arabic-inline { font-size: 1.2em; }
+  
+  /* Slide compact */
+  .slide-compact { padding: 12px 10px; }
+  .slide-compact .slide-head { padding-bottom: 8px; margin-bottom: 10px; }
+  .slide-compact .slide-head h2 { font-size: clamp(18px, 2.8vh, 24px); }
+  .slide-compact .slide-body { gap: 10px; }
+  
+  /* Nav */
+  .nav { padding: 10px 14px; gap: 12px; }
+  .nav button { width: 40px; height: 40px; }
+  .nav .counter { font-size: 14px; }
+  .nav .title-hint { font-size: 13px; }
+  
+  /* Slide khusus */
+  .slide-arab .two-col { gap: 10px; }
+  .slide-arab .card { padding: 10px; }
+  .slide-arab .card h3 { font-size: 15px; }
+  .slide-arab .card p { font-size: 13px; }
+  .slide-arab .badge-icon { width: 36px; height: 36px; font-size: 16px; }
+  .slide-kesimpulan .cards { gap: 10px; }
+  .slide-kesimpulan .card { padding: 10px; }
+  .slide-kesimpulan .card h3 { font-size: 15px; }
+  .slide-kesimpulan .card p { font-size: 13px; }
+  .slide-kesimpulan .badge-icon { width: 36px; height: 36px; font-size: 16px; }
+  .slide-kesimpulan .card-dark p { font-size: 15px; }
+  .slide-kesimpulan { padding: 12px 10px; }
 }
 
 /* HP kecil (≤ 480px) */
 @media (max-width: 480px) {
-  .hero h1 { font-size: 16px; }
-  .hero p { font-size: 12px; }
-  .step-card { padding: 12px; }
-  .step-card .step-body h2 { font-size: 14px; }
-  .step-card .step-body p { font-size: 12px; }
-  .instruction-box { font-size: 12px; padding: 6px 10px; }
-  .btn { font-size: 11px; padding: 5px 12px; }
-  .btn-sm { font-size: 11px; padding: 4px 10px; }
+  body { font-size: 15px; }
+  .slide { padding: 12px 10px; }
+  .slide-head h2 { font-size: clamp(16px, 2.6vh, 20px); }
+  .icon { width: 32px; height: 32px; font-size: 14px; }
+  .card h3 { font-size: 14px; }
+  .card p { font-size: 12px; }
+  .badge-icon { width: 32px; height: 32px; font-size: 14px; }
+  .row-list .item div h3 { font-size: 14px; }
+  .row-list .item div p { font-size: 12px; }
+  .grid-2x2 { grid-template-columns: 1fr; }
+  .cards.cols-4 { grid-template-columns: 1fr; }
+  .ai-grid { grid-template-columns: 1fr; }
+  .grid-5 { grid-template-columns: 1fr; }
+  .cover h1 { font-size: 20px; }
+  .cover p.subtitle { font-size: 13px; }
+  .closing blockquote { font-size: 16px; }
+  table.rcto { font-size: 12px; }
+  table.rcto th, table.rcto td { padding: 6px 8px; }
+  .nav button { width: 34px; height: 34px; }
+  .nav .counter { font-size: 12px; }
+  .topbar a.home { font-size: 11px; padding: 4px 10px; }
+  .topbar .label-materi { font-size: 9px; }
 }
 
 </style>
