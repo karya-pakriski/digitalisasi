@@ -1,365 +1,866 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Unduh Dokumen Pendukung Digitalisasi Pembelajaran</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>01. Pengantar — Digitalisasi Pembelajaran PAI</title>
+<style>
+  :root{
+    --warna-latar:#eef4f5;
+    --warna-panel:#ffffff;
+    --warna-panel-alt:#e7f1f2;
+    --warna-garis:#cddbde;
+    --ink:#132C33;
+    --muted:#587078;
+    --amber:#126E82;
+    --amber-light:#d7edf1;
+    --coral:#132C33;
+    --coral-light:#dde5e7;
+    --biru:#0f7f93;
+    --biru-light:#daf3f6;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;overflow:hidden;}
+  body{
+    margin:0;
+    font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+    font-size:28px;
+    line-height:1.5;
+    background:var(--warna-latar);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Segoe UI',system-ui,-apple-system,sans-serif;letter-spacing:-.01em;}
+  
+  .icon svg, .badge-icon svg, .pill-ic svg{width:65%;height:65%;display:block;}
+  .pill-ic{display:inline-flex;width:1.4em;height:1.4em;vertical-align:-.2em;}
+  .pill-ic svg{width:100%;height:100%;}
+  .nav button svg{width:45%;height:45%;}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(145deg, #f0f4ff 0%, #d9e2f0 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 30px 20px;
-        }
+  .deck{
+    max-width:1400px;
+    margin:0 auto;
+    height:100vh;
+    height:100dvh;
+    display:flex;
+    flex-direction:column;
+    background:var(--warna-panel);
+    border-left:1px solid var(--warna-garis);
+    border-right:1px solid var(--warna-garis);
+    overflow:hidden;
+  }
 
-        .container {
-            max-width: 900px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 32px;
-            padding: 40px 35px;
-            box-shadow: 0 25px 60px rgba(0, 20, 40, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
+  .topbar{
+    flex:none;
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    padding:clamp(16px,2.2vh,24px) clamp(32px,4.5vw,60px);
+    border-bottom:2px solid var(--warna-garis);
+    background:var(--warna-panel);
+  }
+  .topbar a.home{
+    display:inline-flex;align-items:center;gap:14px;
+    text-decoration:none;color:var(--ink);font-weight:700;
+    font-size:clamp(18px,2vh,24px);
+    padding:10px 24px;border:2px solid var(--warna-garis);border-radius:999px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .topbar a.home:hover{border-color:var(--amber);color:var(--amber);}
+  .topbar a.home svg{width:24px;height:24px;flex:none;}
+  .topbar .label-materi{
+    font-size:clamp(16px,1.8vh,20px);font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--muted);text-align:right;
+  }
 
-        .header {
-            text-align: center;
-            margin-bottom: 36px;
-        }
+  .progress{flex:none;height:5px;background:var(--warna-garis);}
+  .progress-bar{height:100%;background:var(--amber);width:4.3%;transition:width .3s ease;}
 
-        .header h1 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #0b2b4a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
+  .slides{flex:1 1 auto;min-height:0;position:relative;}
+  .slide{
+    position:absolute;inset:0;
+    display:none;
+    flex-direction:column;
+    padding:clamp(32px,5vh,72px) clamp(40px,7vw,90px);
+    overflow-y:auto;
+  }
+  .slide.active{display:flex;}
 
-        .header h1 i {
-            color: #1a73e8;
-            font-size: 34px;
-        }
+  /* COVER / CLOSING */
+  .slide.cover, .slide.closing{
+    justify-content:center;align-items:center;text-align:center;color:#fff;
+    background:var(--ink);
+    gap:clamp(16px,3vh,32px);
+  }
+  .tag-pill{
+    display:inline-flex;align-items:center;gap:16px;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);
+    padding:clamp(10px,1.5vh,16px) clamp(28px,3vw,44px);border-radius:999px;
+    font-size:clamp(18px,2.2vh,26px);font-weight:700;letter-spacing:.04em;
+  }
+  .cover h1{font-size:clamp(48px,8vh,88px);line-height:1.15;margin:0;font-weight:800;max-width:1000px;}
+  .cover p.subtitle{font-size:clamp(24px,3.2vh,38px);line-height:1.4;color:#e4f2f4;max-width:880px;margin:clamp(14px,2.5vh,28px) 0 0;}
+  .cover .footnote, .closing .footnote{font-size:clamp(18px,2vh,24px);color:#cfe7ea;margin-top:clamp(18px,3vh,36px);}
+  .closing .badge{
+    display:inline-flex;align-items:center;gap:16px;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);
+    padding:clamp(10px,1.5vh,16px) clamp(28px,3vw,44px);border-radius:999px;font-weight:700;
+    font-size:clamp(18px,2.2vh,26px);letter-spacing:.04em;margin-bottom:clamp(10px,2vh,20px);
+  }
+  .closing blockquote{font-size:clamp(28px,4vh,48px);font-style:italic;max-width:920px;line-height:1.4;margin:0;}
 
-        .header .sub {
-            color: #2c3e66;
-            font-size: 16px;
-            margin-top: 8px;
-            opacity: 0.8;
-            letter-spacing: 0.3px;
-        }
+  /* CONTENT SLIDES */
+  .slide-head{
+    flex:none;
+    display:flex;align-items:center;justify-content:space-between;
+    border-bottom:5px solid var(--amber);
+    padding-bottom:clamp(16px,2.2vh,28px);margin-bottom:clamp(24px,3.5vh,48px);gap:20px;
+  }
+  .slide-head h2{font-size:clamp(36px,5vh,60px);line-height:1.15;color:var(--ink);margin:0;font-weight:700;}
+  .eyebrow{font-size:clamp(16px,1.8vh,22px);color:var(--muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin:0 0 8px;}
 
-        .header .sub i {
-            margin-right: 6px;
-            color: #fbbc04;
-        }
+  .icon{
+    flex:none;width:clamp(60px,6vh,80px);height:clamp(60px,6vh,80px);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--amber-light);color:var(--amber);font-weight:700;font-size:clamp(28px,3.2vh,40px);
+  }
 
-        .file-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
+  .slide-body{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,3vh,40px);}
 
-        .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            padding: 16px 22px;
-            border-radius: 18px;
-            border: 1px solid #e9edf4;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-        }
+  /* CARDS - default (untuk 3 kolom) */
+  .cards{display:grid;gap:clamp(22px,3vh,38px);}
+  .cards.cols-2{grid-template-columns:repeat(2,1fr);}
+  .cards.cols-3{grid-template-columns:repeat(3,1fr);}
+  .cards.cols-4{grid-template-columns:repeat(2,1fr);}
+  @media(min-width:860px){.cards.cols-4{grid-template-columns:repeat(4,1fr);}}
+  @media(max-width:760px){.cards.cols-2,.cards.cols-3{grid-template-columns:1fr;}}
 
-        .file-item:hover {
-            border-color: #b3c9e5;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -8px rgba(26, 115, 232, 0.15);
-        }
+  .card{
+    background:var(--warna-panel-alt);
+    border-radius:20px;
+    padding:clamp(26px,3.2vh,44px) clamp(22px,2.6vw,36px);
+    border-top:6px solid var(--amber);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:14px;
+    height:100%;
+    justify-content:flex-start;
+  }
+  .card.flat{border-top:none;background:var(--warna-panel);border:2px solid var(--warna-garis);border-left:6px solid var(--amber);}
+  .card.danger{border-top-color:var(--coral);}
+  .card.warn{border-top-color:var(--amber);}
+  .card.blue{border-top-color:var(--biru);}
+  
+  .card h3{margin:0;font-size:clamp(26px,3.2vh,38px);line-height:1.25;color:var(--ink);font-weight:700;}
+  .card p{margin:0;color:var(--ink);font-size:clamp(20px,2.4vh,30px);line-height:1.5;}
+  .card ul{margin:8px 0 0;padding-left:0;list-style:none;font-size:clamp(18px,2.2vh,26px);line-height:1.5;width:100%;text-align:left;}
+  .card ul li{position:relative;padding-left:28px;margin-bottom:6px;}
+  .card ul li::before{content:"•";position:absolute;left:4px;color:var(--amber);font-weight:700;}
+  
+  .badge-icon{
+    width:clamp(60px,6.5vh,84px);
+    height:clamp(60px,6.5vh,84px);
+    border-radius:50%;
+    background:var(--amber-light);
+    color:var(--amber);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:clamp(28px,3.4vh,42px);
+    flex:none;
+    margin-bottom:4px;
+  }
+  .card.danger .badge-icon{background:var(--coral-light);color:var(--coral);}
+  .card.warn .badge-icon{background:var(--amber-light);color:var(--amber);}
+  .card.blue .badge-icon{background:var(--biru-light);color:var(--biru);}
 
-        .file-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
+  /* ROW-LIST (item dengan icon di samping) */
+  .row-list{display:flex;flex-direction:column;gap:clamp(18px,2.4vh,32px);}
+  .row-list .item{
+    display:flex;gap:26px;background:var(--warna-panel);border:2px solid var(--warna-garis);
+    border-left:6px solid var(--amber);border-radius:16px;
+    padding:clamp(20px,2.6vh,32px) clamp(24px,2.8vw,40px);align-items:flex-start;
+  }
+  .row-list .item .badge-icon{margin:0;flex:none;width:clamp(56px,6vh,76px);height:clamp(56px,6vh,76px);border-radius:50%;}
+  .row-list .item div h3{margin:0 0 6px;font-size:clamp(26px,3.2vh,38px);line-height:1.25;font-weight:700;color:var(--ink);}
+  .row-list .item div p{margin:0;font-size:clamp(20px,2.4vh,30px);line-height:1.5;color:var(--ink);}
 
-        .file-info .icon {
-            width: 44px;
-            height: 44px;
-            background: #eef4fe;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1a73e8;
-            font-size: 20px;
-        }
+  /* TABEL RCTO */
+  table.rcto{width:100%;border-collapse:collapse;font-size:clamp(20px,2.4vh,30px);line-height:1.5;}
+  table.rcto th{background:var(--amber);color:#fff;text-align:left;padding:clamp(18px,2.2vh,28px) 26px;}
+  table.rcto td{padding:clamp(18px,2.2vh,28px) 26px;border-bottom:2px solid var(--warna-garis);vertical-align:top;}
+  table.rcto tr:nth-child(even) td{background:var(--warna-panel-alt);}
+  table.rcto td em{color:var(--muted);}
 
-        .file-info .name {
-            font-weight: 600;
-            font-size: 17px;
-            color: #0b2b4a;
-        }
+  pre.code{
+    background:#26221c;color:#f0c896;border-radius:16px;
+    padding:clamp(18px,2.4vh,30px) clamp(24px,2.8vw,38px);
+    font-family:'JetBrains Mono','Consolas','Courier New',monospace;
+    font-size:clamp(18px,2.2vh,28px);
+    overflow-x:auto;margin:0;
+    border:2px solid #3a322a;
+  }
+  pre.code .val{color:#8ec7f0;}
 
-        .file-info .badge {
-            background: #e8edf5;
-            color: #2c3e66;
-            font-size: 12px;
-            font-weight: 500;
-            padding: 4px 12px;
-            border-radius: 30px;
-            margin-left: 6px;
-            letter-spacing: 0.3px;
-        }
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3vh,38px);min-height:0;}
+  @media(max-width:760px){.two-col{grid-template-columns:1fr;}}
 
-        .file-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+  .arabic{
+    font-family:'Traditional Arabic','Scheherazade New','Amiri',serif;
+    direction:rtl;text-align:right;font-size:clamp(36px,5vh,60px);line-height:1.8;
+    color:var(--ink);background:var(--biru-light);border-radius:16px;
+    padding:clamp(20px,2.6vh,36px) clamp(28px,3.2vw,48px);
+  }
+  .arabic-inline{font-family:'Traditional Arabic','Scheherazade New','Amiri',serif;font-size:1.6em;color:var(--biru);}
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 22px;
-            border: none;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            background: white;
-            color: #1a73e8;
-            border: 1.5px solid #1a73e8;
-        }
+  .center-note{text-align:center;font-size:clamp(18px,2.2vh,28px);color:var(--muted);margin-top:6px;}
 
-        .btn-primary {
-            background: #1a73e8;
-            color: white;
-            border: none;
-        }
+  /* AI GRID - 5 KOTAK */
+  .ai-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);
+    gap:clamp(14px,2vh,26px);
+  }
+  @media(max-width:860px){.ai-grid{grid-template-columns:repeat(2,1fr);}}
+  .ai-card{
+    background:var(--warna-panel);border:2px solid var(--warna-garis);border-radius:16px;
+    padding:clamp(18px,2.4vh,30px) clamp(20px,2.2vw,32px);
+    display:flex;flex-direction:column;gap:clamp(6px,.8vh,12px);
+    text-align:center;align-items:center;
+  }
+  .ai-card .letter{
+    width:clamp(56px,6vh,76px);height:clamp(56px,6vh,76px);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:800;color:#fff;font-size:clamp(26px,3vh,38px);
+  }
+  .ai-card h4{margin:8px 0 0;font-size:clamp(22px,2.6vh,34px);line-height:1.25;color:var(--ink);font-weight:700;}
+  .ai-card .pro{font-size:clamp(17px,2vh,24px);line-height:1.4;color:#1e7b5a;margin:0;}
+  .ai-card .con{font-size:clamp(17px,2vh,24px);line-height:1.4;color:var(--coral);margin:0;}
+  .ai-card .lbl{font-size:clamp(14px,1.6vh,20px);text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:6px 0 0;}
 
-        .btn-primary:hover {
-            background: #1557b0;
-            transform: scale(1.02);
-            box-shadow: 0 8px 20px rgba(26, 115, 232, 0.3);
-        }
+  /* NAV */
+  .nav{
+    flex:none;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+    padding:clamp(16px,2.2vh,24px) 36px;
+    border-top:2px solid var(--warna-garis);background:var(--warna-panel);
+  }
+  .nav button{
+    border:none;background:var(--amber);color:#fff;
+    width:clamp(56px,6vh,76px);height:clamp(56px,6vh,76px);
+    border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .15s ease, opacity .15s ease;
+  }
+  .nav button:hover:not(:disabled){background:#0c5a6b;}
+  .nav button:disabled{opacity:.3;cursor:not-allowed;}
+  .nav .counter{font-size:clamp(20px,2.4vh,30px);color:var(--muted);font-weight:700;}
+  .nav .title-hint{
+    font-size:clamp(18px,2.2vh,28px);
+    color:var(--muted);flex:1;text-align:center;display:none;font-weight:500;
+  }
+  @media(min-width:700px){.nav .title-hint{display:block;}}
 
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #c5d2e3;
-            color: #2c3e66;
-        }
+  /* =====================================================
+     CSS KOMPAK UNTUK SLIDE BERMASALAH
+     ===================================================== */
 
-        .btn-outline:hover {
-            background: #f0f4fe;
-            border-color: #1a73e8;
-        }
+  /* SLIDE COMPACT — mengurangi padding & gap */
+  .slide-compact {
+    padding: clamp(20px, 3vh, 40px) clamp(30px, 4vw, 60px);
+  }
+  .slide-compact .slide-head {
+    padding-bottom: clamp(10px, 1.5vh, 18px);
+    margin-bottom: clamp(14px, 2vh, 28px);
+  }
+  .slide-compact .slide-head h2 {
+    font-size: clamp(28px, 4vh, 44px);
+  }
+  .slide-compact .slide-body {
+    gap: clamp(12px, 1.8vh, 24px);
+  }
 
-        .btn-sm {
-            padding: 6px 14px;
-            font-size: 13px;
-            border-radius: 30px;
-        }
+  /* GRID 2x2 KHUSUS UNTUK 4 KOTAK */
+  .grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(14px, 1.8vh, 24px);
+  }
+  .grid-2x2 .box-2x2 {
+    background: var(--warna-panel-alt);
+    border-radius: 16px;
+    padding: clamp(14px, 1.8vh, 24px) clamp(14px, 1.6vw, 22px);
+    border-top: 4px solid var(--amber);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    height: 100%;
+    justify-content: flex-start;
+  }
+  .grid-2x2 .box-2x2.danger { border-top-color: var(--coral); }
+  .grid-2x2 .box-2x2.warn { border-top-color: var(--amber); }
+  .grid-2x2 .box-2x2.blue { border-top-color: var(--biru); }
+  .grid-2x2 .box-2x2 .icon-badge {
+    width: clamp(40px, 4.5vh, 56px);
+    height: clamp(40px, 4.5vh, 56px);
+    border-radius: 50%;
+    background: var(--amber-light);
+    color: var(--amber);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(18px, 2.2vh, 28px);
+    flex: none;
+  }
+  .grid-2x2 .box-2x2.danger .icon-badge { background: var(--coral-light); color: var(--coral); }
+  .grid-2x2 .box-2x2.warn .icon-badge { background: var(--amber-light); color: var(--amber); }
+  .grid-2x2 .box-2x2.blue .icon-badge { background: var(--biru-light); color: var(--biru); }
+  .grid-2x2 .box-2x2 h3 {
+    font-size: clamp(18px, 2.2vh, 28px);
+    margin: 0;
+    line-height: 1.25;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .grid-2x2 .box-2x2 p {
+    font-size: clamp(15px, 1.8vh, 22px);
+    margin: 0;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .grid-2x2 .box-2x2 .sub-note {
+    font-size: clamp(13px, 1.5vh, 18px);
+    margin-top: 4px;
+    color: var(--amber);
+  }
 
-        .btn-success {
-            background: #0f7b3a;
-            color: white;
-            border: none;
-        }
+  /* GRID 5 KHUSUS UNTUK AI */
+  .grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(10px, 1.4vh, 18px);
+  }
+  @media(max-width:860px){ .grid-5 { grid-template-columns: repeat(2, 1fr); } }
+  .grid-5 .ai-box {
+    background: var(--warna-panel);
+    border: 2px solid var(--warna-garis);
+    border-radius: 14px;
+    padding: clamp(12px, 1.6vh, 22px) clamp(12px, 1.4vw, 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+  }
+  .grid-5 .ai-box .letter {
+    width: clamp(40px, 4.5vh, 56px);
+    height: clamp(40px, 4.5vh, 56px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: #fff;
+    font-size: clamp(18px, 2.2vh, 28px);
+  }
+  .grid-5 .ai-box h4 {
+    font-size: clamp(16px, 2vh, 26px);
+    margin: 4px 0 0;
+    line-height: 1.25;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .grid-5 .ai-box .lbl {
+    font-size: clamp(11px, 1.2vh, 16px);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--muted);
+    font-weight: 700;
+    margin: 4px 0 0;
+  }
+  .grid-5 .ai-box .pro {
+    font-size: clamp(13px, 1.5vh, 18px);
+    line-height: 1.4;
+    color: #1e7b5a;
+    margin: 0;
+  }
+  .grid-5 .ai-box .con {
+    font-size: clamp(13px, 1.5vh, 18px);
+    line-height: 1.4;
+    color: var(--coral);
+    margin: 0;
+  }
 
-        .btn-success:hover {
-            background: #0b5e2c;
-            transform: scale(1.02);
-            box-shadow: 0 8px 20px rgba(15, 123, 58, 0.3);
-        }
+  /* RCTO COMPACT — untuk slide 14 (Rumus Perintah AI) */
+  .rcto-compact table.rcto {
+    font-size: clamp(16px, 2vh, 24px);
+  }
+  .rcto-compact table.rcto th,
+  .rcto-compact table.rcto td {
+    padding: clamp(10px, 1.4vh, 18px) clamp(14px, 1.6vw, 22px);
+  }
+  .rcto-compact table.rcto td em {
+    font-size: 0.9em;
+  }
 
-        .footer-note {
-            margin-top: 32px;
-            padding-top: 24px;
-            border-top: 1px dashed #d0dbea;
-            text-align: center;
-            color: #3a4f6e;
-            font-size: 14px;
-        }
+  /* SLIDE KHUSUS 21 — Menulis Huruf Arab dengan Jelas */
+  .slide-arab .arabic {
+    font-size: clamp(24px, 3.5vh, 40px);
+    padding: clamp(12px, 1.6vh, 22px) clamp(16px, 2vw, 28px);
+  }
+  .slide-arab .arabic-inline {
+    font-size: 1.3em;
+  }
+  .slide-arab .two-col {
+    gap: clamp(12px, 1.6vh, 22px);
+  }
+  .slide-arab .card {
+    padding: clamp(12px, 1.6vh, 22px) clamp(14px, 1.6vw, 22px);
+    gap: 8px;
+  }
+  .slide-arab .card h3 {
+    font-size: clamp(18px, 2.2vh, 28px);
+  }
+  .slide-arab .card p {
+    font-size: clamp(15px, 1.8vh, 22px);
+  }
+  .slide-arab .badge-icon {
+    width: clamp(40px, 4.5vh, 56px);
+    height: clamp(40px, 4.5vh, 56px);
+    font-size: clamp(18px, 2.2vh, 28px);
+  }
+  .slide-arab .eyebrow {
+    font-size: clamp(13px, 1.5vh, 18px);
+  }
 
-        .footer-note i {
-            margin-right: 6px;
-            color: #fbbc04;
-        }
+  /* SLIDE KHUSUS 22 — KESIMPULAN (3 kotak horizontal proporsional) */
+  .slide-kesimpulan {
+    padding: clamp(18px, 2.8vh, 36px) clamp(30px, 4vw, 60px);
+  }
+  .slide-kesimpulan .slide-head {
+    padding-bottom: clamp(10px, 1.5vh, 18px);
+    margin-bottom: clamp(14px, 2vh, 28px);
+  }
+  .slide-kesimpulan .slide-head h2 {
+    font-size: clamp(28px, 4vh, 44px);
+  }
+  .slide-kesimpulan .slide-body {
+    gap: clamp(12px, 1.6vh, 22px);
+  }
+  .slide-kesimpulan .cards {
+    gap: clamp(12px, 1.6vh, 22px);
+  }
+  .slide-kesimpulan .card {
+    padding: clamp(12px, 1.6vh, 20px) clamp(12px, 1.4vw, 18px);
+    gap: 6px;
+    border-top-width: 4px;
+    border-radius: 14px;
+  }
+  .slide-kesimpulan .card h3 {
+    font-size: clamp(18px, 2.2vh, 28px);
+  }
+  .slide-kesimpulan .card p {
+    font-size: clamp(15px, 1.8vh, 22px);
+  }
+  .slide-kesimpulan .badge-icon {
+    width: clamp(40px, 4.5vh, 56px);
+    height: clamp(40px, 4.5vh, 56px);
+    font-size: clamp(18px, 2.2vh, 28px);
+  }
+  .slide-kesimpulan .card-dark {
+    background: #132C33;
+    color: #fff;
+    border-top: none;
+    padding: clamp(14px, 2vh, 28px) clamp(18px, 2vw, 30px);
+    border-radius: 16px;
+    text-align: center;
+  }
+  .slide-kesimpulan .card-dark p {
+    font-style: italic;
+    font-size: clamp(18px, 2.4vh, 30px);
+    line-height: 1.4;
+    color: #e4f2f4;
+    margin: 0;
+  }
 
-        @media (max-width: 700px) {
-            .container { padding: 24px 18px; }
-            .file-item {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-            .file-actions {
-                justify-content: flex-start;
-            }
-            .header h1 { font-size: 26px; }
-        }
-    </style>
+/* ============================================================
+   RESPONSIVE: HP & TABLET — untuk praktik-buku-ajar.html
+   ============================================================ */
+
+/* Tablet (≤ 1024px) */
+@media (max-width: 1024px) {
+  .layar-presentasi { max-width: 100%; border-radius: 16px; }
+  .hero { padding: clamp(24px, 4vw, 40px) clamp(20px, 3vw, 32px); }
+  .hero h1 { font-size: clamp(24px, 3.6vw, 34px); }
+  .step-card { padding: 16px 18px; gap: 16px; }
+  .step-card .step-num { width: 38px; height: 38px; font-size: 16px; }
+  .step-card .step-body h2 { font-size: 18px; }
+  .step-card .step-body p { font-size: 14px; }
+  .instruction-box { font-size: 14px; padding: 10px 14px; }
+  .btn { font-size: 13px; padding: 6px 16px; }
+  .sub-grid-buttons { gap: 6px 10px; }
+}
+
+/* HP (≤ 768px) */
+@media (max-width: 768px) {
+  body { padding: 10px; }
+  .layar-presentasi { border-radius: 12px; }
+  .topbar { padding: 10px 14px; flex-wrap: wrap; gap: 6px; }
+  .topbar a.home { font-size: 13px; padding: 6px 14px; }
+  .topbar .label-materi { font-size: 10px; }
+  .hero { padding: 16px 14px; }
+  .hero .badge-hero { font-size: 10px; padding: 4px 12px; margin-bottom: 8px; }
+  .hero h1 { font-size: clamp(18px, 4.2vw, 24px); }
+  .hero p { font-size: 13px; }
+  .konten-isi { padding: 14px 12px 20px; gap: 14px; }
+  .step-card { flex-direction: column; align-items: stretch; padding: 14px 16px; gap: 10px; }
+  .step-card .step-num { width: 34px; height: 34px; font-size: 14px; align-self: flex-start; }
+  .step-card .step-body h2 { font-size: 16px; }
+  .step-card .step-body p { font-size: 13px; }
+  .instruction-box { font-size: 13px; padding: 8px 12px; border-left-width: 3px; }
+  .download-group { flex-direction: column; align-items: stretch; gap: 8px; }
+  .download-group .label-grup { font-size: 12px; }
+  .btn { font-size: 12px; padding: 6px 14px; justify-content: center; }
+  .sub-grid-buttons { flex-direction: column; align-items: stretch; gap: 6px; }
+  .footer { flex-direction: column; text-align: center; gap: 4px; font-size: 11px; padding: 12px 14px; }
+}
+
+/* HP kecil (≤ 480px) */
+@media (max-width: 480px) {
+  .hero h1 { font-size: 16px; }
+  .hero p { font-size: 12px; }
+  .step-card { padding: 12px; }
+  .step-card .step-body h2 { font-size: 14px; }
+  .step-card .step-body p { font-size: 12px; }
+  .instruction-box { font-size: 12px; padding: 6px 10px; }
+  .btn { font-size: 11px; padding: 5px 12px; }
+  .btn-sm { font-size: 11px; padding: 4px 10px; }
+}
+
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- HEADER -->
-        <div class="header">
-            <h1>
-                <i class="fas fa-cloud-download-alt"></i>
-                Dokumen Pendukung Digitalisasi Pembelajaran
-            </h1>
-            <div class="sub">
-                <i class="fas fa-google-drive"></i> Klik tombol unduh untuk mengunduh file langsung
-            </div>
+<div class="deck">
+
+  <div class="topbar">
+    <a href="index.html" class="home">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10"></path></svg>
+      Beranda
+    </a>
+    <span class="label-materi">Materi 01 · Pengantar</span>
+  </div>
+
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="slides" id="slides">
+
+    <!-- SLIDE 1: COVER -->
+    <section class="slide cover active">
+      <span class="tag-pill"><span class="pill-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 21h18"/><path d="M5 21V12a7 7 0 0114 0v9"/><circle cx="12" cy="4.6" r="1.3"/><path d="M12 5.9v2.4"/><path d="M9 21v-4a3 3 0 016 0v4"/></svg></span> PEMBEKALAN GURU PAI SD/TK</span>
+      <h1>Digitalisasi & Pemanfaatan AI dalam Pembelajaran PAI</h1>
+      <p class="subtitle">Mengajar Agama dengan Mudah & Menyenangkan di Era Digital — Membantu Guru Bekerja Lebih Cepat, Modul Lebih Rapi, Tanpa Kehilangan Sentuhan Mendidik</p>
+      <p class="footnote"><span class="pill-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 6.2c-1.6-1-4.2-1.4-6.2-1.4v13.4c2 0 4.6.4 6.2 1.4m0-13.4c1.6-1 4.2-1.4 6.2-1.4v13.4c-2 0-4.6.4-6.2 1.4m0-13.4v13.4"/></svg></span> Merujuk Panduan Kementerian Agama RI</p>
+    </section>
+
+    <!-- SLIDE 2 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Mengenal Murid Kita Saat Ini</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M2.4 12S6 5.6 12 5.6 21.6 12 21.6 12 18 18.4 12 18.4 2.4 12 2.4 12z"/><circle cx="12" cy="12" r="2.9"/></svg></span></div>
+      <div class="slide-body row-list">
+        <div class="item"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="7.2" y="2.4" width="9.6" height="19.2" rx="2"/><line x1="11" y1="18.2" x2="13" y2="18.2"/></svg></span><div><h3>Akrab dengan Teknologi</h3><p>Sangat akrab dengan HP & internet sejak kecil.</p></div></div>
+        <div class="item"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path fill="currentColor" stroke="none" d="M7.5 5.2v13.6l11-6.8-11-6.8z"/></svg></span><div><h3>Suka Visual, Bukan Teks Panjang</h3><p>Lebih suka belajar lewat gambar & video pendek, bukan teks panjang.</p></div></div>
+        <div class="item" style="border-left-color:var(--coral);"><span class="badge-icon" style="background:var(--coral-light);color:var(--coral);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="9.4"/><path d="M9.1 9.2a2.9 2.9 0 115.2 1.8c-.7.8-1.8 1.2-1.8 2.6"/><line x1="12.3" y1="16.7" x2="12.3" y2="16.8"/></svg></span><div><h3>Tugas Kita</h3><p>Bagaimana membuat pelajaran agama tetap menarik & tidak membosankan?</p></div></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Perubahan Cara Mengajar</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8.2h14.5m0 0l-4-4m4 4l-4 4"/><path d="M21 15.8H6.5m0 0l4 4m-4-4l4-4"/></svg></span></div>
+      <div class="slide-body cards cols-3">
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8.2h14.5m0 0l-4-4m4 4l-4 4"/></svg></span><h3>Guru Ceramah → Siswa Aktif</h3><p>Guru mendampingi, anak aktif mencari tahu & berdiskusi.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="9.4"/><path d="M8.4 14.4s1.6 2 3.6 2 3.6-2 3.6-2"/></svg></span><h3>Hafal → Paham Makna</h3><p>Tidak hanya menghafal, tapi memastikan paham & mau mengamalkan.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="3"/><path d="M12 2.6v2.3M12 19.1v2.3M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2.6 12h2.3M19.1 12h2.3M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg></span><h3>Satu Cara → Beragam Cara</h3><p>Setiap anak unik. Cara mengajar harus sesuai kemampuan mereka.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Apa Saja yang Berubah?</h2><span class="icon">3</span></div>
+      <div class="slide-body cards cols-3">
+        <div class="card flat"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M6 3h11a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z"/><line x1="8.2" y1="7.4" x2="15" y2="7.4"/><line x1="8.2" y1="10.8" x2="15" y2="10.8"/></svg></span><h3>1. Materi Belajar</h3><p>Bahan ajar tidak hanya buku cetak, tapi juga internet yang kaya gambar & video.</p></div>
+        <div class="card flat"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 8.2h14.5m0 0l-4-4m4 4l-4 4"/><path d="M21 15.8H6.5m0 0l4 4m-4-4l4-4"/></svg></span><h3>2. Gaya Mengajar</h3><p>Lebih banyak diskusi, kerja kelompok, & pemecahan masalah sehari-hari.</p></div>
+        <div class="card flat"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="4.4" width="18" height="11" rx="1.6"/><path d="M2 19h20"/></svg></span><h3>3. Alat Bantu</h3><p>Menggunakan aplikasi interaktif, bukan sekadar memindahkan buku ke PDF.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: MANFAAT — PAKAI SLIDE-COMPACT + GRID-2X2 -->
+    <section class="slide slide-compact">
+      <div class="slide-head"><h2>Manfaat Belajar Lewat Teknologi</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 12.6l5.4 5.4L20 6.6"/></svg></span></div>
+      <div class="slide-body grid-2x2">
+        <div class="box-2x2"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="9.4"/><path d="M2.6 12h18.8M12 2.6c2.5 2.6 3.7 5.9 3.7 9.4s-1.2 6.8-3.7 9.4c-2.5-2.6-3.7-5.9-3.7-9.4S9.5 5.2 12 2.6z"/></svg></span><h3>Mudah Diakses</h3><p>Belajar agama bisa diakses kapan saja & di mana saja lewat HP.</p></div>
+        <div class="box-2x2"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="9.4"/><path d="M8.4 14.4s1.6 2 3.6 2 3.6-2 3.6-2"/><line x1="9" y1="9.6" x2="9" y2="9.7"/><line x1="15" y1="9.6" x2="15" y2="9.7"/></svg></span><h3>Lebih Seru</h3><p>Belajar tidak membosankan dengan kuis online & game edukasi Islami.</p></div>
+        <div class="box-2x2"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c1.4-3.6 4.2-5.4 7.4-5.4s6 1.8 7.4 5.4"/></svg></span><h3>Sesuai Minat</h3><p>Guru bisa memberi tugas sesuai kecepatan belajar masing-masing anak.</p></div>
+        <div class="box-2x2"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 2.5l7.4 3v6c0 5-3.2 8.4-7.4 10-4.2-1.6-7.4-5-7.4-10v-6l7.4-3z"/><path d="M9 12l2 2 4-4.2"/></svg></span><h3>Belajar Etika Online</h3><p>Momen tepat mengajari anak berinternet yang sopan & sesuai agama.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: HAMBATAN — PAKAI SLIDE-COMPACT + GRID-2X2 -->
+    <section class="slide slide-compact">
+      <div class="slide-head"><h2>Hambatan yang Sering Terjadi</h2><span class="icon">!</span></div>
+      <div class="slide-body grid-2x2">
+        <div class="box-2x2 danger"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><line x1="4" y1="19" x2="4" y2="15.2"/><line x1="9.4" y1="19" x2="9.4" y2="11"/><line x1="14.8" y1="19" x2="14.8" y2="7"/><line x1="20.2" y1="19" x2="20.2" y2="3"/></svg></span><h3>Sinyal & Alat</h3><p>Sinyal jelek & tidak semua murid punya HP sendiri.</p></div>
+        <div class="box-2x2 danger"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 9l10-4.4L22 9l-10 4.4L2 9z"/><path d="M6 11.2v4.2c0 1.5 2.7 2.9 6 2.9s6-1.4 6-2.9v-4.2"/><path d="M22 9v6"/></svg></span><h3>Keterampilan Guru</h3><p>Guru masih perlu beradaptasi & belajar memakai aplikasi baru.</p></div>
+        <div class="box-2x2 danger"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="10.4" cy="10.4" r="6.4"/><line x1="15.2" y1="15.2" x2="20.4" y2="20.4"/></svg></span><h3>Gampang Percaya</h3><p>Murid kadang lebih percaya jawaban dari internet daripada gurunya.</p></div>
+        <div class="box-2x2 danger"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2.4" y="8" width="19.2" height="9" rx="4.5"/><line x1="7" y1="11" x2="7" y2="14"/><line x1="5.5" y1="12.5" x2="8.5" y2="12.5"/><circle cx="15.6" cy="11.4" r="0.9" fill="currentColor" stroke="none"/><circle cx="17.6" cy="13.6" r="0.9" fill="currentColor" stroke="none"/></svg></span><h3>Banyak Gangguan</h3><p>Anak mudah teralihkan main game saat memegang HP.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: PEDOMAN — PAKAI SLIDE-COMPACT + GRID-2X2 -->
+    <section class="slide slide-compact">
+      <div class="slide-head"><h2>Pedoman Mengajar Menggunakan Teknologi</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><line x1="12" y1="3" x2="12" y2="21"/><line x1="5" y1="7" x2="19" y2="7"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><line x1="9" y1="21" x2="15" y2="21"/></svg></span></div>
+      <div class="slide-body grid-2x2">
+        <div class="box-2x2"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><line x1="12" y1="3" x2="12" y2="21"/><line x1="5" y1="7" x2="19" y2="7"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><line x1="9" y1="21" x2="15" y2="21"/></svg></span><h3>Sesuai Syariat</h3><p>Pastikan aplikasi & cara mengajar tidak melanggar aturan agama.</p></div>
+        <div class="box-2x2"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.4 12.4l3 3 6-6.4"/></svg></span><h3>Cek Sumbernya</h3><p>Pastikan materi dari internet berasal dari ustaz atau sumber jelas ilmunya.</p></div>
+        <div class="box-2x2"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 19h18"/><path d="M4 15l5-5 4 3 7-8"/><path d="M15 5h5v5"/></svg></span><h3>Bikin Semangat</h3><p>Gunakan teknologi agar murid makin rajin ibadah, bukan malas.</p></div>
+        <div class="box-2x2"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M2.4 12S6 5.6 12 5.6 21.6 12 21.6 12 18 18.4 12 18.4 2.4 12 2.4 12z"/><circle cx="12" cy="12" r="2.9"/></svg></span><h3>Pantau Akhlak</h3><p>Pantau nilai ujian & perkembangan sikap baik murid setiap hari.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Guru Harus Mulai dari Mana?</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path fill="currentColor" stroke="none" d="M7.5 5.2v13.6l11-6.8-11-6.8z"/></svg></span></div>
+      <div class="slide-body cards cols-2">
+        <div class="card flat"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 6.2c-1.6-1-4.2-1.4-6.2-1.4v13.4c2 0 4.6.4 6.2 1.4m0-13.4c1.6-1 4.2-1.4 6.2-1.4v13.4c-2 0-4.6.4-6.2 1.4m0-13.4v13.4"/></svg></span><h3>1. Pakai yang Sudah Ada</h3><p>Manfaatkan aplikasi gratis & siap pakai untuk kelas kita.</p><p style="margin-top:8px;color:var(--amber);">✓ Contoh: video YouTube, kuis Quizizz.</p></div>
+        <div class="card flat"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 20l1-4.4L15.4 5 19 8.6 8.6 19 4 20z"/><line x1="13.2" y1="6.8" x2="17.2" y2="10.8"/></svg></span><h3>2. Coba Bikin Sendiri</h3><p>Mulai berkreasi membuat materi sendiri yang lebih pas untuk murid kita.</p><p style="margin-top:8px;color:var(--amber);">✓ Contoh: rekaman HP, ringkasan bergambar di Canva.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Contoh Cara Mengajar Seru</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path fill="currentColor" stroke="none" d="M12 2.6l2.9 6 6.5.6-4.9 4.4 1.5 6.4L12 16.8l-6 3.2 1.5-6.4-4.9-4.4 6.5-.6L12 2.6z"/></svg></span></div>
+      <div class="slide-body cards cols-4">
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path fill="currentColor" stroke="none" d="M7.5 5.2v13.6l11-6.8-11-6.8z"/></svg></span><h3>Nonton Video</h3><p>Tonton video Islami pendek, lalu diskusikan pesan moralnya.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="9" r="5.5"/><path d="M9 14l-2 7 5-2.5 5 2.5-2-7"/></svg></span><h3>Kuis Berhadiah</h3><p>Buat soal online dengan poin & peringkat agar lebih semangat.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 3a9 9 0 100 18c1.2 0 2-.9 2-2 0-.7-.5-1.3-.5-2.1 0-1 .8-1.7 1.8-1.7H17a4 4 0 004-4c0-4.4-4-8.2-9-8.2z"/><circle cx="7.6" cy="10.6" r="1" fill="currentColor" stroke="none"/><circle cx="9.6" cy="7.2" r="1" fill="currentColor" stroke="none"/><circle cx="14.2" cy="7.2" r="1" fill="currentColor" stroke="none"/></svg></span><h3>Bikin Karya</h3><p>Tugas poster dakwah atau video pesan kebaikan di media sosial.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 11a8 8 0 10-2.3 5.6"/><path d="M20 5v6h-6"/></svg></span><h3>Belajar Campuran</h3><p>Belajar langsung di kelas & tugas tambahan lewat grup WA.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Memanfaatkan AI (Kecerdasan Buatan)</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="5" y="8" width="14" height="11" rx="2.5"/><line x1="12" y1="3.4" x2="12" y2="8"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1.1" fill="currentColor" stroke="none"/><line x1="9" y1="17" x2="15" y2="17"/><line x1="2.4" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.6" y2="12"/></svg></span></div>
+      <div class="slide-body row-list">
+        <div class="item"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="5" y="8" width="14" height="11" rx="2.5"/><line x1="12" y1="3.4" x2="12" y2="8"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1.1" fill="currentColor" stroke="none"/><line x1="9" y1="17" x2="15" y2="17"/><line x1="2.4" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.6" y2="12"/></svg></span><div><h3>Hanya Asisten Guru</h3><p>AI (ChatGPT, Claude, dll.) posisinya sebagai Asisten, bukan pengganti guru.</p></div></div>
+        <div class="item"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 3l1.4 4.6L18 9l-4.6 1.4L12 15l-1.4-4.6L6 9l4.6-1.4L12 3z"/><path d="M19 15l.6 2.2L21.8 18l-2.2.6-.6 2.2-.6-2.2-2.2-.6 2.2-.6z"/></svg></span><div><h3>Merangkum & Membuat Draf</h3><p>Sangat cocok membantu merangkum materi & membuat draf soal dengan cepat.</p></div></div>
+        <div class="item"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.3 1 2.1h5c0-.8.4-1.6 1-2.1A6 6 0 0012 3z"/></svg></span><div><h3>Mencari Ide Baru</h3><p>Membantu mencari ide permainan di kelas atau contoh cerita Islami.</p></div></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: MACAM AI — PAKAI SLIDE-COMPACT + GRID-5 -->
+    <section class="slide slide-compact">
+      <div class="slide-head"><h2>Macam-Macam Aplikasi AI untuk Guru</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="13" height="13" rx="2"/><path d="M8 21h10a2 2 0 002-2V9"/></svg></span></div>
+      <div class="slide-body" style="gap:12px;">
+        <div class="card flat" style="margin-bottom:2px;padding:clamp(12px,1.6vh,22px) clamp(16px,1.8vw,24px);">
+          <h3 style="margin-top:0;font-size:clamp(20px,2.4vh,32px);">Persamaannya</h3>
+          <p style="font-size:clamp(16px,1.8vh,24px);">Semua bisa diajak "ngobrol" seperti asisten pribadi: membantu menulis, merangkum, & mencari ide dengan cepat, gratis & bisa diakses HP/Komputer.</p>
         </div>
-
-        <!-- DAFTAR FILE -->
-        <div class="file-grid">
-
-            <!-- 1. Prompt -->
-            <div class="file-item">
-                <div class="file-info">
-                    <div class="icon"><i class="fas fa-file-alt"></i></div>
-                    <span class="name">1. Prompt</span>
-                    <span class="badge">.md</span>
-                </div>
-                <div class="file-actions">
-                    <a href="https://drive.google.com/uc?export=download&id=1Fy4EJjuyBi2XLz6SL_h8q7SncmsQBSxv" class="btn btn-primary btn-sm" download>
-                        <i class="fas fa-download"></i> Unduh
-                    </a>
-                </div>
-            </div>
-
-            <!-- 2. ATP Kelas 1 -->
-            <div class="file-item">
-                <div class="file-info">
-                    <div class="icon"><i class="fas fa-file-word"></i></div>
-                    <span class="name">2. ATP Kelas 1</span>
-                    <span class="badge">.docx</span>
-                </div>
-                <div class="file-actions">
-                    <a href="https://docs.google.com/document/d/1ZaKgES86LJhNW-kTq4_tNCSjgNUbOJe4/export?format=docx" class="btn btn-primary btn-sm" download>
-                        <i class="fas fa-download"></i> Unduh
-                    </a>
-                </div>
-            </div>
-
-            <!-- 3. ATP Kelas 2 -->
-            <div class="file-item">
-                <div class="file-info">
-                    <div class="icon"><i class="fas fa-file-word"></i></div>
-                    <span class="name">3. ATP Kelas 2</span>
-                    <span class="badge">.docx</span>
-                </div>
-                <div class="file-actions">
-                    <a href="https://docs.google.com/document/d/1GV3IxWUfTX_gWGAGpsQlEz9kjvAEXB6e/export?format=docx" class="btn btn-primary btn-sm" download>
-                        <i class="fas fa-download"></i> Unduh
-                    </a>
-                </div>
-            </div>
-
-            <!-- 4. ATP Kelas 3 -->
-            <div class="file-item">
-                <div class="file-info">
-                    <div class="icon"><i class="fas fa-file-word"></i></div>
-                    <span class="name">4. ATP Kelas 3</span>
-                    <span class="badge">.docx</span>
-                </div>
-                <div class="file-actions">
-                    <a href="https://docs.google.com/document/d/1TkXKjGbitmmsne0Wj8fsBOhIFsMxgzIQ/export?format=docx" class="btn btn-primary btn-sm" download>
-                        <i class="fas fa-download"></i> Unduh
-                    </a>
-                </div>
-            </div>
-
-            <!-- 5. ATP Kelas 4 -->
-            <div class="file-item">
-                <div class="file-info">
-                    <div class="icon"><i class="fas fa-file-word"></i></div>
-                    <span class="name">5. ATP Kelas 4</span>
-                    <span class="badge">.docx</span>
-                </div>
-                <div class="file-actions">
-                    <a href="https://docs.google.com/document/d/1qOIVDsEHzpi4xOmeoLYDFG5cDP6GfdhT/export?format=docx" class="btn btn-primary btn-sm" download>
-                        <i class="fas fa-download"></i> Unduh
-                    </a>
-                </div>
-            </div>
-
-            <!-- 6. ATP Kelas 5 -->
-            <div class="file-item">
-                <div class="file-info">
-                    <div class="icon"><i class="fas fa-file-word"></i></div>
-                    <span class="name">6. ATP Kelas 5</span>
-                    <span class="badge">.docx</span>
-                </div>
-                <div class="file-actions">
-                    <a href="https://docs.google.com/document/d/1J-6QDYNDRAtjo_muJnX15onD9-o3zStm/export?format=docx" class="btn btn-primary btn-sm" download>
-                        <i class="fas fa-download"></i> Unduh
-                    </a>
-                </div>
-            </div>
-
-            <!-- 7. ATP Kelas 6 -->
-            <div class="file-item">
-                <div class="file-info">
-                    <div class="icon"><i class="fas fa-file-word"></i></div>
-                    <span class="name">7. ATP Kelas 6</span>
-                    <span class="badge">.docx</span>
-                </div>
-                <div class="file-actions">
-                    <a href="https://docs.google.com/document/d/11Egp-J653rFRYBeH5_x76CgJkAjwqX_n/export?format=docx" class="btn btn-primary btn-sm" download>
-                        <i class="fas fa-download"></i> Unduh
-                    </a>
-                </div>
-            </div>
-
-            <!-- 8. Dokumen Pendukung -->
-            <div class="file-item">
-                <div class="file-info">
-                    <div class="icon"><i class="fas fa-file-pdf"></i></div>
-                    <span class="name">8. Dokumen Pendukung</span>
-                    <span class="badge">.docx</span>
-                </div>
-                <div class="file-actions">
-                    <a href="https://docs.google.com/document/d/1DI1HMVhFm1ffZ5IkKDJL8a1rli4FctQM/export?format=docx" class="btn btn-primary btn-sm" download>
-                        <i class="fas fa-download"></i> Unduh
-                    </a>
-                </div>
-            </div>
-
+        <div class="grid-5">
+          <div class="ai-box"><span class="letter" style="background:#3d76a1;">C</span><h4>ChatGPT</h4><span class="lbl">Kelebihan</span><p class="pro">Paling populer & serbaguna.</p><span class="lbl">Kelemahan</span><p class="con">Versi gratis terbatas.</p></div>
+          <div class="ai-box"><span class="letter" style="background:#126E82;">A</span><h4>Claude</h4><span class="lbl">Kelebihan</span><p class="pro">Rapi untuk dokumen panjang.</p><span class="lbl">Kelemahan</span><p class="con">Kurang populer di Indonesia.</p></div>
+          <div class="ai-box"><span class="letter" style="background:#3c8f68;">G</span><h4>Gemini</h4><span class="lbl">Kelebihan</span><p class="pro">Terhubung Google Docs/Drive.</p><span class="lbl">Kelemahan</span><p class="con">Jawaban kurang detail.</p></div>
+          <div class="ai-box"><span class="letter" style="background:#7c62b8;">D</span><h4>DeepSeek</h4><span class="lbl">Kelebihan</span><p class="pro">Gratis, cepat, bagus logika.</p><span class="lbl">Kelemahan</span><p class="con">Perlu cek konteks budaya RI.</p></div>
+          <div class="ai-box"><span class="letter" style="background:#b8574d;">D</span><h4>Dola</h4><span class="lbl">Kelebihan</span><p class="pro">Praktis lewat HP: rangkum, gambar, jadwal.</p><span class="lbl">Kelemahan</span><p class="con">Fitur dokumen panjang kurang.</p></div>
         </div>
+        <p class="center-note" style="font-size:clamp(15px,1.8vh,22px);">Pilih salah satu sesuai kenyamanan — yang terpenting tetap ikuti rambu-rambu.</p>
+      </div>
+    </section>
 
-        <!-- FOOTER -->
-        <div class="footer-note">
-            <i class="fas fa-info-circle"></i>
-            Semua file diunduh dalam format asli (.md untuk Prompt, .docx untuk ATP dan Dokumen Pendukung).
-            Pastikan dokumen telah diatur izinnya agar dapat diakses oleh siapa pun.
+    <!-- SLIDE 12 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Hati-Hati Saat Menggunakan AI</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 3.4L22 20.6H2L12 3.4z"/><line x1="12" y1="10" x2="12" y2="14.6"/><line x1="12" y1="17.2" x2="12" y2="17.3"/></svg></span></div>
+      <div class="slide-body cards cols-3">
+        <div class="card warn"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M6 3h11a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z"/><line x1="8.2" y1="7.4" x2="15" y2="7.4"/><line x1="8.2" y1="10.8" x2="15" y2="10.8"/></svg></span><h3>Cek Kebenarannya</h3><p>Jawaban AI tentang agama tidak selalu benar. Wajib dicek ulang agar tidak salah ajar.</p></div>
+        <div class="card warn"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="9.4"/><line x1="5.6" y1="18.4" x2="18.4" y2="5.6"/></svg></span><h3>Tidak Punya Hati</h3><p>Komputer tidak punya perasaan. AI tidak bisa mencontohkan akhlak & kasih sayang guru.</p></div>
+        <div class="card warn"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M6 2.5h8l4 4v14.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-17.5a1 1 0 011-1z"/><path d="M14 2.5V7h4"/><line x1="8" y1="12.2" x2="16" y2="12.2"/><line x1="8" y1="15.6" x2="16" y2="15.6"/></svg></span><h3>Bahaya Nyontek</h3><p>Guru harus jeli, murid bisa malas berpikir jika terbiasa menyalin jawaban dari AI.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 13 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Pola Pikir: AI Sebagai Asisten Guru</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="5" y="8" width="14" height="11" rx="2.5"/><line x1="12" y1="3.4" x2="12" y2="8"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1.1" fill="currentColor" stroke="none"/><line x1="9" y1="17" x2="15" y2="17"/><line x1="2.4" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.6" y2="12"/></svg></span></div>
+      <div class="slide-body cards cols-3">
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="3"/><path d="M12 2.6v2.3M12 19.1v2.3M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2.6 12h2.3M19.1 12h2.3M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg></span><h3>Hanya Asisten</h3><p>AI butuh perintah jelas dari guru. Jika perintah asal, hasilnya juga asal.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 20.4s-7.8-4.8-7.8-10.8a4.7 4.7 0 018-3.5A4.7 4.7 0 0119.8 9.6c0 6-7.8 10.8-7.8 10.8z"/></svg></span><h3>Guru Tetap Utama</h3><p>AI hanya bantu mengetik & cari ide. Mendidik akhlak & memberi kasih sayang tetap tugas guru.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 2.5l7.4 3v6c0 5-3.2 8.4-7.4 10-4.2-1.6-7.4-5-7.4-10v-6l7.4-3z"/><path d="M9 12l2 2 4-4.2"/></svg></span><h3>Harus Hati-Hati</h3><p>Materi agama butuh ketelitian ekstra, terutama ayat Al-Qur'an & hadis.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: RCTO — PAKAI SLIDE-COMPACT + RCTO-COMPACT -->
+    <section class="slide slide-compact rcto-compact">
+      <div class="slide-head"><h2>Rumus Perintah AI (R-C-T-O)</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9.4" x2="21" y2="9.4"/><line x1="3" y1="14.8" x2="21" y2="14.8"/><line x1="10.4" y1="3" x2="10.4" y2="21"/></svg></span></div>
+      <div class="slide-body">
+        <table class="rcto">
+          <tr><th>Rumus</th><th>Penjelasan</th><th>Contoh Perintah</th></tr>
+          <tr><td><strong>Peran</strong><br><em>(Role)</em></td><td>Beri tugas AI sebagai siapa.</td><td><em>"Bertindaklah sebagai pembuat kurikulum PAI..."</em></td></tr>
+          <tr><td><strong>Konteks</strong><br><em>(Context)</em></td><td>Untuk siapa materi ini dibuat.</td><td><em>"...untuk anak kelas 3 SD dengan bahasa ceria & sopan."</em></td></tr>
+          <tr><td><strong>Tugas</strong><br><em>(Task)</em></td><td>Apa yang harus dibuat AI.</td><td><em>"...buatkan materi Salat Fardu & 5 soal kuis..."</em></td></tr>
+          <tr><td><strong>Hasil</strong><br><em>(Output)</em></td><td>Bentuk akhirnya mau seperti apa.</td><td><em>"...sajikan dalam tabel agar rapi saat disalin ke Word."</em></td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- SLIDE 15 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Rambu-Rambu Menggunakan AI</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 14.3A8.4 8.4 0 119.7 4a7 7 0 0010.3 10.3z"/></svg></span></div>
+      <div class="slide-body row-list">
+        <div class="item"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 12.6l5.4 5.4L20 6.6"/></svg></span><div><h3>Wajib Cek Teks Arab</h3><p>Jangan langsung percaya tulisan Arab dari AI. Salin dari aplikasi resmi Kemenag.</p></div></div>
+        <div class="item"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="5" y="10.4" width="14" height="10" rx="2"/><path d="M8 10.4V7a4 4 0 018 0v3.4"/></svg></span><div><h3>Gunakan Panduan Kemenag</h3><p>Tambahkan perintah: <em>"Gunakan standar ajaran Kementerian Agama RI."</em></p></div></div>
+        <div class="item"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.3 1 2.1h5c0-.8.4-1.6 1-2.1A6 6 0 0012 3z"/></svg></span><div><h3>Cari Ide, Bukan Hukum</h3><p>Gunakan AI untuk mencari cara mengajar seru, bukan untuk mencari hukum halal-haram.</p></div></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 16 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Bantuan AI untuk Persiapan Kelas</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 20l1-4.4L15.4 5 19 8.6 8.6 19 4 20z"/><line x1="13.2" y1="6.8" x2="17.2" y2="10.8"/></svg></span></div>
+      <div class="slide-body cards cols-3">
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M6 2.5h8l4 4v14.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-17.5a1 1 0 011-1z"/><path d="M14 2.5V7h4"/><line x1="8" y1="12.2" x2="16" y2="12.2"/><line x1="8" y1="15.6" x2="16" y2="15.6"/></svg></span><h3>Bikin Modul & RPP</h3><p>Membantu menyusun kerangka materi & jadwal mengajar dengan cepat & rapi.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 21v-8.6"/><path d="M12 12.4C12 7.6 8.2 5.6 4.2 5.6c0 4.8 2.8 7.7 7.8 6.8z"/><path d="M12 12.4c0-3.8 2.9-5.8 7.7-5.8 0 4.7-3.4 7.1-7.7 5.8z"/></svg></span><h3>Ide Kegiatan Sekolah</h3><p>Mencari ide kegiatan mendidik, misalnya "Kantin Kejujuran".</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 9l7 7 7-7"/></svg></span><h3>Merangkum Buku Paket</h3><p>Menyederhanakan bahasa buku paket agar mudah dimengerti anak SD.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 17 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Bantuan AI Saat Mengajar</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1.2-4.5A8 8 0 1121 12z"/></svg></span></div>
+      <div class="slide-body cards cols-3">
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M2.4 12S6 5.6 12 5.6 21.6 12 21.6 12 18 18.4 12 18.4 2.4 12 2.4 12z"/><circle cx="12" cy="12" r="2.9"/></svg></span><h3>Contoh Mudah</h3><p>Mencari contoh konkret untuk materi ghaib (misal: Malaikat = kamera CCTV).</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1.2-4.5A8 8 0 1121 12z"/></svg></span><h3>Bikin Cerita</h3><p>Membuat cerita pendek tentang anak sekolahan untuk memancing diskusi.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="2.4" y="8" width="19.2" height="9" rx="4.5"/><line x1="7" y1="11" x2="7" y2="14"/><line x1="5.5" y1="12.5" x2="8.5" y2="12.5"/><circle cx="15.6" cy="11.4" r="0.9" fill="currentColor" stroke="none"/><circle cx="17.6" cy="13.6" r="0.9" fill="currentColor" stroke="none"/></svg></span><h3>Tebak-tebakan Islami</h3><p>Mencari ide permainan santai 5 menit tanpa alat tambahan.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 18 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Bantuan AI untuk Ujian & Rapor</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 4.6a3 3 0 00-3 3v.3a3 3 0 00-1.4 5.3A3 3 0 007 18.2h1.6V4.9c.1-.1.3-.2.4-.3z"/><path d="M15 4.6a3 3 0 013 3v.3a3 3 0 011.4 5.3 3 3 0 01-2.4 4.9H15.4V4.9c-.1-.1-.3-.2-.4-.3z"/><line x1="12" y1="5" x2="12" y2="18.2"/></svg></span></div>
+      <div class="slide-body cards cols-3">
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 4.6a3 3 0 00-3 3v.3a3 3 0 00-1.4 5.3A3 3 0 007 18.2h1.6V4.9c.1-.1.3-.2.4-.3z"/><path d="M15 4.6a3 3 0 013 3v.3a3 3 0 011.4 5.3 3 3 0 01-2.4 4.9H15.4V4.9c-.1-.1-.3-.2-.4-.3z"/><line x1="12" y1="5" x2="12" y2="18.2"/></svg></span><h3>Membuat Soal Ujian</h3><p>Membuat soal cerita yang melatih berpikir, bukan cuma hafalan.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.4 12.4l3 3 6-6.4"/></svg></span><h3>Tabel Penilaian Praktik</h3><p>Membuat tabel penilaian untuk ujian praktik wudu/salat beserta kriterianya.</p></div>
+        <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 20l1-4.4L15.4 5 19 8.6 8.6 19 4 20z"/><line x1="13.2" y1="6.8" x2="17.2" y2="10.8"/></svg></span><h3>Saran Penulisan Rapor</h3><p>Membantu merangkai kata-kata motivasi yang halus & sopan untuk rapor.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 19 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Tips Modul Rapi di MS Word</h2><span class="icon">W</span></div>
+      <div class="slide-body two-col">
+        <div class="card flat">
+          <span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 21h18M4 21V10l8-6 8 6v11"/><line x1="9" y1="12.4" x2="9" y2="18"/><line x1="15" y1="12.4" x2="15" y2="18"/></svg></span>
+          <h3>Gunakan Tingkatan Judul</h3>
+          <p>Gunakan pengaturan "Heading" di Word agar tulisan berurutan & rapi:</p>
+          <ul>
+            <li><strong>Heading 1</strong> = Judul Paling Atas</li>
+            <li><strong>Heading 2</strong> = Sub-Judul (A, B, C)</li>
+            <li><strong>Heading 3</strong> = Rincian Materi (1, 2, 3)</li>
+          </ul>
         </div>
-    </div>
+        <div class="card flat">
+          <span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9.4" x2="21" y2="9.4"/><line x1="3" y1="14.8" x2="21" y2="14.8"/><line x1="10.4" y1="3" x2="10.4" y2="21"/></svg></span>
+          <h3>Cegah Tabel Terpotong</h3>
+          <p>Terkadang tabel terpotong 2 halaman. Minta AI tambahkan kode ini:</p>
+          <pre class="code" style="margin-top:clamp(10px,1.4vh,18px);">style=<span class="val">"page-break-inside: avoid;"</span>></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 20 -->
+    <section class="slide">
+      <div class="slide-head"><h2>Trik Rata Kiri Presisi</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><line x1="4" y1="6.5" x2="20" y2="6.5"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17.5" x2="14" y2="17.5"/></svg></span></div>
+      <div class="slide-body two-col">
+        <div class="card danger flat"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 3.4L22 20.6H2L12 3.4z"/><line x1="12" y1="10" x2="12" y2="14.6"/><line x1="12" y1="17.2" x2="12" y2="17.3"/></svg></span><h3>Masalah</h3><p>Saat mengetik nomor (A., 1., a.) di Word, baris bawahnya sering berantakan.</p></div>
+        <div class="card flat"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 12.6l5.4 5.4L20 6.6"/></svg></span><h3>Solusi Tabel Tanpa Garis</h3><p>Gunakan tabel 2 kolom tanpa garis. Kolom 1 untuk huruf (A), kolom 2 untuk teks. Pasti lurus!</p></div>
+      </div>
+      <pre class="code" style="margin-top:clamp(14px,2vh,24px);">style=<span class="val">"border:none;"</span>>
+    style=<span class="val">"width: 40px;"</span>>A.
+    Makna Salat Fardu</pre>
+    </section>
+
+    <!-- SLIDE 21: MENULIS ARAB — PAKAI SLIDE-COMPACT + SLIDE-ARAB -->
+    <section class="slide slide-compact slide-arab">
+      <div class="slide-head"><h2>Menulis Huruf Arab dengan Jelas</h2><span class="icon">أ</span></div>
+      <div class="slide-body two-col" style="align-items:stretch;">
+        <div style="display:flex;flex-direction:column;gap:clamp(10px,1.4vh,18px);">
+          <div class="card flat"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 20l1-4.4L15.4 5 19 8.6 8.6 19 4 20z"/><line x1="13.2" y1="6.8" x2="17.2" y2="10.8"/></svg></span><h3>Font Standar Kemenag</h3><p>Gunakan <strong>LPMQ Isep Misbah</strong> atau <strong>Traditional Arabic</strong> agar harakat tidak bertumpuk.</p></div>
+          <div class="card flat"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></span><h3>Format Rata Kanan</h3><p>Huruf Arab dibaca dari kanan. Pastikan tulisan rata kanan agar urutan kata tidak terbalik.</p></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:clamp(10px,1.4vh,18px);">
+          <div><p class="eyebrow">Teks Arab Berdiri Sendiri</p><p class="arabic">إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنكَرِ</p></div>
+          <div><p class="eyebrow">Teks Arab dalam Kalimat</p><p style="font-size:clamp(18px,2.2vh,28px);line-height:1.5;">Membaca <span class="arabic-inline">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span> sebelum memulai pekerjaan sangat dianjurkan.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: KESIMPULAN — PAKAI SLIDE-KESIMPULAN (bukan slide-21) -->
+    <section class="slide slide-kesimpulan">
+      <div class="slide-head"><h2>Kesimpulan</h2><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="5" r="2"/><line x1="12" y1="7" x2="12" y2="21"/><path d="M5 13a7 7 0 0014 0"/><line x1="4" y1="13" x2="7" y2="13"/><line x1="17" y1="13" x2="20" y2="13"/></svg></span></div>
+      <div class="slide-body">
+        <div class="cards cols-3">
+          <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 17h16l-2.2 3.2H6.2L4 17z"/><path d="M12 3v11"/><path d="M12 4.2l6 8.8h-6z"/><path d="M12 7.4L6.4 13h5.6z"/></svg></span><h3>Perahu</h3><p>Teknologi alat bantu agar tugas mengajar lebih mudah.</p></div>
+          <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="9.4"/><path d="M15.2 8.8l-2.1 6.4-6.3 2.1 2.1-6.4z"/></svg></span><h3>Kompas</h3><p>Al-Qur'an & Sunnah petunjuk arah agar tidak tersesat.</p></div>
+          <div class="card"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c1.4-3.6 4.2-5.4 7.4-5.4s6 1.8 7.4 5.4"/></svg></span><h3>Nahkoda</h3><p>Guru penentu yang memastikan semua murid selamat sampai tujuan.</p></div>
+        </div>
+        <div class="card-dark">
+          <p>"Teknologi secanggih apa pun tidak akan pernah bisa menggantikan ketulusan seorang guru dalam mendidik akhlak muridnya."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: CLOSING -->
+    <section class="slide closing">
+      <span class="badge"><span class="pill-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path fill="currentColor" stroke="none" d="M12 2.6l2.9 6 6.5.6-4.9 4.4 1.5 6.4L12 16.8l-6 3.2 1.5-6.4-4.9-4.4 6.5-.6L12 2.6z"/></svg></span> MENGAJAR DENGAN HATI</span>
+      <blockquote>"Sebagus apa pun teknologi kecerdasan buatan, ia tidak akan pernah bisa menggantikan ketulusan, kasih sayang, dan doa seorang guru untuk murid-muridnya."</blockquote>
+      <p class="footnote"><span class="pill-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 6.2c-1.6-1-4.2-1.4-6.2-1.4v13.4c2 0 4.6.4 6.2 1.4m0-13.4c1.6-1 4.2-1.4 6.2-1.4v13.4c-2 0-4.6.4-6.2 1.4m0-13.4v13.4"/></svg></span> Semangat Mendidik Anak Bangsa!</p>
+    </section>
+
+  </div>
+
+  <div class="nav">
+    <button id="prevBtn" aria-label="Sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span class="title-hint" id="titleHint"></span>
+    <span class="counter" id="counter">1 / 23</span>
+    <button id="nextBtn" aria-label="Berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let idx = 0;
+  const counter = document.getElementById('counter');
+  const progressBar = document.getElementById('progressBar');
+  const titleHint = document.getElementById('titleHint');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function show(i){
+    slides[idx].classList.remove('active');
+    idx = Math.max(0, Math.min(total-1, i));
+    slides[idx].classList.add('active');
+    counter.textContent = (idx+1) + ' / ' + total;
+    progressBar.style.width = ((idx+1)/total*100) + '%';
+    const h2 = slides[idx].querySelector('h2');
+    titleHint.textContent = h2 ? h2.textContent : '';
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === total-1;
+  }
+  prevBtn.addEventListener('click', ()=>show(idx-1));
+  nextBtn.addEventListener('click', ()=>show(idx+1));
+  document.addEventListener('keydown', (e)=>{
+    if(e.key==='ArrowRight') show(idx+1);
+    if(e.key==='ArrowLeft') show(idx-1);
+  });
+  show(0);
+</script>
 </body>
 </html>
