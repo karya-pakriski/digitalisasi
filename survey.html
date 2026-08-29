@@ -18,6 +18,9 @@
       --warna-amber: #126E82;
       --warna-amber-light: #d7edf1;
       --warna-amber-hover: #0d5a6e;
+      --warna-success: #0f7b3a;
+      --warna-error: #b91c1c;
+      --warna-error-light: #fde8e8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -254,10 +257,85 @@
     .form-survei.hidden { display: none; }
     .terima-kasih.show { display: flex; }
 
+    /* ============================================================
+       MODAL NOTIFIKASI KUSTOM
+       ============================================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+      animation: fadeOverlay 0.25s ease;
+    }
+    .modal-overlay.show { display: flex; }
+    @keyframes fadeOverlay {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .modal-box {
+      max-width: 480px;
+      width: 100%;
+      background: var(--warna-panel);
+      border-radius: 28px;
+      padding: clamp(32px, 5vh, 48px) clamp(24px, 3vw, 40px);
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      animation: modalPop 0.3s ease;
+    }
+    @keyframes modalPop {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-box .modal-ikon {
+      font-size: clamp(48px, 6vh, 72px);
+      margin-bottom: 8px;
+    }
+    .modal-box .modal-ikon.success { color: var(--warna-success); }
+    .modal-box .modal-ikon.error { color: var(--warna-error); }
+    .modal-box .modal-ikon.info { color: var(--warna-amber); }
+
+    .modal-box h3 {
+      font-size: clamp(24px, 3.2vw, 34px);
+      font-weight: 700;
+      margin: 4px 0 8px;
+      color: var(--warna-teks);
+    }
+    .modal-box p {
+      font-size: clamp(18px, 2vw, 24px);
+      color: var(--warna-teks-muda);
+      line-height: 1.5;
+      margin: 0 0 20px;
+    }
+    .modal-box .btn-modal {
+      background: var(--warna-amber);
+      color: #fff;
+      border: none;
+      padding: clamp(12px, 1.8vh, 18px) clamp(32px, 4vw, 52px);
+      border-radius: 60px;
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .modal-box .btn-modal:hover { background: var(--warna-amber-hover); }
+    .modal-box .btn-modal:active { transform: scale(0.96); }
+
+    .modal-box .btn-modal.error-btn { background: var(--warna-error); }
+    .modal-box .btn-modal.error-btn:hover { background: #7f1d1d; }
+
     @media (max-width: 600px) {
       body { padding: 12px; }
       .layar-survei { padding: 16px; border-radius: 18px; }
       .checkbox-grid { grid-template-columns: 1fr; }
+      .modal-box { padding: 24px 16px; }
     }
     @media (max-width: 400px) {
       .header-survei h1 { font-size: 22px; }
@@ -424,13 +502,62 @@
 
 </div>
 
+<!-- ============================================================
+     MODAL NOTIFIKASI KUSTOM
+     ============================================================ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-ikon" id="modalIkon">✅</div>
+    <h3 id="modalJudul">Berhasil</h3>
+    <p id="modalPesan">Pesan notifikasi.</p>
+    <button class="btn-modal" id="modalBtn">Tutup</button>
+  </div>
+</div>
+
 <script>
+  // ============================================================
+  //  SERVICE WORKER (opsional)
+  // ============================================================
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   }
 
+  // ============================================================
+  //  KONFIGURASI
+  // ============================================================
   const API_URL = 'https://script.google.com/macros/s/AKfycbxEJInPj5M3HtMVX6ajVywKsoIO0nxafV5U1fjKQ5AFnNe-fiLvhP4Yr3elvLsGhyvk/exec';
 
+  // ============================================================
+  //  MODAL NOTIFIKASI KUSTOM
+  // ============================================================
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalIkon = document.getElementById('modalIkon');
+  const modalJudul = document.getElementById('modalJudul');
+  const modalPesan = document.getElementById('modalPesan');
+  const modalBtn = document.getElementById('modalBtn');
+
+  function showModal(ikon, judul, pesan, isError = false) {
+    modalIkon.textContent = ikon;
+    modalIkon.className = 'modal-ikon' + (isError ? ' error' : (ikon === 'ℹ️' ? ' info' : ' success'));
+    modalJudul.textContent = judul;
+    modalPesan.textContent = pesan;
+    modalBtn.className = 'btn-modal' + (isError ? ' error-btn' : '');
+    modalBtn.textContent = isError ? 'Coba Lagi' : 'Tutup';
+    modalOverlay.classList.add('show');
+  }
+
+  function hideModal() {
+    modalOverlay.classList.remove('show');
+  }
+
+  modalBtn.addEventListener('click', hideModal);
+  modalOverlay.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) hideModal();
+  });
+
+  // ============================================================
+  //  FETCH DENGAN RETRY
+  // ============================================================
   async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
     for (let i = 0; i < retries; i++) {
       try {
@@ -445,6 +572,9 @@
     }
   }
 
+  // ============================================================
+  //  LOGIKA "BELUM PERNAH"
+  // ============================================================
   document.addEventListener('DOMContentLoaded', function() {
     const belum = document.getElementById('belumPernahAI');
     const allTools = document.querySelectorAll('#toolsGrid input[type="checkbox"]:not(#belumPernahAI)');
@@ -467,6 +597,9 @@
     }
   });
 
+  // ============================================================
+  //  HANDLE SUBMIT — dengan modal error
+  // ============================================================
   const form = document.getElementById('surveyForm');
   const submitBtn = document.getElementById('submitBtn');
   const thankYou = document.getElementById('thankYou');
@@ -495,7 +628,7 @@
       const response = await fetchWithRetry(API_URL, {
         method: 'POST',
         mode: 'cors',
-        headers: { 'Content-Type': 'text/plain' }, // ✅ CORS-safe
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(payload)
       });
 
@@ -512,13 +645,16 @@
       }
     } catch (error) {
       console.error(error);
-      alert('❌ Terjadi kesalahan: ' + error.message + '\nSilakan coba lagi.');
+      showModal('❌', 'Gagal Mengirim', error.message || 'Terjadi kesalahan saat mengirim data. Silakan coba lagi.', true);
     } finally {
       submitBtn.disabled = false;
       submitBtn.classList.remove('loading');
     }
   });
 
+  // ============================================================
+  //  FUNGSI RESET
+  // ============================================================
   function resetForm() {
     form.reset();
     form.classList.remove('hidden');
