@@ -142,8 +142,8 @@
 
     .checkbox-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: clamp(8px, 1vw, 14px);
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: clamp(6px, 0.8vw, 12px);
       background: var(--warna-amber-light);
       padding: clamp(14px, 2vh, 22px);
       border-radius: 16px;
@@ -156,13 +156,14 @@
       font-weight: 400;
       font-size: clamp(14px, 1.4vw, 18px);
       cursor: pointer;
-      padding: 4px 0;
-      transition: color 0.2s;
+      padding: 3px 6px;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
     }
-    .checkbox-grid label:hover { color: var(--warna-amber); }
+    .checkbox-grid label:hover { background: rgba(255,255,255,0.5); color: var(--warna-amber); }
     .checkbox-grid input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
+      width: 17px;
+      height: 17px;
       accent-color: var(--warna-amber);
       cursor: pointer;
       flex: none;
@@ -171,6 +172,16 @@
       opacity: 0.4;
       cursor: not-allowed;
     }
+    .checkbox-grid label.belum-label {
+      grid-column: 1 / -1;
+      background: rgba(255, 200, 200, 0.2);
+      border: 1px solid #f5c6cb;
+      border-radius: 8px;
+      padding: 6px 12px;
+      margin-top: 4px;
+      justify-content: center;
+    }
+    .checkbox-grid label.belum-label:hover { background: rgba(255, 200, 200, 0.4); }
 
     .btn-submit {
       background: var(--warna-amber);
@@ -257,9 +268,7 @@
     .form-survei.hidden { display: none; }
     .terima-kasih.show { display: flex; }
 
-    /* ============================================================
-       MODAL NOTIFIKASI KUSTOM
-       ============================================================ */
+    /* MODAL NOTIFIKASI */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -277,7 +286,6 @@
       0% { opacity: 0; }
       100% { opacity: 1; }
     }
-
     .modal-box {
       max-width: 480px;
       width: 100%;
@@ -292,15 +300,10 @@
       0% { transform: scale(0.9); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
-
-    .modal-box .modal-ikon {
-      font-size: clamp(48px, 6vh, 72px);
-      margin-bottom: 8px;
-    }
+    .modal-box .modal-ikon { font-size: clamp(48px, 6vh, 72px); margin-bottom: 8px; }
     .modal-box .modal-ikon.success { color: var(--warna-success); }
     .modal-box .modal-ikon.error { color: var(--warna-error); }
     .modal-box .modal-ikon.info { color: var(--warna-amber); }
-
     .modal-box h3 {
       font-size: clamp(24px, 3.2vw, 34px);
       font-weight: 700;
@@ -327,19 +330,20 @@
     }
     .modal-box .btn-modal:hover { background: var(--warna-amber-hover); }
     .modal-box .btn-modal:active { transform: scale(0.96); }
-
     .modal-box .btn-modal.error-btn { background: var(--warna-error); }
     .modal-box .btn-modal.error-btn:hover { background: #7f1d1d; }
 
     @media (max-width: 600px) {
       body { padding: 12px; }
       .layar-survei { padding: 16px; border-radius: 18px; }
-      .checkbox-grid { grid-template-columns: 1fr; }
+      .checkbox-grid { grid-template-columns: 1fr 1fr; }
+      .checkbox-grid label.belum-label { grid-column: 1 / -1; }
       .modal-box { padding: 24px 16px; }
     }
     @media (max-width: 400px) {
       .header-survei h1 { font-size: 22px; }
       .btn-submit { font-size: 17px; padding: 14px; }
+      .checkbox-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -416,18 +420,49 @@
       </div>
     </div>
 
+    <!-- ============================================================
+         TOOLS AI — NAMA LANGSUNG (Teks diperbanyak, lainnya 2 contoh)
+         ============================================================ -->
     <div class="form-group">
       <label>Tools AI yang Dicoba <span class="sub">(centang)</span></label>
       <div class="checkbox-grid" id="toolsGrid">
-        <label><input type="checkbox" name="tools_ai" value="AI Chat (ChatGPT, Gemini)"> AI Chat (ChatGPT, Gemini)</label>
-        <label><input type="checkbox" name="tools_ai" value="AI Pencari (Perplexity)"> AI Pencari (Perplexity)</label>
-        <label><input type="checkbox" name="tools_ai" value="AI Desain (Canva Magic, Firefly)"> AI Desain (Canva, Firefly)</label>
-        <label><input type="checkbox" name="tools_ai" value="AI Presentasi (Gamma, Tome)"> AI Presentasi (Gamma, Tome)</label>
-        <label><input type="checkbox" name="tools_ai" value="AI Pembuat Soal (MagicSchool)"> AI Pembuat Soal (MagicSchool)</label>
-        <label><input type="checkbox" name="tools_ai" value="AI Kuis (Quizizz AI)"> AI Kuis (Quizizz AI)</label>
-        <label><input type="checkbox" name="tools_ai" value="AI Audio/Musik (Suno AI)"> AI Audio (Suno AI)</label>
-        <label><input type="checkbox" name="tools_ai" value="AI Video (HeyGen, Synthesia)"> AI Video (HeyGen)</label>
-        <label><input type="checkbox" name="tools_ai" value="Belum pernah" id="belumPernahAI"> ❌ Belum pernah pakai AI</label>
+        <!-- AI Teks (diperbanyak) -->
+        <label><input type="checkbox" name="tools_ai" value="ChatGPT"> ChatGPT</label>
+        <label><input type="checkbox" name="tools_ai" value="Gemini"> Gemini</label>
+        <label><input type="checkbox" name="tools_ai" value="Claude"> Claude</label>
+        <label><input type="checkbox" name="tools_ai" value="DeepSeek"> DeepSeek</label>
+        <label><input type="checkbox" name="tools_ai" value="Copilot"> Copilot</label>
+        
+        <!-- AI Pencari (2) -->
+        <label><input type="checkbox" name="tools_ai" value="Perplexity"> Perplexity</label>
+        <label><input type="checkbox" name="tools_ai" value="You.com"> You.com</label>
+        
+        <!-- AI Desain (2) -->
+        <label><input type="checkbox" name="tools_ai" value="Canva AI"> Canva AI</label>
+        <label><input type="checkbox" name="tools_ai" value="Firefly"> Firefly</label>
+        
+        <!-- AI Presentasi (2) -->
+        <label><input type="checkbox" name="tools_ai" value="Gamma"> Gamma</label>
+        <label><input type="checkbox" name="tools_ai" value="Tome"> Tome</label>
+        
+        <!-- AI Pembuat Soal (2) -->
+        <label><input type="checkbox" name="tools_ai" value="MagicSchool"> MagicSchool</label>
+        <label><input type="checkbox" name="tools_ai" value="Diffit"> Diffit</label>
+        
+        <!-- AI Kuis (2) -->
+        <label><input type="checkbox" name="tools_ai" value="Quizizz AI"> Quizizz AI</label>
+        <label><input type="checkbox" name="tools_ai" value="Kahoot AI"> Kahoot AI</label>
+        
+        <!-- AI Audio (2) -->
+        <label><input type="checkbox" name="tools_ai" value="Suno AI"> Suno AI</label>
+        <label><input type="checkbox" name="tools_ai" value="Udio"> Udio</label>
+        
+        <!-- AI Video (2) -->
+        <label><input type="checkbox" name="tools_ai" value="HeyGen"> HeyGen</label>
+        <label><input type="checkbox" name="tools_ai" value="Synthesia"> Synthesia</label>
+        
+        <!-- Belum pernah (full width) -->
+        <label class="belum-label"><input type="checkbox" name="tools_ai" value="Belum pernah" id="belumPernahAI"> ❌ Belum pernah pakai AI sama sekali</label>
       </div>
     </div>
 
@@ -502,9 +537,7 @@
 
 </div>
 
-<!-- ============================================================
-     MODAL NOTIFIKASI KUSTOM
-     ============================================================ -->
+<!-- MODAL NOTIFIKASI -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
     <div class="modal-ikon" id="modalIkon">✅</div>
@@ -549,7 +582,6 @@
   function hideModal() {
     modalOverlay.classList.remove('show');
   }
-
   modalBtn.addEventListener('click', hideModal);
   modalOverlay.addEventListener('click', function(e) {
     if (e.target === modalOverlay) hideModal();
@@ -573,7 +605,7 @@
   }
 
   // ============================================================
-  //  LOGIKA "BELUM PERNAH"
+  //  LOGIKA "BELUM PERNAH" — matikan checkbox lain
   // ============================================================
   document.addEventListener('DOMContentLoaded', function() {
     const belum = document.getElementById('belumPernahAI');
