@@ -58,7 +58,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: clamp(12px, 1.8vh, 20px) clamp(24px, 3.6vw, 44px);
+    padding: clamp(10px, 1.6vh, 18px) clamp(20px, 3vw, 40px);
     border-bottom: 1px solid var(--warna-garis);
     background: var(--warna-panel);
     flex-wrap: wrap;
@@ -66,102 +66,105 @@
   .topbar .kiri {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
   }
   .topbar a.home {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     text-decoration: none;
     color: var(--warna-teks);
     font-weight: 700;
-    font-size: clamp(14px, 1.6vh, 20px);
-    padding: 6px 16px;
+    font-size: clamp(13px, 1.4vh, 18px);
+    padding: 5px 14px;
     border: 1.5px solid var(--warna-garis);
     border-radius: 999px;
     transition: border-color .2s ease, color .2s ease;
   }
-  .topbar a.home:hover {
-    border-color: var(--warna-amber);
-    color: var(--warna-amber);
-  }
-  .topbar a.home svg {
-    width: 18px;
-    height: 18px;
-    flex: none;
-  }
+  .topbar a.home:hover { border-color: var(--warna-amber); color: var(--warna-amber); }
+  .topbar a.home svg { width: 16px; height: 16px; flex: none; }
   .topbar .label-materi {
-    font-size: clamp(14px, 1.6vh, 20px);
+    font-size: clamp(13px, 1.4vh, 18px);
     font-weight: 700;
-    letter-spacing: .04em;
     color: var(--warna-teks-muda);
   }
   .topbar .kanan {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
   .topbar .btn-refresh {
     background: var(--warna-amber);
     color: #fff;
     border: none;
-    padding: 6px 16px;
+    padding: 5px 14px;
     border-radius: 40px;
     font-weight: 600;
-    font-size: clamp(12px, 1.2vw, 16px);
+    font-size: clamp(11px, 1.1vw, 15px);
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
     font-family: 'Inter', sans-serif;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
+    transition: background 0.2s;
   }
   .topbar .btn-refresh:hover { background: var(--warna-amber-hover); }
-  .topbar .btn-refresh:active { transform: scale(0.96); }
   .topbar .btn-refresh .spin {
     display: inline-block;
     transition: transform 0.6s ease;
   }
-  .topbar .btn-refresh.loading .spin {
-    animation: spin 0.8s linear infinite;
-  }
+  .topbar .btn-refresh.loading .spin { animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* KONTEN DASHBOARD */
-  .konten {
+  /* SLIDE CONTAINER */
+  .slide-wrapper {
     flex: 1;
-    padding: clamp(14px, 2vh, 28px) clamp(20px, 3vw, 40px) clamp(12px, 1.8vh, 24px);
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+  }
+  .slide-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s ease;
+  }
+  .slide {
+    flex: 0 0 100%;
+    height: 100%;
+    padding: clamp(14px, 2vh, 28px) clamp(16px, 2.2vw, 32px);
     display: flex;
     flex-direction: column;
     gap: clamp(12px, 1.6vh, 22px);
-    min-height: 0;
     overflow-y: auto;
+    min-height: 0;
   }
 
-  /* KARTU STATISTIK — 4 kolom proporsional */
+  /* SLIDE 1: STATISTIK */
   .stat-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: clamp(10px, 1.2vw, 16px);
-    flex: none;
+    flex: 1;
+    align-content: center;
   }
   .stat-card {
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(6px);
     border: 1px solid var(--warna-garis);
-    border-radius: 14px;
-    padding: clamp(12px, 1.6vh, 20px) clamp(10px, 1.2vw, 18px);
+    border-radius: 16px;
+    padding: clamp(16px, 2.2vh, 28px) clamp(12px, 1.4vw, 20px);
     text-align: center;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: clamp(70px, 10vh, 100px);
+    min-height: clamp(80px, 12vh, 140px);
+    transition: transform 0.15s, box-shadow 0.15s;
   }
   .stat-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px -12px rgba(0,0,0,0.12);
     border-color: var(--warna-amber);
   }
   .stat-card .label {
@@ -170,15 +173,14 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    line-height: 1.2;
   }
   .stat-card .value {
-    font-size: clamp(24px, 3.2vw, 42px);
+    font-size: clamp(28px, 3.6vw, 48px);
     font-weight: 800;
     color: var(--warna-teks);
-    margin-top: 2px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     line-height: 1.2;
+    margin-top: 2px;
   }
   .stat-card .value small {
     font-size: 0.45em;
@@ -187,7 +189,7 @@
     margin-left: 3px;
   }
 
-  /* GRID CHART — proporsional, tinggi minimal */
+  /* SLIDE GRAFIK (2 kolom) */
   .chart-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -216,68 +218,90 @@
   }
   .chart-box .chart-wrap {
     flex: 1;
-    min-height: 120px;
+    min-height: 100px;
     position: relative;
   }
-  .chart-box .chart-wrap canvas {
-    width: 100% !important;
-    height: 100% !important;
-  }
+  .chart-box .chart-wrap canvas { width: 100% !important; height: 100% !important; }
   .chart-box.full { grid-column: 1 / -1; }
-  .chart-box.full .chart-wrap { min-height: 150px; }
+  .chart-box.full .chart-wrap { min-height: 140px; }
 
-  /* EMPTY STATE — tanpa tombol */
+  /* SLIDE KOSONG (empty state) */
   .empty-state {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     gap: clamp(10px, 1.6vh, 20px);
     padding: clamp(30px, 6vh, 60px) 20px;
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255,255,255,0.6);
     backdrop-filter: blur(4px);
     border-radius: 24px;
     border: 2px dashed var(--warna-garis);
     flex: 1;
     min-height: 200px;
   }
-  .empty-state .ikon {
-    font-size: clamp(48px, 7vh, 80px);
-    color: var(--warna-amber);
-  }
-  .empty-state h2 {
-    font-size: clamp(24px, 3.6vw, 38px);
-    font-weight: 800;
-    color: var(--warna-teks);
-  }
-  .empty-state p {
-    font-size: clamp(16px, 2vw, 22px);
-    color: var(--warna-teks-muda);
-    max-width: 480px;
-    line-height: 1.6;
-  }
+  .empty-state .ikon { font-size: clamp(48px, 7vh, 80px); color: var(--warna-amber); }
+  .empty-state h2 { font-size: clamp(24px, 3.6vw, 38px); font-weight: 800; color: var(--warna-teks); }
+  .empty-state p { font-size: clamp(16px, 2vw, 22px); color: var(--warna-teks-muda); max-width: 480px; }
 
-  /* Sembunyikan konten utama saat kosong */
-  .konten.has-data .stat-grid,
-  .konten.has-data .chart-grid {
-    display: grid;
-  }
-  .konten.has-data .empty-state { display: none; }
-  .konten.tidak-ada-data .stat-grid,
-  .konten.tidak-ada-data .chart-grid {
-    display: none;
-  }
-  .konten.tidak-ada-data .empty-state {
+  /* NAVIGASI SLIDE */
+  .slide-nav {
+    flex: none;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(12px, 1.6vw, 24px);
+    padding: clamp(8px, 1.2vh, 14px) clamp(20px, 3vw, 40px);
+    border-top: 1px solid var(--warna-garis);
+    background: var(--warna-panel);
+  }
+  .slide-nav button {
+    background: var(--warna-amber);
+    color: #fff;
+    border: none;
+    width: clamp(36px, 4vh, 48px);
+    height: clamp(36px, 4vh, 48px);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: clamp(16px, 1.8vh, 22px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, opacity 0.2s;
+  }
+  .slide-nav button:hover:not(:disabled) { background: var(--warna-amber-hover); }
+  .slide-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+  .slide-nav .dots {
+    display: flex;
+    gap: clamp(6px, 0.8vw, 12px);
+  }
+  .slide-nav .dot {
+    width: clamp(8px, 0.9vw, 12px);
+    height: clamp(8px, 0.9vw, 12px);
+    border-radius: 50%;
+    background: var(--warna-garis);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+    padding: 0;
+  }
+  .slide-nav .dot.active {
+    background: var(--warna-amber);
+    transform: scale(1.2);
+  }
+  .slide-nav .slide-counter {
+    font-size: clamp(12px, 1.2vw, 16px);
+    color: var(--warna-teks-muda);
+    font-weight: 600;
   }
 
-  /* FOOTER INFO */
+  /* FOOTER UPDATE */
   .footer-info {
     flex: none;
-    padding: 6px clamp(20px, 3vw, 36px);
+    padding: 4px clamp(20px, 3vw, 36px);
     border-top: 1px solid var(--warna-garis);
-    font-size: clamp(11px, 0.9vw, 14px);
+    font-size: clamp(10px, 0.8vw, 13px);
     color: var(--warna-teks-muda);
     text-align: center;
     background: var(--warna-panel);
@@ -290,41 +314,36 @@
     .chart-grid { grid-template-columns: 1fr; }
     .chart-box.full { grid-column: 1; }
     .layar-dashboard { max-height: 100%; border-radius: 20px; }
-    .topbar { padding: 8px 14px; }
-    .topbar a.home { font-size: 12px; padding: 4px 12px; }
-    .topbar .label-materi { font-size: 12px; }
-    .topbar .btn-refresh { font-size: 11px; padding: 4px 12px; }
+    .topbar { padding: 6px 12px; }
+    .topbar a.home { font-size: 11px; padding: 4px 10px; }
+    .topbar .label-materi { font-size: 11px; }
+    .topbar .btn-refresh { font-size: 10px; padding: 4px 10px; }
     .stat-card .value { font-size: clamp(22px, 3vw, 30px); }
-    .stat-card { min-height: 60px; padding: 8px 8px; }
-    .chart-box .chart-wrap { min-height: 100px; }
-    .chart-box.full .chart-wrap { min-height: 120px; }
-    .empty-state h2 { font-size: clamp(20px, 3.2vw, 28px); }
-    .empty-state p { font-size: clamp(14px, 1.8vw, 18px); }
+    .stat-card { min-height: 60px; padding: 10px 8px; }
+    .chart-box .chart-wrap { min-height: 80px; }
+    .chart-box.full .chart-wrap { min-height: 100px; }
+    .slide { padding: 10px 12px; gap: 10px; }
   }
   @media (max-width: 600px) {
     .stat-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
-    .stat-card { padding: 6px 4px; min-height: 50px; }
+    .stat-card { min-height: 50px; padding: 6px 4px; }
     .stat-card .value { font-size: 16px; }
     .stat-card .label { font-size: 8px; }
     .chart-box { padding: 6px; }
     .chart-box h3 { font-size: 11px; }
-    .chart-box .chart-wrap { min-height: 80px; }
-    .chart-box.full .chart-wrap { min-height: 100px; }
+    .chart-box .chart-wrap { min-height: 60px; }
+    .chart-box.full .chart-wrap { min-height: 80px; }
     .topbar { flex-direction: column; align-items: stretch; gap: 4px; }
     .topbar .kiri { justify-content: center; }
     .topbar .kanan { justify-content: center; }
+    .slide-nav { gap: 8px; padding: 6px 10px; }
+    .slide-nav button { width: 30px; height: 30px; font-size: 14px; }
+    .slide-nav .dot { width: 6px; height: 6px; }
     .footer-info { font-size: 9px; padding: 4px 10px; }
-    .empty-state { padding: 20px 12px; min-height: 150px; }
+    .empty-state { padding: 20px 12px; min-height: 120px; }
     .empty-state h2 { font-size: 16px; }
     .empty-state p { font-size: 12px; }
-  }
-  @media (max-width: 400px) {
-    .stat-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
-    .stat-card .value { font-size: 14px; }
-    .stat-card .label { font-size: 7px; }
-    .stat-card { padding: 4px 3px; min-height: 40px; }
-    .empty-state h2 { font-size: 14px; }
-    .empty-state p { font-size: 11px; }
+    .slide { padding: 6px 8px; gap: 6px; }
   }
 </style>
 </head>
@@ -347,38 +366,73 @@
     </div>
   </div>
 
-  <!-- KONTEN DASHBOARD -->
-  <div class="konten" id="dashboardContent">
+  <!-- SLIDE WRAPPER -->
+  <div class="slide-wrapper">
+    <div class="slide-container" id="slideContainer">
 
-    <!-- KARTU STATISTIK -->
-    <div class="stat-grid" id="statCards">
-      <div class="stat-card"><div class="label">Total Responden</div><div class="value" id="stat-total">0</div></div>
-      <div class="stat-card"><div class="label">Rata-rata Frekuensi</div><div class="value" id="stat-freq">0 <small>/5</small></div></div>
-      <div class="stat-card"><div class="label">Rata-rata Kesiapan AI</div><div class="value" id="stat-ready">0 <small>/5</small></div></div>
-      <div class="stat-card"><div class="label">Rata-rata Manfaat AI</div><div class="value" id="stat-benefit">0 <small>/5</small></div></div>
-    </div>
+      <!-- SLIDE 1: RINGKASAN -->
+      <div class="slide" data-slide="0">
+        <div class="stat-grid" id="statCards">
+          <div class="stat-card"><div class="label">Total Responden</div><div class="value" id="stat-total">0</div></div>
+          <div class="stat-card"><div class="label">Rata-rata Frekuensi</div><div class="value" id="stat-freq">0 <small>/5</small></div></div>
+          <div class="stat-card"><div class="label">Rata-rata Kesiapan AI</div><div class="value" id="stat-ready">0 <small>/5</small></div></div>
+          <div class="stat-card"><div class="label">Rata-rata Manfaat AI</div><div class="value" id="stat-benefit">0 <small>/5</small></div></div>
+        </div>
+      </div>
 
-    <!-- EMPTY STATE -->
-    <div class="empty-state" id="emptyState">
-      <div class="ikon">📭</div>
-      <h2>Belum Ada Data Survei</h2>
-      <p>Belum ada responden yang mengisi survei digitalisasi pembelajaran PAI. Pantau terus halaman ini untuk melihat hasilnya.</p>
-    </div>
+      <!-- SLIDE 2: FREKUENSI + LEVEL AI -->
+      <div class="slide" data-slide="1">
+        <div class="chart-grid">
+          <div class="chart-box"><h3>Frekuensi Penggunaan Digital</h3><div class="chart-wrap"><canvas id="chart-freq"></canvas></div></div>
+          <div class="chart-box"><h3>Level Penggunaan AI</h3><div class="chart-wrap"><canvas id="chart-ai"></canvas></div></div>
+        </div>
+      </div>
 
-    <!-- CHART GRID -->
-    <div class="chart-grid" id="chartGrid">
-      <div class="chart-box"><h3>Frekuensi Penggunaan Digital</h3><div class="chart-wrap"><canvas id="chart-freq"></canvas></div></div>
-      <div class="chart-box"><h3>Level Penggunaan AI</h3><div class="chart-wrap"><canvas id="chart-ai"></canvas></div></div>
-      <div class="chart-box"><h3>Platform Digital Populer</h3><div class="chart-wrap"><canvas id="chart-platform"></canvas></div></div>
-      <div class="chart-box"><h3>Keperluan AI</h3><div class="chart-wrap"><canvas id="chart-purpose"></canvas></div></div>
-      <div class="chart-box full"><h3>🛠️ Tools AI yang Dicoba</h3><div class="chart-wrap"><canvas id="chart-tools"></canvas></div></div>
-      <div class="chart-box full"><h3>Kendala Utama</h3><div class="chart-wrap"><canvas id="chart-kendala"></canvas></div></div>
-    </div>
+      <!-- SLIDE 3: PLATFORM + KEPERLUAN AI -->
+      <div class="slide" data-slide="2">
+        <div class="chart-grid">
+          <div class="chart-box"><h3>Platform Digital Populer</h3><div class="chart-wrap"><canvas id="chart-platform"></canvas></div></div>
+          <div class="chart-box"><h3>Keperluan AI</h3><div class="chart-wrap"><canvas id="chart-purpose"></canvas></div></div>
+        </div>
+      </div>
 
-    <!-- FOOTER INFO -->
-    <div class="footer-info">
-      <span id="lastUpdate">🔄 Memuat data...</span>
+      <!-- SLIDE 4: TOOLS AI (FULL) -->
+      <div class="slide" data-slide="3">
+        <div class="chart-grid">
+          <div class="chart-box full"><h3>🛠️ Tools AI yang Dicoba</h3><div class="chart-wrap"><canvas id="chart-tools"></canvas></div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: KENDALA (FULL) -->
+      <div class="slide" data-slide="4">
+        <div class="chart-grid">
+          <div class="chart-box full"><h3>Kendala Utama</h3><div class="chart-wrap"><canvas id="chart-kendala"></canvas></div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE KOSONG (jika tidak ada data) -->
+      <div class="slide" data-slide="empty" style="display:none;">
+        <div class="empty-state" id="emptyState">
+          <div class="ikon">📭</div>
+          <h2>Belum Ada Data Survei</h2>
+          <p>Belum ada responden yang mengisi survei digitalisasi pembelajaran PAI. Pantau terus halaman ini untuk melihat hasilnya.</p>
+        </div>
+      </div>
+
     </div>
+  </div>
+
+  <!-- NAVIGASI SLIDE -->
+  <div class="slide-nav" id="slideNav">
+    <button id="prevSlide" aria-label="Sebelumnya">‹</button>
+    <div class="dots" id="dotsContainer"></div>
+    <span class="slide-counter" id="slideCounter">1 / 5</span>
+    <button id="nextSlide" aria-label="Berikutnya">›</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-info">
+    <span id="lastUpdate">🔄 Memuat data...</span>
   </div>
 </div>
 
@@ -425,10 +479,86 @@
   }
 
   // ============================================================
+  //  SLIDE NAVIGASI
+  // ============================================================
+  const slides = document.querySelectorAll('.slide:not([data-slide="empty"])');
+  const emptySlide = document.querySelector('.slide[data-slide="empty"]');
+  const totalSlides = slides.length;
+  let currentSlide = 0;
+  let isDataAvailable = false;
+
+  const dotsContainer = document.getElementById('dotsContainer');
+  const slideCounter = document.getElementById('slideCounter');
+  const prevBtn = document.getElementById('prevSlide');
+  const nextBtn = document.getElementById('nextSlide');
+  const slideContainer = document.getElementById('slideContainer');
+
+  // Buat dot indikator
+  function buildDots() {
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.dataset.index = i;
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+  }
+  buildDots();
+
+  function goToSlide(index) {
+    if (!isDataAvailable) {
+      // Jika tidak ada data, tampilkan empty slide
+      slides.forEach(s => s.style.display = 'none');
+      emptySlide.style.display = 'flex';
+      slideContainer.style.transform = 'translateX(0)';
+      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+      slideCounter.textContent = '—';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    currentSlide = index;
+
+    // Gerakkan container
+    slideContainer.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+
+    // Update dots
+    document.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === currentSlide);
+    });
+
+    // Update counter
+    slideCounter.textContent = (currentSlide + 1) + ' / ' + totalSlides;
+
+    // Tombol navigasi
+    prevBtn.disabled = (currentSlide === 0);
+    nextBtn.disabled = (currentSlide === totalSlides - 1);
+
+    // Resize chart setelah transisi selesai
+    setTimeout(() => {
+      Object.values(chartInstances).forEach(chart => {
+        if (chart && chart.resize) chart.resize();
+      });
+    }, 400);
+  }
+
+  prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+  nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+    if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+  });
+
+  // ============================================================
   //  LOAD DASHBOARD
   // ============================================================
   let chartInstances = {};
-  const konten = document.getElementById('dashboardContent');
 
   async function loadDashboard(forceRefresh = false) {
     const refreshBtn = document.getElementById('refreshBtn');
@@ -450,22 +580,38 @@
       }
 
       if (!data || data.total === 0) {
-        konten.classList.remove('has-data');
-        konten.classList.add('tidak-ada-data');
+        isDataAvailable = false;
+        // Tampilkan empty slide
+        slides.forEach(s => s.style.display = 'none');
+        emptySlide.style.display = 'flex';
+        document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+        slideCounter.textContent = '—';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
         document.getElementById('lastUpdate').innerHTML = '⚠️ Belum ada data survei.';
         return;
       }
 
-      konten.classList.remove('tidak-ada-data');
-      konten.classList.add('has-data');
+      isDataAvailable = true;
+      // Tampilkan semua slide
+      slides.forEach(s => s.style.display = 'flex');
+      emptySlide.style.display = 'none';
+
       renderDashboard(data);
       const tgl = new Date(data.lastUpdate);
       document.getElementById('lastUpdate').innerHTML = '🔄 Terakhir diperbarui: <strong>' + tgl.toLocaleString('id-ID') + '</strong>';
+
+      // Reset ke slide pertama
+      goToSlide(0);
+
     } catch (error) {
       console.error(error);
       document.getElementById('lastUpdate').innerHTML = '❌ Error: ' + error.message;
-      konten.classList.remove('has-data');
-      konten.classList.add('tidak-ada-data');
+      isDataAvailable = false;
+      slides.forEach(s => s.style.display = 'none');
+      emptySlide.style.display = 'flex';
+      emptySlide.querySelector('h2').textContent = '⚠️ Gagal Memuat Data';
+      emptySlide.querySelector('p').textContent = error.message;
     } finally {
       refreshBtn.classList.remove('loading');
     }
@@ -546,8 +692,25 @@
   //  INISIALISASI
   // ============================================================
   document.addEventListener('DOMContentLoaded', () => {
-    konten.classList.add('tidak-ada-data');
+    // Sembunyikan semua slide dulu, tampilkan empty
+    slides.forEach(s => s.style.display = 'none');
+    emptySlide.style.display = 'flex';
+    document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+    slideCounter.textContent = '—';
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
     loadDashboard(false);
+  });
+
+  // Resize chart saat window diubah
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      Object.values(chartInstances).forEach(chart => {
+        if (chart && chart.resize) chart.resize();
+      });
+    }, 250);
   });
 </script>
 </body>
