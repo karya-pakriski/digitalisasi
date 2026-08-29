@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Survei Digitalisasi PAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --warna-latar: #eef4f5;
+      --warna-panel: #ffffff;
+      --warna-garis: #cddbde;
+      --warna-teks: #132C33;
+      --warna-teks-muda: #587078;
+      --warna-amber: #126E82;
+      --warna-amber-light: #d7edf1;
+      --warna-amber-hover: #0d5a6e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    body {
+      background: var(--warna-latar);
+      color: var(--warna-teks);
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: clamp(16px, 2.5vw, 36px);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    h1, h2, h3 { font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: -0.01em; }
+
+    .layar-survei {
+      max-width: 820px;
+      width: 100%;
+      background: var(--warna-panel);
+      border: 1px solid var(--warna-garis);
+      border-radius: 28px;
+      padding: clamp(28px, 4vh, 48px) clamp(24px, 3.5vw, 52px);
+      box-shadow: 0 24px 72px -24px rgba(0, 0, 0, 0.12);
+      margin: 0 auto;
+      position: relative;
+      transition: opacity 0.4s ease;
+    }
+
+    /* HEADER */
+    .header-survei {
+      text-align: center;
+      border-bottom: 2px solid var(--warna-amber-light);
+      padding-bottom: clamp(16px, 2.4vh, 28px);
+      margin-bottom: clamp(24px, 3.6vh, 40px);
+    }
+    .header-survei h1 {
+      font-size: clamp(28px, 4.2vw, 42px);
+      font-weight: 800;
+      color: var(--warna-teks);
+    }
+    .header-survei h1 span { color: var(--warna-amber); }
+    .header-survei p {
+      font-size: clamp(16px, 1.8vw, 20px);
+      color: var(--warna-teks-muda);
+      margin-top: 4px;
+    }
+
+    /* FORM */
+    .form-survei {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(20px, 3vh, 36px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-weight: 600;
+      font-size: clamp(15px, 1.6vw, 20px);
+      color: var(--warna-teks);
+    }
+    .form-group label .sub {
+      font-weight: 400;
+      color: var(--warna-teks-muda);
+      font-size: 0.85em;
+    }
+
+    input[type="text"],
+    textarea,
+    .select-modern {
+      width: 100%;
+      padding: clamp(12px, 1.6vh, 18px) clamp(16px, 2vw, 24px);
+      border: 2px solid var(--warna-garis);
+      border-radius: 14px;
+      font-size: clamp(16px, 1.6vw, 20px);
+      font-family: 'Inter', sans-serif;
+      background: #fafcfc;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      color: var(--warna-teks);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    input[type="text"]:focus,
+    textarea:focus,
+    .select-modern:focus {
+      border-color: var(--warna-amber);
+      box-shadow: 0 0 0 4px rgba(18, 110, 130, 0.12);
+      background: #fff;
+    }
+    textarea { resize: vertical; min-height: 80px; }
+
+    .select-wrapper {
+      position: relative;
+    }
+    .select-wrapper::after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: clamp(16px, 2vw, 24px);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--warna-teks-muda);
+      pointer-events: none;
+      font-size: clamp(14px, 1.2vw, 18px);
+    }
+    .select-modern {
+      cursor: pointer;
+      background-image: none;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: clamp(8px, 1vw, 14px);
+      background: var(--warna-amber-light);
+      padding: clamp(14px, 2vh, 22px);
+      border-radius: 16px;
+      border: 1px solid rgba(18, 110, 130, 0.15);
+    }
+    .checkbox-grid label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 400;
+      font-size: clamp(14px, 1.4vw, 18px);
+      cursor: pointer;
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+    .checkbox-grid label:hover { color: var(--warna-amber); }
+    .checkbox-grid input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--warna-amber);
+      cursor: pointer;
+      flex: none;
+    }
+    .checkbox-grid input[type="checkbox"]:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-submit {
+      background: var(--warna-amber);
+      color: #fff;
+      border: none;
+      padding: clamp(16px, 2.4vh, 24px);
+      border-radius: 60px;
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 8px;
+      width: 100%;
+    }
+    .btn-submit:hover:not(:disabled) {
+      background: var(--warna-amber-hover);
+      box-shadow: 0 8px 28px rgba(18, 110, 130, 0.3);
+    }
+    .btn-submit:active:not(:disabled) { transform: scale(0.98); }
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-submit .spinner {
+      display: none;
+      animation: spin 0.8s linear infinite;
+    }
+    .btn-submit.loading .spinner { display: inline-block; }
+    .btn-submit.loading .label-btn { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* UCAPAN TERIMA KASIH — muncul sebagai overlay di dalam card */
+    .terima-kasih {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: clamp(32px, 6vh, 64px) clamp(20px, 3vw, 40px);
+      gap: clamp(16px, 2.4vh, 32px);
+      animation: fadeUp 0.5s ease;
+    }
+    .terima-kasih .ikon-besar {
+      font-size: clamp(56px, 8vh, 96px);
+      color: var(--warna-amber);
+    }
+    .terima-kasih h2 {
+      font-size: clamp(32px, 4.6vw, 48px);
+      font-weight: 800;
+      color: var(--warna-teks);
+    }
+    .terima-kasih p {
+      font-size: clamp(18px, 2.2vw, 26px);
+      color: var(--warna-teks-muda);
+      max-width: 500px;
+      line-height: 1.6;
+    }
+    .terima-kasih .btn-ulang {
+      background: var(--warna-amber-light);
+      color: var(--warna-amber);
+      border: 2px solid var(--warna-amber);
+      padding: clamp(12px, 1.8vh, 20px) clamp(28px, 3.5vw, 48px);
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: clamp(16px, 1.8vw, 22px);
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 8px;
+    }
+    .terima-kasih .btn-ulang:hover {
+      background: var(--warna-amber);
+      color: #fff;
+    }
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* state form tersembunyi */
+    .form-survei.hidden { display: none; }
+    .terima-kasih.show { display: flex; }
+
+    /* Responsif */
+    @media (max-width: 600px) {
+      body { padding: 12px; }
+      .layar-survei { padding: 16px; border-radius: 18px; }
+      .checkbox-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 400px) {
+      .header-survei h1 { font-size: 22px; }
+      .btn-submit { font-size: 17px; padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layar-survei">
+
+  <!-- HEADER -->
+  <div class="header-survei">
+    <h1>📋 Survei <span>Digitalisasi PAI</span></h1>
+    <p>Isi dengan objektif untuk pemetaan kebutuhan pelatihan</p>
+  </div>
+
+  <!-- FORM -->
+  <form id="surveyForm" class="form-survei" novalidate>
+
+    <!-- 1. IDENTITAS -->
+    <div class="form-group">
+      <label>Nama Lengkap <span class="sub">(dengan gelar)</span></label>
+      <input type="text" name="nama" placeholder="Contoh: Dr. Hj. Siti Aisyah, M.Pd.I" required>
+    </div>
+    <div class="form-group">
+      <label>Asal Sekolah / Instansi</label>
+      <input type="text" name="sekolah" placeholder="SDN 1 Godegan" required>
+    </div>
+
+    <!-- 2. TEKNOLOGI DASAR -->
+    <div class="form-group">
+      <label>Frekuensi penggunaan gawai saat mengajar <span class="sub">(1–5)</span></label>
+      <div class="select-wrapper">
+        <select name="frekuensi_digital" class="select-modern" required>
+          <option value="">— Pilih Skala —</option>
+          <option value="1">1 — Tidak pernah</option>
+          <option value="2">2 — Jarang (1–2x/semester)</option>
+          <option value="3">3 — Kadang (3–5x/semester)</option>
+          <option value="4">4 — Sering (beberapa kali/bulan)</option>
+          <option value="5">5 — Selalu (setiap pertemuan)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Platform Digital yang Digunakan <span class="sub">(centang)</span></label>
+      <div class="checkbox-grid" id="platformGrid">
+        <label><input type="checkbox" name="platform" value="Google Workspace"> Google Workspace</label>
+        <label><input type="checkbox" name="platform" value="Canva / PPT"> Canva / PowerPoint</label>
+        <label><input type="checkbox" name="platform" value="YouTube/TikTok"> YouTube/TikTok</label>
+        <label><input type="checkbox" name="platform" value="Quizizz/Kahoot"> Quizizz/Kahoot</label>
+        <label><input type="checkbox" name="platform" value="LMS (GCR/Moodle)"> LMS (GCR/Moodle)</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Kepercayaan Diri Digital <span class="sub">(1–5)</span></label>
+      <div class="select-wrapper">
+        <select name="kepercayaan_digital" class="select-modern" required>
+          <option value="">— Pilih Skala —</option>
+          <option value="1">1 — Sangat Tidak Percaya Diri</option>
+          <option value="2">2 — Kurang Percaya Diri</option>
+          <option value="3">3 — Cukup Percaya Diri</option>
+          <option value="4">4 — Percaya Diri</option>
+          <option value="5">5 — Sangat Percaya Diri</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 3. AI -->
+    <div class="form-group">
+      <label>Level Penggunaan AI</label>
+      <div class="select-wrapper">
+        <select name="penggunaan_ai" class="select-modern" required>
+          <option value="">— Pilih Level —</option>
+          <option value="Belum tahu sama sekali">Belum tahu sama sekali</option>
+          <option value="Hanya tahu nama">Hanya tahu nama</option>
+          <option value="Baru mencoba-coba">Baru mencoba-coba</option>
+          <option value="Rutin untuk tugas guru">Rutin untuk tugas guru</option>
+          <option value="Integrasi ke siswa">Mengintegrasikan ke siswa</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Tools AI yang Dicoba <span class="sub">(centang)</span></label>
+      <div class="checkbox-grid" id="toolsGrid">
+        <label><input type="checkbox" name="tools_ai" value="AI Chat (ChatGPT, Gemini)"> AI Chat (ChatGPT, Gemini)</label>
+        <label><input type="checkbox" name="tools_ai" value="AI Pencari (Perplexity)"> AI Pencari (Perplexity)</label>
+        <label><input type="checkbox" name="tools_ai" value="AI Desain (Canva Magic, Firefly)"> AI Desain (Canva, Firefly)</label>
+        <label><input type="checkbox" name="tools_ai" value="AI Presentasi (Gamma, Tome)"> AI Presentasi (Gamma, Tome)</label>
+        <label><input type="checkbox" name="tools_ai" value="AI Pembuat Soal (MagicSchool)"> AI Pembuat Soal (MagicSchool)</label>
+        <label><input type="checkbox" name="tools_ai" value="AI Kuis (Quizizz AI)"> AI Kuis (Quizizz AI)</label>
+        <label><input type="checkbox" name="tools_ai" value="AI Audio/Musik (Suno AI)"> AI Audio (Suno AI)</label>
+        <label><input type="checkbox" name="tools_ai" value="AI Video (HeyGen, Synthesia)"> AI Video (HeyGen)</label>
+        <label><input type="checkbox" name="tools_ai" value="Belum pernah" id="belumPernahAI"> ❌ Belum pernah pakai AI</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Keperluan AI <span class="sub">(centang)</span></label>
+      <div class="checkbox-grid">
+        <label><input type="checkbox" name="keperluan_ai" value="Buat RPP/Modul"> Buat RPP/Modul</label>
+        <label><input type="checkbox" name="keperluan_ai" value="Buat Soal HOTS"> Buat Soal HOTS</label>
+        <label><input type="checkbox" name="keperluan_ai" value="Cari Ide Metode"> Cari Ide Metode</label>
+        <label><input type="checkbox" name="keperluan_ai" value="Media Visual/Lagu"> Media Visual/Lagu</label>
+        <label><input type="checkbox" name="keperluan_ai" value="Analisis Hasil Siswa"> Analisis Hasil Siswa</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Manfaat AI <span class="sub">(1–5)</span></label>
+      <div class="select-wrapper">
+        <select name="manfaat_ai" class="select-modern" required>
+          <option value="">— Pilih Skala —</option>
+          <option value="1">1 — Tidak Bermanfaat</option>
+          <option value="2">2 — Kurang Bermanfaat</option>
+          <option value="3">3 — Cukup Bermanfaat</option>
+          <option value="4">4 — Bermanfaat</option>
+          <option value="5">5 — Sangat Bermanfaat</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 4. TANTANGAN -->
+    <div class="form-group">
+      <label>Kendala Utama <span class="sub">(centang)</span></label>
+      <div class="checkbox-grid">
+        <label><input type="checkbox" name="kendala" value="Fasilitas (Internet/Proyektor)"> Fasilitas</label>
+        <label><input type="checkbox" name="kendala" value="Kurang pemahaman (Gaptek)"> Gaptek</label>
+        <label><input type="checkbox" name="kendala" value="Keterbatasan waktu"> Keterbatasan waktu</label>
+        <label><input type="checkbox" name="kendala" value="Kebijakan sekolah"> Kebijakan sekolah</label>
+        <label><input type="checkbox" name="kendala" value="Kurang pelatihan"> Kurang pelatihan</label>
+        <label><input type="checkbox" name="kendala" value="Konten PAI sulit digital"> Konten sulit</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Kesiapan Adopsi AI <span class="sub">(1–5)</span></label>
+      <div class="select-wrapper">
+        <select name="kesiapan_ai" class="select-modern" required>
+          <option value="">— Pilih Skala —</option>
+          <option value="1">1 — Tidak Siap</option>
+          <option value="2">2 — Kurang Siap</option>
+          <option value="3">3 — Cukup Siap</option>
+          <option value="4">4 — Siap</option>
+          <option value="5">5 — Sangat Siap</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Harapan / Materi Pelatihan</label>
+      <textarea name="harapan" placeholder="Tuliskan harapan atau materi spesifik yang dibutuhkan..."></textarea>
+    </div>
+
+    <button type="submit" class="btn-submit" id="submitBtn">
+      <span class="label-btn"><i class="fas fa-paper-plane"></i> Kirim Jawaban</span>
+      <span class="spinner"><i class="fas fa-circle-notch"></i></span>
+    </button>
+  </form>
+
+  <!-- UCAPAN TERIMA KASIH (muncul setelah sukses) -->
+  <div class="terima-kasih" id="thankYou">
+    <div class="ikon-besar">🙏</div>
+    <h2>Terima Kasih!</h2>
+    <p>Jawaban Anda telah berhasil kami terima. Kontribusi Anda sangat berharga untuk memetakan kebutuhan digitalisasi pembelajaran PAI.</p>
+    <button class="btn-ulang" onclick="resetForm()"><i class="fas fa-undo"></i> Isi Ulang</button>
+  </div>
+
+</div>
+
+<script>
+  // ============================================================
+  //  SERVICE WORKER (opsional)
+  // ============================================================
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
+
+  // ============================================================
+  //  KONFIGURASI
+  // ============================================================
+  const API_URL = 'https://script.google.com/macros/s/AKfycbxEJInPj5M3HtMVX6ajVywKsoIO0nxafV5U1fjKQ5AFnNe-fiLvhP4Yr3elvLsGhyvk/exec';
+
+  // ============================================================
+  //  FETCH DENGAN RETRY
+  // ============================================================
+  async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+    for (let i = 0; i < retries; i++) {
+      try {
+        const res = await fetch(url, options);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return await res.json();
+      } catch (e) {
+        if (i === retries - 1) throw e;
+        await new Promise(r => setTimeout(r, delay));
+        delay *= 2;
+      }
+    }
+  }
+
+  // ============================================================
+  //  LOGIKA "BELUM PERNAH" — matikan checkbox lain
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    const belum = document.getElementById('belumPernahAI');
+    const allTools = document.querySelectorAll('#toolsGrid input[type="checkbox"]:not(#belumPernahAI)');
+    if (belum) {
+      belum.addEventListener('change', function() {
+        const disabled = this.checked;
+        allTools.forEach(cb => {
+          cb.checked = false;
+          cb.disabled = disabled;
+        });
+      });
+      allTools.forEach(cb => {
+        cb.addEventListener('change', function() {
+          if (this.checked && belum.checked) {
+            belum.checked = false;
+            allTools.forEach(c => c.disabled = false);
+          }
+        });
+      });
+    }
+  });
+
+  // ============================================================
+  //  HANDLE SUBMIT — TAMPILKAN UCAPAN TERIMA KASIH
+  // ============================================================
+  const form = document.getElementById('surveyForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const thankYou = document.getElementById('thankYou');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Disable tombol & tampilkan loading
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+
+    try {
+      const formData = new FormData(form);
+      const payload = {};
+      const multiKeys = ['platform', 'tools_ai', 'keperluan_ai', 'kendala'];
+
+      for (let [key, value] of formData.entries()) {
+        if (!multiKeys.includes(key)) {
+          payload[key] = value;
+        }
+      }
+      multiKeys.forEach(k => {
+        const checked = form.querySelectorAll(`input[name="${k}"]:checked`);
+        payload[k] = Array.from(checked).map(el => el.value);
+      });
+
+      const response = await fetchWithRetry(API_URL, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.status === 'success') {
+        // Sembunyikan form, tampilkan ucapan terima kasih
+        form.classList.add('hidden');
+        thankYou.classList.add('show');
+        // Reset checkbox "Belum pernah" jika diperlukan
+        const belum = document.getElementById('belumPernahAI');
+        if (belum) {
+          belum.checked = false;
+          document.querySelectorAll('#toolsGrid input[type="checkbox"]:not(#belumPernahAI)').forEach(cb => cb.disabled = false);
+        }
+      } else {
+        throw new Error(response.message || 'Gagal menyimpan');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('❌ Terjadi kesalahan: ' + error.message + '\nSilakan coba lagi.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+    }
+  });
+
+  // ============================================================
+  //  FUNGSI RESET (tombol "Isi Ulang")
+  // ============================================================
+  function resetForm() {
+    form.reset();
+    form.classList.remove('hidden');
+    thankYou.classList.remove('show');
+    // Reset semua checkbox yang mungkin masih tercentang
+    document.querySelectorAll('.checkbox-grid input[type="checkbox"]').forEach(cb => {
+      cb.checked = false;
+      cb.disabled = false;
+    });
+    // Reset "Belum pernah" jika perlu
+    const belum = document.getElementById('belumPernahAI');
+    if (belum) belum.checked = false;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
