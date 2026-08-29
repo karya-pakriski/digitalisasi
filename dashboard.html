@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>📊 Hasil Survei — Digitalisasi Pembelajaran PAI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root {
+    --warna-latar: #eef4f5;
+    --warna-panel: #ffffff;
+    --warna-garis: #cddbde;
+    --warna-teks: #132C33;
+    --warna-teks-muda: #587078;
+    --warna-amber: #126E82;
+    --warna-amber-light: #d7edf1;
+    --warna-coral: #132C33;
+    --warna-biru: #0f7f93;
+    --biru-light: #daf3f6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    background: var(--warna-latar);
+    color: var(--warna-teks);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(16px, 2.5vw, 36px);
+    height: 100vh;
+    height: 100dvh;
+  }
+  h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: -0.01em; }
+
+  .layar-dashboard {
+    max-width: 1280px;
+    width: 100%;
+    height: 100%;
+    max-height: 950px;
+    background: var(--warna-panel);
+    border: 1px solid var(--warna-garis);
+    border-radius: 28px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 24px 72px -24px rgba(0, 0, 0, 0.18);
+  }
+
+  /* TOPBAR — mirip dengan halaman praktik */
+  .topbar {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: clamp(16px, 2.2vh, 24px) clamp(32px, 4.5vw, 56px);
+    border-bottom: 1px solid var(--warna-garis);
+    background: var(--warna-panel);
+  }
+  .topbar a.home {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--warna-teks);
+    font-weight: 700;
+    font-size: clamp(18px, 2vh, 24px);
+    padding: 10px 24px;
+    border: 1.5px solid var(--warna-garis);
+    border-radius: 999px;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .topbar a.home:hover {
+    border-color: var(--warna-amber);
+    color: var(--warna-amber);
+  }
+  .topbar a.home svg {
+    width: 22px;
+    height: 22px;
+    flex: none;
+  }
+  .topbar .label-materi {
+    font-size: clamp(16px, 1.8vh, 22px);
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--warna-teks-muda);
+    text-align: right;
+  }
+
+  /* KONTEN DASHBOARD */
+  .konten {
+    flex: 1;
+    padding: clamp(20px, 3vh, 36px) clamp(28px, 4vw, 48px) clamp(24px, 3.5vh, 38px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 2.4vh, 30px);
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  /* KARTU STATISTIK — gaya glassmorphism */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(12px, 1.6vw, 20px);
+    flex: none;
+  }
+  .stat-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--warna-garis);
+    border-radius: 16px;
+    padding: clamp(14px, 2vh, 24px) clamp(16px, 2vw, 28px);
+    text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.15);
+    border-color: var(--warna-amber);
+  }
+  .stat-card .label {
+    font-size: clamp(12px, 1.2vw, 16px);
+    color: var(--warna-teks-muda);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .stat-card .value {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    color: var(--warna-teks);
+    margin-top: 4px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .stat-card .value small {
+    font-size: 0.5em;
+    font-weight: 400;
+    color: var(--warna-teks-muda);
+    margin-left: 4px;
+  }
+
+  /* GRID CHART */
+  .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 2vw, 28px);
+    flex: 1;
+    min-height: 0;
+  }
+  .chart-box {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--warna-garis);
+    border-radius: 18px;
+    padding: clamp(12px, 1.8vh, 22px) clamp(14px, 1.8vw, 24px);
+    display: flex;
+    flex-direction: column;
+  }
+  .chart-box h3 {
+    font-size: clamp(16px, 1.8vh, 22px);
+    font-weight: 700;
+    margin: 0 0 clamp(8px, 1vh, 16px) 0;
+    color: var(--warna-teks);
+    border-bottom: 2px solid var(--warna-amber-light);
+    padding-bottom: 6px;
+  }
+  .chart-box .chart-wrap {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+  }
+  .chart-box .chart-wrap canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* chart lebar penuh untuk tools */
+  .chart-box.full {
+    grid-column: 1 / -1;
+  }
+
+  .footer-info {
+    flex: none;
+    padding: 12px clamp(24px, 4vw, 40px);
+    border-top: 1px solid var(--warna-garis);
+    font-size: clamp(13px, 1.1vw, 16px);
+    color: var(--warna-teks-muda);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px;
+    background: var(--warna-panel);
+  }
+  .footer-info .kiri { font-weight: 600; color: var(--warna-teks); }
+  .footer-info .kanan { color: var(--warna-teks-muda); }
+
+  /* Responsif */
+  @media (max-width: 820px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .chart-grid { grid-template-columns: 1fr; }
+    .chart-box.full { grid-column: 1; }
+    .layar-dashboard { max-height: 100%; border-radius: 20px; }
+    .topbar { padding: 10px 16px; flex-wrap: wrap; gap: 6px; }
+    .topbar a.home { font-size: 14px; padding: 6px 16px; }
+    .topbar .label-materi { font-size: 12px; }
+    .stat-card .value { font-size: clamp(24px, 3.6vw, 36px); }
+  }
+  @media (max-width: 600px) {
+    .stat-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat-card { padding: 10px 8px; }
+    .stat-card .value { font-size: 20px; }
+    .stat-card .label { font-size: 10px; }
+    .chart-box { padding: 10px; }
+    .chart-box h3 { font-size: 14px; }
+    .footer-info { flex-direction: column; text-align: center; font-size: 11px; padding: 8px 12px; }
+  }
+  @media (max-width: 400px) {
+    .stat-grid { grid-template-columns: 1fr; }
+    .stat-card .value { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="layar-dashboard">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <a href="index.html" class="home">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10"></path></svg>
+      Beranda
+    </a>
+    <span class="label-materi">📊 Hasil Survei</span>
+  </div>
+
+  <!-- KONTEN DASHBOARD -->
+  <div class="konten" id="dashboardContent">
+
+    <!-- KARTU STATISTIK -->
+    <div class="stat-grid" id="statCards">
+      <div class="stat-card"><div class="label">Total Responden</div><div class="value" id="stat-total">0</div></div>
+      <div class="stat-card"><div class="label">Rata-rata Frekuensi</div><div class="value" id="stat-freq">0 <small>/5</small></div></div>
+      <div class="stat-card"><div class="label">Rata-rata Kesiapan AI</div><div class="value" id="stat-ready">0 <small>/5</small></div></div>
+      <div class="stat-card"><div class="label">Rata-rata Manfaat AI</div><div class="value" id="stat-benefit">0 <small>/5</small></div></div>
+    </div>
+
+    <!-- CHART GRID -->
+    <div class="chart-grid" id="chartGrid">
+      <div class="chart-box"><h3>Frekuensi Penggunaan Digital</h3><div class="chart-wrap"><canvas id="chart-freq"></canvas></div></div>
+      <div class="chart-box"><h3>Level Penggunaan AI</h3><div class="chart-wrap"><canvas id="chart-ai"></canvas></div></div>
+      <div class="chart-box"><h3>Platform Digital Populer</h3><div class="chart-wrap"><canvas id="chart-platform"></canvas></div></div>
+      <div class="chart-box"><h3>Keperluan AI</h3><div class="chart-wrap"><canvas id="chart-purpose"></canvas></div></div>
+      <div class="chart-box full"><h3>🛠️ Tools AI yang Dicoba (Detail)</h3><div class="chart-wrap"><canvas id="chart-tools"></canvas></div></div>
+      <div class="chart-box full"><h3>Kendala Utama</h3><div class="chart-wrap"><canvas id="chart-kendala"></canvas></div></div>
+    </div>
+
+    <!-- FOOTER UPDATE -->
+    <div class="footer-info">
+      <span class="kiri" id="lastUpdate">Memuat data...</span>
+      <span class="kanan">
+        <button onclick="loadDashboard(true)" style="background:var(--warna-amber);color:white;border:none;padding:6px 18px;border-radius:40px;font-weight:600;cursor:pointer;transition:background 0.2s;font-family:inherit;font-size:clamp(13px,1.1vw,16px);">
+          <i id="refreshIcon" style="display:inline-block;transition:transform 0.4s;">⟳</i> Refresh
+        </button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ============================================================
+  //  KONFIGURASI & CACHE
+  // ============================================================
+  const API_URL = 'https://script.google.com/macros/s/AKfycbxEJInPj5M3HtMVX6ajVywKsoIO0nxafV5U1fjKQ5AFnNe-fiLvhP4Yr3elvLsGhyvk/exec';
+  const CACHE_KEY = 'DASHBOARD_AGGREGATES';
+  const CACHE_TTL = 120; // 2 menit
+
+  function getCache() {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    try {
+      const item = JSON.parse(raw);
+      if (Date.now() - item.timestamp > item.ttl) {
+        localStorage.removeItem(CACHE_KEY);
+        return null;
+      }
+      return item.data;
+    } catch (e) { return null; }
+  }
+
+  function setCache(data) {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now(), ttl: CACHE_TTL * 1000 }));
+  }
+
+  // ============================================================
+  //  FETCH DENGAN RETRY
+  // ============================================================
+  async function fetchWithRetry(url, retries = 3, delay = 1000) {
+    for (let i = 0; i < retries; i++) {
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return await res.json();
+      } catch (e) {
+        if (i === retries - 1) throw e;
+        await new Promise(r => setTimeout(r, delay));
+        delay *= 2;
+      }
+    }
+  }
+
+  // ============================================================
+  //  LOAD DASHBOARD
+  // ============================================================
+  let chartInstances = {};
+
+  async function loadDashboard(forceRefresh = false) {
+    const refreshIcon = document.getElementById('refreshIcon');
+    refreshIcon.style.transform = 'rotate(360deg)';
+
+    try {
+      let data = null;
+      if (!forceRefresh) data = getCache();
+
+      if (!data) {
+        const response = await fetchWithRetry(API_URL + '?force=' + (forceRefresh ? 'true' : 'false'));
+        if (response.status === 'success') {
+          data = response.data;
+          setCache(data);
+        } else {
+          throw new Error(response.message || 'Gagal memuat data');
+        }
+      }
+
+      if (!data || data.total === 0) {
+        document.getElementById('lastUpdate').innerText = '⚠️ Belum ada data survei.';
+        return;
+      }
+
+      renderDashboard(data);
+      document.getElementById('lastUpdate').innerText = '🔄 Terakhir diperbarui: ' + new Date(data.lastUpdate).toLocaleString();
+    } catch (error) {
+      console.error(error);
+      document.getElementById('lastUpdate').innerText = '❌ Error: ' + error.message;
+    } finally {
+      refreshIcon.style.transform = 'rotate(0deg)';
+    }
+  }
+
+  // ============================================================
+  //  RENDER DASHBOARD
+  // ============================================================
+  function renderDashboard(data) {
+    // Update stat cards
+    document.getElementById('stat-total').innerText = data.total;
+    document.getElementById('stat-freq').innerHTML = data.avgFreq.toFixed(1) + ' <small>/5</small>';
+    document.getElementById('stat-ready').innerHTML = data.avgReady.toFixed(1) + ' <small>/5</small>';
+    document.getElementById('stat-benefit').innerHTML = data.avgBenefit.toFixed(1) + ' <small>/5</small>';
+
+    // Hancurkan chart lama
+    Object.values(chartInstances).forEach(chart => chart.destroy());
+    chartInstances = {};
+
+    // Warna tema
+    const warna = ['#126E82', '#1a8ca6', '#3baac4', '#6ec5db', '#9eddec'];
+    const warna2 = ['#132C33', '#2a4f5a', '#4b7685', '#7aa3b2', '#b3d0db'];
+
+    // Render chart
+    chartInstances['chart-freq'] = renderChart('chart-freq', 'bar', data.freqDist, ['#126E82']);
+    chartInstances['chart-ai'] = renderChart('chart-ai', 'pie', data.aiLevels, warna);
+    chartInstances['chart-platform'] = renderChart('chart-platform', 'bar', data.platformCount, ['#0f7f93']);
+    chartInstances['chart-purpose'] = renderChart('chart-purpose', 'bar', data.purposesCount, ['#b68b40']);
+    chartInstances['chart-kendala'] = renderChart('chart-kendala', 'bar', data.kendalaCount, ['#b91c1c']);
+    chartInstances['chart-tools'] = renderChart('chart-tools', 'bar', data.toolsCount, ['#8b5cf6'], true);
+  }
+
+  function renderChart(canvasId, type, dataObj, bgColors, isHorizontal = false) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    const labels = Object.keys(dataObj);
+    const values = Object.values(dataObj);
+
+    if (labels.length === 0) {
+      return new Chart(ctx, {
+        type: type,
+        data: { labels: ['Tidak Ada Data'], datasets: [{ data: [1], backgroundColor: ['#e5e7eb'] }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+      });
+    }
+
+    return new Chart(ctx, {
+      type: type,
+      data: {
+        labels: labels,
+        datasets: [{
+          data: values,
+          backgroundColor: Array.isArray(bgColors) ? (bgColors.length === 1 ? bgColors[0] : bgColors.slice(0, labels.length)) : bgColors,
+          borderWidth: 1,
+          borderRadius: 4,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: isHorizontal ? 'y' : 'x',
+        plugins: {
+          legend: { display: (type === 'pie' || type === 'doughnut'), position: 'bottom' },
+        },
+        scales: (type !== 'pie' && type !== 'doughnut') ? {
+          x: { grid: { display: false } },
+          y: { beginAtZero: true, grid: { color: '#f1f5f9' } }
+        } : {}
+      }
+    });
+  }
+
+  // ============================================================
+  //  INISIALISASI
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', () => loadDashboard(false));
+</script>
+</body>
+</html>
