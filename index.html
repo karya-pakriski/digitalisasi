@@ -131,7 +131,7 @@
 
   .grid-menu{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(4,1fr);  /* 4 kolom untuk dashboard + 3 materi */
     gap:clamp(16px,1.8vw,24px);
     flex:1;
     min-height:0;
@@ -169,6 +169,7 @@
   .item-menu:hover::before{opacity:1;}
   .item-menu.warna-coral::before{background:var(--warna-coral);}
   .item-menu.warna-biru::before{background:var(--warna-biru);}
+  .item-menu.warna-emas::before{background:#b68b40;} /* warna emas untuk dashboard */
 
   .item-menu .ikon{
     flex:none;
@@ -182,6 +183,7 @@
   .item-menu .ikon.amber{background:var(--warna-amber-light);color:var(--warna-amber);}
   .item-menu .ikon.coral{background:#dde5e7;color:var(--warna-coral);}
   .item-menu .ikon.biru{background:var(--biru-light);color:var(--warna-biru);}
+  .item-menu .ikon.emas{background:#f7f0e0;color:#b68b40;}
 
   .item-menu .teks h2{
     margin:0;font-size:clamp(19px,2vw,26px);line-height:1.2;font-weight:700;
@@ -207,8 +209,9 @@
   .footer .kiri{font-weight:600;color:var(--warna-teks);}
   .footer .kanan{color:var(--warna-teks-muda);}
 
+  /* Responsif */
   @media (max-width: 820px) {
-    .grid-menu{grid-template-columns:repeat(2,1fr);}
+    .grid-menu{grid-template-columns:repeat(2,1fr);} /* 2 kolom */
     .layar-presentasi{max-height:100%;border-radius:20px;}
     .hero h1{font-size:clamp(24px,3.8vw,32px);}
     .hero p{font-size:clamp(14px,1.3vw,16px);}
@@ -220,7 +223,7 @@
     .card-profil .info p{font-size:clamp(13px,1.2vw,15px);}
   }
   @media (max-width: 600px) {
-    .grid-menu{grid-template-columns:1fr;gap:12px;}
+    .grid-menu{grid-template-columns:1fr;gap:12px;} /* 1 kolom */
     .hero{padding:14px 12px 16px;}
     .hero h1{font-size:clamp(18px,4.2vw,24px);}
     .hero .badge-hero{font-size:9px;padding:3px 10px;}
@@ -254,7 +257,7 @@
   <header class="hero">
     <div class="badge-hero">Workshop Guru PAI SD/MI</div>
     <h1>Digitalisasi <span>Pembelajaran PAI</span></h1>
-    <p>Mengajar Agama dengan Mudah &amp; Menyenangkan — 3 Rangkaian Pembahasan</p>
+    <p>Mengajar Agama dengan Mudah &amp; Menyenangkan — 4 Rangkaian Pembahasan</p>
   </header>
 
   <div class="konten-isi">
@@ -271,6 +274,18 @@
     </a>
 
     <div class="grid-menu">
+      <!-- 1. DASHBOARD HASIL SURVEI (Paling Kiri) -->
+      <a href="dashboard.html" class="item-menu warna-emas">
+        <div class="ikon emas">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="34" height="34"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+        </div>
+        <div class="teks">
+          <h2>📊 Hasil Survei</h2>
+          <p>Lihat analisis &amp; grafik real-time</p>
+        </div>
+      </a>
+
+      <!-- 2. PENGANTAR -->
       <a href="pengantar.html" class="item-menu">
         <div class="ikon amber">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="34" height="34"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -281,16 +296,18 @@
         </div>
       </a>
 
+      <!-- 3. PRAKTIK MODUL PAI -->
       <a href="praktik-buku-ajar.html" class="item-menu warna-coral">
         <div class="ikon coral">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="34" height="34"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
         </div>
         <div class="teks">
-          <h2>02. Praktik Buku Ajar</h2>
+          <h2>02. Praktik Modul PAI</h2>
           <p>Menyusun modul PAI digital dengan bantuan AI.</p>
         </div>
       </a>
 
+      <!-- 4. PRAKTIK APLIKASI PAI -->
       <a href="praktik-aplikasi-pai.html" class="item-menu warna-biru">
         <div class="ikon biru">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="34" height="34"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
