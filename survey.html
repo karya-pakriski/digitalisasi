@@ -52,7 +52,6 @@
       transition: opacity 0.4s ease;
     }
 
-    /* HEADER */
     .header-survei {
       text-align: center;
       border-bottom: 2px solid var(--warna-amber-light);
@@ -71,7 +70,6 @@
       margin-top: 4px;
     }
 
-    /* FORM */
     .form-survei {
       display: flex;
       flex-direction: column;
@@ -207,7 +205,6 @@
     .btn-submit.loading .label-btn { display: none; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* UCAPAN TERIMA KASIH — muncul sebagai overlay di dalam card */
     .terima-kasih {
       display: none;
       flex-direction: column;
@@ -254,11 +251,9 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* state form tersembunyi */
     .form-survei.hidden { display: none; }
     .terima-kasih.show { display: flex; }
 
-    /* Responsif */
     @media (max-width: 600px) {
       body { padding: 12px; }
       .layar-survei { padding: 16px; border-radius: 18px; }
@@ -274,16 +269,13 @@
 
 <div class="layar-survei">
 
-  <!-- HEADER -->
   <div class="header-survei">
     <h1>📋 Survei <span>Digitalisasi PAI</span></h1>
     <p>Isi dengan objektif untuk pemetaan kebutuhan pelatihan</p>
   </div>
 
-  <!-- FORM -->
   <form id="surveyForm" class="form-survei" novalidate>
 
-    <!-- 1. IDENTITAS -->
     <div class="form-group">
       <label>Nama Lengkap <span class="sub">(dengan gelar)</span></label>
       <input type="text" name="nama" placeholder="Contoh: Dr. Hj. Siti Aisyah, M.Pd.I" required>
@@ -293,7 +285,6 @@
       <input type="text" name="sekolah" placeholder="SDN 1 Godegan" required>
     </div>
 
-    <!-- 2. TEKNOLOGI DASAR -->
     <div class="form-group">
       <label>Frekuensi penggunaan gawai saat mengajar <span class="sub">(1–5)</span></label>
       <div class="select-wrapper">
@@ -310,7 +301,7 @@
 
     <div class="form-group">
       <label>Platform Digital yang Digunakan <span class="sub">(centang)</span></label>
-      <div class="checkbox-grid" id="platformGrid">
+      <div class="checkbox-grid">
         <label><input type="checkbox" name="platform" value="Google Workspace"> Google Workspace</label>
         <label><input type="checkbox" name="platform" value="Canva / PPT"> Canva / PowerPoint</label>
         <label><input type="checkbox" name="platform" value="YouTube/TikTok"> YouTube/TikTok</label>
@@ -333,7 +324,6 @@
       </div>
     </div>
 
-    <!-- 3. AI -->
     <div class="form-group">
       <label>Level Penggunaan AI</label>
       <div class="select-wrapper">
@@ -388,7 +378,6 @@
       </div>
     </div>
 
-    <!-- 4. TANTANGAN -->
     <div class="form-group">
       <label>Kendala Utama <span class="sub">(centang)</span></label>
       <div class="checkbox-grid">
@@ -426,7 +415,6 @@
     </button>
   </form>
 
-  <!-- UCAPAN TERIMA KASIH (muncul setelah sukses) -->
   <div class="terima-kasih" id="thankYou">
     <div class="ikon-besar">🙏</div>
     <h2>Terima Kasih!</h2>
@@ -437,21 +425,12 @@
 </div>
 
 <script>
-  // ============================================================
-  //  SERVICE WORKER (opsional)
-  // ============================================================
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   }
 
-  // ============================================================
-  //  KONFIGURASI
-  // ============================================================
   const API_URL = 'https://script.google.com/macros/s/AKfycbxEJInPj5M3HtMVX6ajVywKsoIO0nxafV5U1fjKQ5AFnNe-fiLvhP4Yr3elvLsGhyvk/exec';
 
-  // ============================================================
-  //  FETCH DENGAN RETRY
-  // ============================================================
   async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
     for (let i = 0; i < retries; i++) {
       try {
@@ -466,9 +445,6 @@
     }
   }
 
-  // ============================================================
-  //  LOGIKA "BELUM PERNAH" — matikan checkbox lain
-  // ============================================================
   document.addEventListener('DOMContentLoaded', function() {
     const belum = document.getElementById('belumPernahAI');
     const allTools = document.querySelectorAll('#toolsGrid input[type="checkbox"]:not(#belumPernahAI)');
@@ -491,9 +467,6 @@
     }
   });
 
-  // ============================================================
-  //  HANDLE SUBMIT — TAMPILKAN UCAPAN TERIMA KASIH
-  // ============================================================
   const form = document.getElementById('surveyForm');
   const submitBtn = document.getElementById('submitBtn');
   const thankYou = document.getElementById('thankYou');
@@ -501,7 +474,6 @@
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    // Disable tombol & tampilkan loading
     submitBtn.disabled = true;
     submitBtn.classList.add('loading');
 
@@ -523,15 +495,13 @@
       const response = await fetchWithRetry(API_URL, {
         method: 'POST',
         mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain' }, // ✅ CORS-safe
         body: JSON.stringify(payload)
       });
 
       if (response.status === 'success') {
-        // Sembunyikan form, tampilkan ucapan terima kasih
         form.classList.add('hidden');
         thankYou.classList.add('show');
-        // Reset checkbox "Belum pernah" jika diperlukan
         const belum = document.getElementById('belumPernahAI');
         if (belum) {
           belum.checked = false;
@@ -549,19 +519,14 @@
     }
   });
 
-  // ============================================================
-  //  FUNGSI RESET (tombol "Isi Ulang")
-  // ============================================================
   function resetForm() {
     form.reset();
     form.classList.remove('hidden');
     thankYou.classList.remove('show');
-    // Reset semua checkbox yang mungkin masih tercentang
     document.querySelectorAll('.checkbox-grid input[type="checkbox"]').forEach(cb => {
       cb.checked = false;
       cb.disabled = false;
     });
-    // Reset "Belum pernah" jika perlu
     const belum = document.getElementById('belumPernahAI');
     if (belum) belum.checked = false;
     window.scrollTo({ top: 0, behavior: 'smooth' });
