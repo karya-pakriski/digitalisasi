@@ -58,24 +58,26 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: clamp(14px, 2vh, 22px) clamp(28px, 4vw, 48px);
+    padding: clamp(12px, 1.8vh, 20px) clamp(24px, 3.6vw, 44px);
     border-bottom: 1px solid var(--warna-garis);
     background: var(--warna-panel);
+    flex-wrap: wrap;
   }
   .topbar .kiri {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
   }
   .topbar a.home {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     text-decoration: none;
     color: var(--warna-teks);
     font-weight: 700;
-    font-size: clamp(16px, 1.8vh, 22px);
-    padding: 8px 20px;
+    font-size: clamp(14px, 1.6vh, 20px);
+    padding: 6px 16px;
     border: 1.5px solid var(--warna-garis);
     border-radius: 999px;
     transition: border-color .2s ease, color .2s ease;
@@ -85,12 +87,12 @@
     color: var(--warna-amber);
   }
   .topbar a.home svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     flex: none;
   }
   .topbar .label-materi {
-    font-size: clamp(16px, 1.8vh, 22px);
+    font-size: clamp(14px, 1.6vh, 20px);
     font-weight: 700;
     letter-spacing: .04em;
     color: var(--warna-teks-muda);
@@ -98,16 +100,16 @@
   .topbar .kanan {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
   }
   .topbar .btn-refresh {
     background: var(--warna-amber);
     color: #fff;
     border: none;
-    padding: 8px 20px;
+    padding: 6px 16px;
     border-radius: 40px;
     font-weight: 600;
-    font-size: clamp(14px, 1.4vw, 18px);
+    font-size: clamp(12px, 1.2vw, 16px);
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
     font-family: 'Inter', sans-serif;
@@ -115,9 +117,7 @@
     align-items: center;
     gap: 6px;
   }
-  .topbar .btn-refresh:hover {
-    background: var(--warna-amber-hover);
-  }
+  .topbar .btn-refresh:hover { background: var(--warna-amber-hover); }
   .topbar .btn-refresh:active { transform: scale(0.96); }
   .topbar .btn-refresh .spin {
     display: inline-block;
@@ -131,10 +131,10 @@
   /* KONTEN DASHBOARD */
   .konten {
     flex: 1;
-    padding: clamp(18px, 2.6vh, 32px) clamp(24px, 3.6vw, 44px) clamp(16px, 2.2vh, 28px);
+    padding: clamp(14px, 2vh, 28px) clamp(20px, 3vw, 40px) clamp(12px, 1.8vh, 24px);
     display: flex;
     flex-direction: column;
-    gap: clamp(14px, 2vh, 26px);
+    gap: clamp(12px, 1.6vh, 22px);
     min-height: 0;
     overflow-y: auto;
   }
@@ -143,21 +143,21 @@
   .stat-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: clamp(10px, 1.4vw, 18px);
+    gap: clamp(10px, 1.2vw, 16px);
     flex: none;
   }
   .stat-card {
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(6px);
     border: 1px solid var(--warna-garis);
-    border-radius: 16px;
-    padding: clamp(14px, 2vh, 24px) clamp(12px, 1.6vw, 22px);
+    border-radius: 14px;
+    padding: clamp(12px, 1.6vh, 20px) clamp(10px, 1.2vw, 18px);
     text-align: center;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: clamp(80px, 12vh, 120px);
+    min-height: clamp(70px, 10vh, 100px);
   }
   .stat-card:hover {
     transform: translateY(-2px);
@@ -165,14 +165,15 @@
     border-color: var(--warna-amber);
   }
   .stat-card .label {
-    font-size: clamp(11px, 1.1vw, 15px);
+    font-size: clamp(10px, 1vw, 14px);
     color: var(--warna-teks-muda);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    line-height: 1.2;
   }
   .stat-card .value {
-    font-size: clamp(28px, 3.6vw, 46px);
+    font-size: clamp(24px, 3.2vw, 42px);
     font-weight: 800;
     color: var(--warna-teks);
     margin-top: 2px;
@@ -183,14 +184,14 @@
     font-size: 0.45em;
     font-weight: 400;
     color: var(--warna-teks-muda);
-    margin-left: 4px;
+    margin-left: 3px;
   }
 
-  /* GRID CHART — proporsional */
+  /* GRID CHART — proporsional, tinggi minimal */
   .chart-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: clamp(14px, 1.8vw, 24px);
+    gap: clamp(12px, 1.6vw, 22px);
     flex: 1;
     min-height: 0;
   }
@@ -198,16 +199,16 @@
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(4px);
     border: 1px solid var(--warna-garis);
-    border-radius: 18px;
-    padding: clamp(12px, 1.6vh, 20px) clamp(14px, 1.6vw, 22px);
+    border-radius: 16px;
+    padding: clamp(10px, 1.4vh, 18px) clamp(12px, 1.4vw, 20px);
     display: flex;
     flex-direction: column;
     min-height: 0;
   }
   .chart-box h3 {
-    font-size: clamp(14px, 1.6vh, 20px);
+    font-size: clamp(13px, 1.4vh, 18px);
     font-weight: 700;
-    margin: 0 0 clamp(6px, 0.8vh, 12px) 0;
+    margin: 0 0 clamp(4px, 0.6vh, 10px) 0;
     color: var(--warna-teks);
     border-bottom: 2px solid var(--warna-amber-light);
     padding-bottom: 4px;
@@ -215,7 +216,7 @@
   }
   .chart-box .chart-wrap {
     flex: 1;
-    min-height: 0;
+    min-height: 120px;
     position: relative;
   }
   .chart-box .chart-wrap canvas {
@@ -223,6 +224,7 @@
     height: 100% !important;
   }
   .chart-box.full { grid-column: 1 / -1; }
+  .chart-box.full .chart-wrap { min-height: 150px; }
 
   /* EMPTY STATE — tanpa tombol */
   .empty-state {
@@ -231,28 +233,28 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: clamp(12px, 1.8vh, 24px);
-    padding: clamp(40px, 8vh, 80px) 20px;
+    gap: clamp(10px, 1.6vh, 20px);
+    padding: clamp(30px, 6vh, 60px) 20px;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(4px);
-    border-radius: 28px;
+    border-radius: 24px;
     border: 2px dashed var(--warna-garis);
     flex: 1;
-    min-height: 280px;
+    min-height: 200px;
   }
   .empty-state .ikon {
-    font-size: clamp(56px, 8vh, 96px);
+    font-size: clamp(48px, 7vh, 80px);
     color: var(--warna-amber);
   }
   .empty-state h2 {
-    font-size: clamp(28px, 4vw, 44px);
+    font-size: clamp(24px, 3.6vw, 38px);
     font-weight: 800;
     color: var(--warna-teks);
   }
   .empty-state p {
-    font-size: clamp(18px, 2.2vw, 26px);
+    font-size: clamp(16px, 2vw, 22px);
     color: var(--warna-teks-muda);
-    max-width: 520px;
+    max-width: 480px;
     line-height: 1.6;
   }
 
@@ -273,9 +275,9 @@
   /* FOOTER INFO */
   .footer-info {
     flex: none;
-    padding: 8px clamp(24px, 4vw, 40px);
+    padding: 6px clamp(20px, 3vw, 36px);
     border-top: 1px solid var(--warna-garis);
-    font-size: clamp(12px, 1vw, 15px);
+    font-size: clamp(11px, 0.9vw, 14px);
     color: var(--warna-teks-muda);
     text-align: center;
     background: var(--warna-panel);
@@ -288,37 +290,41 @@
     .chart-grid { grid-template-columns: 1fr; }
     .chart-box.full { grid-column: 1; }
     .layar-dashboard { max-height: 100%; border-radius: 20px; }
-    .topbar { padding: 10px 16px; flex-wrap: wrap; gap: 6px; }
-    .topbar a.home { font-size: 13px; padding: 5px 14px; }
-    .topbar .label-materi { font-size: 13px; }
-    .topbar .btn-refresh { font-size: 12px; padding: 5px 14px; }
-    .stat-card .value { font-size: clamp(24px, 3.2vw, 34px); }
-    .stat-card { min-height: 70px; padding: 12px 10px; }
-    .empty-state h2 { font-size: clamp(24px, 3.6vw, 34px); }
-    .empty-state p { font-size: clamp(16px, 2vw, 22px); }
+    .topbar { padding: 8px 14px; }
+    .topbar a.home { font-size: 12px; padding: 4px 12px; }
+    .topbar .label-materi { font-size: 12px; }
+    .topbar .btn-refresh { font-size: 11px; padding: 4px 12px; }
+    .stat-card .value { font-size: clamp(22px, 3vw, 30px); }
+    .stat-card { min-height: 60px; padding: 8px 8px; }
+    .chart-box .chart-wrap { min-height: 100px; }
+    .chart-box.full .chart-wrap { min-height: 120px; }
+    .empty-state h2 { font-size: clamp(20px, 3.2vw, 28px); }
+    .empty-state p { font-size: clamp(14px, 1.8vw, 18px); }
   }
   @media (max-width: 600px) {
     .stat-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
-    .stat-card { padding: 8px 6px; min-height: 60px; }
-    .stat-card .value { font-size: 18px; }
-    .stat-card .label { font-size: 9px; }
-    .chart-box { padding: 8px; }
-    .chart-box h3 { font-size: 12px; }
+    .stat-card { padding: 6px 4px; min-height: 50px; }
+    .stat-card .value { font-size: 16px; }
+    .stat-card .label { font-size: 8px; }
+    .chart-box { padding: 6px; }
+    .chart-box h3 { font-size: 11px; }
+    .chart-box .chart-wrap { min-height: 80px; }
+    .chart-box.full .chart-wrap { min-height: 100px; }
     .topbar { flex-direction: column; align-items: stretch; gap: 4px; }
-    .topbar .kiri { justify-content: center; flex-wrap: wrap; }
+    .topbar .kiri { justify-content: center; }
     .topbar .kanan { justify-content: center; }
-    .footer-info { font-size: 10px; padding: 6px 12px; }
-    .empty-state { padding: 30px 16px; min-height: 180px; }
-    .empty-state h2 { font-size: 20px; }
-    .empty-state p { font-size: 14px; }
+    .footer-info { font-size: 9px; padding: 4px 10px; }
+    .empty-state { padding: 20px 12px; min-height: 150px; }
+    .empty-state h2 { font-size: 16px; }
+    .empty-state p { font-size: 12px; }
   }
   @media (max-width: 400px) {
     .stat-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
-    .stat-card .value { font-size: 15px; }
-    .stat-card .label { font-size: 8px; }
-    .stat-card { padding: 6px 4px; min-height: 50px; }
-    .empty-state h2 { font-size: 17px; }
-    .empty-state p { font-size: 12px; }
+    .stat-card .value { font-size: 14px; }
+    .stat-card .label { font-size: 7px; }
+    .stat-card { padding: 4px 3px; min-height: 40px; }
+    .empty-state h2 { font-size: 14px; }
+    .empty-state p { font-size: 11px; }
   }
 </style>
 </head>
@@ -352,7 +358,7 @@
       <div class="stat-card"><div class="label">Rata-rata Manfaat AI</div><div class="value" id="stat-benefit">0 <small>/5</small></div></div>
     </div>
 
-    <!-- EMPTY STATE (tanpa tombol) -->
+    <!-- EMPTY STATE -->
     <div class="empty-state" id="emptyState">
       <div class="ikon">📭</div>
       <h2>Belum Ada Data Survei</h2>
@@ -454,7 +460,7 @@
       konten.classList.add('has-data');
       renderDashboard(data);
       const tgl = new Date(data.lastUpdate);
-      document.getElementById('lastUpdate').innerHTML = '🔄 Terakhir diperbarui: <strong>' + tgl.toLocaleString() + '</strong>';
+      document.getElementById('lastUpdate').innerHTML = '🔄 Terakhir diperbarui: <strong>' + tgl.toLocaleString('id-ID') + '</strong>';
     } catch (error) {
       console.error(error);
       document.getElementById('lastUpdate').innerHTML = '❌ Error: ' + error.message;
@@ -494,8 +500,19 @@
     if (labels.length === 0) {
       return new Chart(ctx, {
         type: type,
-        data: { labels: ['Tidak Ada Data'], datasets: [{ data: [1], backgroundColor: ['#e5e7eb'] }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        data: {
+          labels: ['Tidak Ada Data'],
+          datasets: [{ data: [1], backgroundColor: ['#e5e7eb'], borderWidth: 0 }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: (type !== 'pie' && type !== 'doughnut') ? {
+            x: { grid: { display: false }, ticks: { display: false } },
+            y: { grid: { display: false }, ticks: { display: false } }
+          } : {}
+        }
       });
     }
 
