@@ -493,7 +493,6 @@
   const nextBtn = document.getElementById('nextSlide');
   const slideContainer = document.getElementById('slideContainer');
 
-  // Buat dot indikator
   function buildDots() {
     dotsContainer.innerHTML = '';
     for (let i = 0; i < totalSlides; i++) {
@@ -508,7 +507,6 @@
 
   function goToSlide(index) {
     if (!isDataAvailable) {
-      // Jika tidak ada data, tampilkan empty slide
       slides.forEach(s => s.style.display = 'none');
       emptySlide.style.display = 'flex';
       slideContainer.style.transform = 'translateX(0)';
@@ -523,22 +521,17 @@
     if (index >= totalSlides) index = totalSlides - 1;
     currentSlide = index;
 
-    // Gerakkan container
     slideContainer.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
 
-    // Update dots
     document.querySelectorAll('.dot').forEach((d, i) => {
       d.classList.toggle('active', i === currentSlide);
     });
 
-    // Update counter
     slideCounter.textContent = (currentSlide + 1) + ' / ' + totalSlides;
 
-    // Tombol navigasi
     prevBtn.disabled = (currentSlide === 0);
     nextBtn.disabled = (currentSlide === totalSlides - 1);
 
-    // Resize chart setelah transisi selesai
     setTimeout(() => {
       Object.values(chartInstances).forEach(chart => {
         if (chart && chart.resize) chart.resize();
@@ -549,7 +542,6 @@
   prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
   nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
 
-  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
     if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
@@ -581,7 +573,6 @@
 
       if (!data || data.total === 0) {
         isDataAvailable = false;
-        // Tampilkan empty slide
         slides.forEach(s => s.style.display = 'none');
         emptySlide.style.display = 'flex';
         document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
@@ -593,7 +584,6 @@
       }
 
       isDataAvailable = true;
-      // Tampilkan semua slide
       slides.forEach(s => s.style.display = 'flex');
       emptySlide.style.display = 'none';
 
@@ -601,7 +591,6 @@
       const tgl = new Date(data.lastUpdate);
       document.getElementById('lastUpdate').innerHTML = '🔄 Terakhir diperbarui: <strong>' + tgl.toLocaleString('id-ID') + '</strong>';
 
-      // Reset ke slide pertama
       goToSlide(0);
 
     } catch (error) {
@@ -629,8 +618,25 @@
     Object.values(chartInstances).forEach(chart => chart.destroy());
     chartInstances = {};
 
+    // --- PEMETAAN LABEL UNTUK FREKUENSI ---
+    const labelMapFreq = {
+      'Skala 1': 'Tidak pernah',
+      'Skala 2': 'Jarang (1–2x/semester)',
+      'Skala 3': 'Kadang (3–5x/semester)',
+      'Skala 4': 'Sering (beberapa kali/bulan)',
+      'Skala 5': 'Selalu (setiap pertemuan)'
+    };
+    // Mapping ulang data freqDist
+    const mappedFreq = {};
+    Object.keys(data.freqDist).forEach(key => {
+      const newKey = labelMapFreq[key] || key;
+      mappedFreq[newKey] = data.freqDist[key];
+    });
+
+    // Warna tema
     const warna = ['#126E82', '#1a8ca6', '#3baac4', '#6ec5db', '#9eddec'];
-    chartInstances['chart-freq'] = renderChart('chart-freq', 'bar', data.freqDist, ['#126E82']);
+
+    chartInstances['chart-freq'] = renderChart('chart-freq', 'bar', mappedFreq, ['#126E82']);
     chartInstances['chart-ai'] = renderChart('chart-ai', 'pie', data.aiLevels, warna);
     chartInstances['chart-platform'] = renderChart('chart-platform', 'bar', data.platformCount, ['#0f7f93']);
     chartInstances['chart-purpose'] = renderChart('chart-purpose', 'bar', data.purposesCount, ['#b68b40']);
@@ -692,7 +698,6 @@
   //  INISIALISASI
   // ============================================================
   document.addEventListener('DOMContentLoaded', () => {
-    // Sembunyikan semua slide dulu, tampilkan empty
     slides.forEach(s => s.style.display = 'none');
     emptySlide.style.display = 'flex';
     document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
@@ -702,7 +707,6 @@
     loadDashboard(false);
   });
 
-  // Resize chart saat window diubah
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
