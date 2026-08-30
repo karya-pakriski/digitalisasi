@@ -225,6 +225,48 @@
   .chart-box.full { grid-column: 1 / -1; }
   .chart-box.full .chart-wrap { min-height: 140px; }
 
+  /* SLIDE HARAPAN */
+  .harapan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(10px, 1.4vw, 18px);
+    flex: 1;
+    align-content: start;
+  }
+  .harapan-item {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--warna-garis);
+    border-radius: 14px;
+    padding: clamp(14px, 2vh, 22px) clamp(14px, 1.6vw, 22px);
+    display: flex;
+    gap: clamp(10px, 1.2vw, 16px);
+    align-items: flex-start;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .harapan-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -12px rgba(0,0,0,0.1);
+    border-color: var(--warna-amber);
+  }
+  .harapan-item .ikon-harapan {
+    font-size: clamp(22px, 2.6vh, 34px);
+    flex: none;
+    margin-top: 2px;
+  }
+  .harapan-item .isi-harapan h4 {
+    font-size: clamp(14px, 1.6vh, 20px);
+    font-weight: 700;
+    color: var(--warna-teks);
+    margin: 0 0 2px 0;
+  }
+  .harapan-item .isi-harapan p {
+    font-size: clamp(13px, 1.4vh, 18px);
+    color: var(--warna-teks-muda);
+    margin: 0;
+    line-height: 1.5;
+  }
+
   /* SLIDE KOSONG (empty state) */
   .empty-state {
     display: flex;
@@ -313,6 +355,7 @@
     .stat-grid { grid-template-columns: repeat(2, 1fr); }
     .chart-grid { grid-template-columns: 1fr; }
     .chart-box.full { grid-column: 1; }
+    .harapan-grid { grid-template-columns: 1fr; }
     .layar-dashboard { max-height: 100%; border-radius: 20px; }
     .topbar { padding: 6px 12px; }
     .topbar a.home { font-size: 11px; padding: 4px 10px; }
@@ -323,6 +366,7 @@
     .chart-box .chart-wrap { min-height: 80px; }
     .chart-box.full .chart-wrap { min-height: 100px; }
     .slide { padding: 10px 12px; gap: 10px; }
+    .harapan-item { padding: 12px 14px; }
   }
   @media (max-width: 600px) {
     .stat-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
@@ -333,6 +377,11 @@
     .chart-box h3 { font-size: 11px; }
     .chart-box .chart-wrap { min-height: 60px; }
     .chart-box.full .chart-wrap { min-height: 80px; }
+    .harapan-grid { grid-template-columns: 1fr; gap: 6px; }
+    .harapan-item { padding: 8px 10px; gap: 8px; }
+    .harapan-item .ikon-harapan { font-size: 18px; }
+    .harapan-item .isi-harapan h4 { font-size: 13px; }
+    .harapan-item .isi-harapan p { font-size: 12px; }
     .topbar { flex-direction: column; align-items: stretch; gap: 4px; }
     .topbar .kiri { justify-content: center; }
     .topbar .kanan { justify-content: center; }
@@ -410,6 +459,69 @@
         </div>
       </div>
 
+      <!-- SLIDE 6: HARAPAN PESERTA -->
+      <div class="slide" data-slide="5">
+        <h2 style="font-size:clamp(22px,3vh,36px);font-weight:800;color:var(--warna-teks);border-bottom:3px solid var(--warna-amber);padding-bottom:8px;margin:0 0 4px 0;flex:none;">💬 Harapan Peserta Pelatihan</h2>
+        <div class="harapan-grid">
+          <div class="harapan-item">
+            <span class="ikon-harapan">🧠</span>
+            <div class="isi-harapan">
+              <h4>Penguasaan AI</h4>
+              <p>Mahir menggunakan AI untuk LKPD, modul ajar, dan media pembelajaran menarik.</p>
+            </div>
+          </div>
+          <div class="harapan-item">
+            <span class="ikon-harapan">🛠️</span>
+            <div class="isi-harapan">
+              <h4>Tools AI</h4>
+              <p>Menguasai berbagai tools AI termasuk Canva AI dan fitur-fiturnya secara mendalam.</p>
+            </div>
+          </div>
+          <div class="harapan-item">
+            <span class="ikon-harapan">📈</span>
+            <div class="isi-harapan">
+              <h4>Peningkatan Skill</h4>
+              <p>Literasi digital dan administrasi guru yang lebih cepat &amp; efisien.</p>
+            </div>
+          </div>
+          <div class="harapan-item">
+            <span class="ikon-harapan">💡</span>
+            <div class="isi-harapan">
+              <h4>Tips &amp; Trik</h4>
+              <p>Mendapatkan prompt menarik untuk memudahkan penggunaan AI.</p>
+            </div>
+          </div>
+          <div class="harapan-item">
+            <span class="ikon-harapan">🏫</span>
+            <div class="isi-harapan">
+              <h4>Aplikasi di Kelas</h4>
+              <p>Menerapkan ilmu dalam KBM sehari-hari dan meningkatkan minat belajar siswa.</p>
+            </div>
+          </div>
+          <div class="harapan-item">
+            <span class="ikon-harapan">🤝</span>
+            <div class="isi-harapan">
+              <h4>Berbagi Ilmu</h4>
+              <p>Menularkan ilmu yang didapat kepada rekan-rekan guru di sekolah.</p>
+            </div>
+          </div>
+          <div class="harapan-item">
+            <span class="ikon-harapan">💪</span>
+            <div class="isi-harapan">
+              <h4>Kepercayaan Diri</h4>
+              <p>Meningkatkan rasa percaya diri dalam mengajar dan menggunakan teknologi.</p>
+            </div>
+          </div>
+          <div class="harapan-item">
+            <span class="ikon-harapan">🚀</span>
+            <div class="isi-harapan">
+              <h4>Harapan Lainnya</h4>
+              <p>Akses platform AI gratis tanpa batasan dan analisis hasil siswa dengan AI.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- SLIDE KOSONG (jika tidak ada data) -->
       <div class="slide" data-slide="empty" style="display:none;">
         <div class="empty-state" id="emptyState">
@@ -426,7 +538,7 @@
   <div class="slide-nav" id="slideNav">
     <button id="prevSlide" aria-label="Sebelumnya">‹</button>
     <div class="dots" id="dotsContainer"></div>
-    <span class="slide-counter" id="slideCounter">1 / 5</span>
+    <span class="slide-counter" id="slideCounter">1 / 6</span>
     <button id="nextSlide" aria-label="Berikutnya">›</button>
   </div>
 
@@ -483,7 +595,7 @@
   // ============================================================
   const slides = document.querySelectorAll('.slide:not([data-slide="empty"])');
   const emptySlide = document.querySelector('.slide[data-slide="empty"]');
-  const totalSlides = slides.length;
+  const totalSlides = slides.length; // 6 slide
   let currentSlide = 0;
   let isDataAvailable = false;
 
@@ -618,7 +730,7 @@
     Object.values(chartInstances).forEach(chart => chart.destroy());
     chartInstances = {};
 
-    // --- PEMETAAN LABEL UNTUK FREKUENSI ---
+    // Mapping label Frekuensi
     const labelMapFreq = {
       'Skala 1': 'Tidak pernah',
       'Skala 2': 'Jarang (1–2x/semester)',
@@ -626,14 +738,12 @@
       'Skala 4': 'Sering (beberapa kali/bulan)',
       'Skala 5': 'Selalu (setiap pertemuan)'
     };
-    // Mapping ulang data freqDist
     const mappedFreq = {};
     Object.keys(data.freqDist).forEach(key => {
       const newKey = labelMapFreq[key] || key;
       mappedFreq[newKey] = data.freqDist[key];
     });
 
-    // Warna tema
     const warna = ['#126E82', '#1a8ca6', '#3baac4', '#6ec5db', '#9eddec'];
 
     chartInstances['chart-freq'] = renderChart('chart-freq', 'bar', mappedFreq, ['#126E82']);
